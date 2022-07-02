@@ -13,8 +13,8 @@ public class DemoLoadAssetBundle : MonoBehaviour
 
     void OnGUI()
     {
-        GUILayout.BeginArea(new Rect(600, 300, 200, 200));//固定布局  //Rect(float x,float y,float width,float height)  
-        GUILayout.BeginVertical();//内层嵌套一个纵向布局 
+        //GUILayout.BeginArea(new Rect(600, 300, 200, 200));//固定布局  //Rect(float x,float y,float width,float height)  
+        //GUILayout.BeginVertical();//内层嵌套一个纵向布局 
 
         if (GUILayout.Button("loadAssetbundle"))
         {
