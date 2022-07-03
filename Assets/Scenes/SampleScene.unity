@@ -602,6 +602,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1968816350}
   - component: {fileID: 1968816351}
+  - component: {fileID: 1968816352}
   m_Layer: 0
   m_Name: demo
   m_TagString: Untagged
@@ -639,3 +640,15 @@ MonoBehaviour:
   bundleName: player
   assetName: player
   releaseAssetName: player
+--- !u!114 &1968816352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968816349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e0f0d27d1e4c544d89398ef4d78363a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
