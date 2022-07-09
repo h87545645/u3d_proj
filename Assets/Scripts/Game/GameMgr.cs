@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class GameMgr : MonoBehaviour
 {
+    private void Awake()
+    {
+
+#if !UNITY_EDITOR
+        Debug.unityLogger.logEnabled = false;
+#endif
+    }
     // Start is called before the first frame update
     void Start()
     {
