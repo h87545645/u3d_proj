@@ -41,6 +41,8 @@ public class GameUISupporter : MonoBehaviour
 
     public CanvasScaler cvanvas = null;
 
+    public Camera uiCamera;
+
 
     private List<PopupManager> _popupMgrList = new List<PopupManager>();
 
@@ -95,7 +97,7 @@ public class GameUISupporter : MonoBehaviour
         //todo
         UIAdapter.I.bangsWidth = this.bangsSet == BangsSet.CUSTOM ? this.bwCustomVal : this.bwFixedVal;
         UIAdapter.I.adaptOrientation();
-        UIAdapter.I.updateAdapter(ref this.cvanvas);
+        UIAdapter.I.updateAdapter(ref this.cvanvas , ref this.uiCamera);
         this._adapteGameUI();
     }
 
@@ -246,7 +248,7 @@ public class GameUISupporter : MonoBehaviour
         // UIAdapter.I.screenOrientation = this.screenOrientation
         UIAdapter.I.bangsWidth = this.bangsSet == BangsSet.CUSTOM ? this.bwCustomVal : this.bwFixedVal;
         UIAdapter.I.adaptOrientation();
-        UIAdapter.I.updateAdapter(ref this.cvanvas);
+        UIAdapter.I.updateAdapter(ref this.cvanvas,ref this.uiCamera);
 
         // // 发送适配更新事件
         // EventCenter.sendEvent(UIEvent.UIAdaptUpdate)

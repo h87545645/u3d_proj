@@ -53,13 +53,13 @@ public class UIAdapter
     /// <summary>
     /// 更新适配器参数
     /// /// </summary>
-    public void updateAdapter(ref CanvasScaler canvas)
+    public void updateAdapter(ref CanvasScaler canvas , ref Camera uiCamera)
     {
         canvas.matchWidthOrHeight = 1.0f;
 
         var whRateFrame = Screen.width / Screen.height;
         var whRateDesign = canvas.referenceResolution.x / canvas.referenceResolution.y;
-        var scale = 1.0f;
+        float scale = 1.0f;
 
         if (whRateFrame > whRateDesign)
         {
@@ -68,6 +68,8 @@ public class UIAdapter
 
             this._visibleSize.x = canvas.referenceResolution.x * scale;
 
+            //修改camera
+            uiCamera.orthographicSize = 3.2f;
         }
         else
         {
@@ -76,6 +78,8 @@ public class UIAdapter
 
             this._visibleSize.x = canvas.referenceResolution.x * scale;
 
+            //修改camera
+            uiCamera.orthographicSize = 3.2f / scale;
         }
         this._adaptScale = (float)Math.Round(scale, 2);
     }
