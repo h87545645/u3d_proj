@@ -8,17 +8,52 @@ public class fragCtrl : MonoBehaviour
     public Rigidbody2D heroRigidbody2D;
     public Animator fragAnim;
 
+
+    private double powerTime = 0.0f;
+    private bool isGround = false;
+
+
     private void Start()
     {
-        //CollisionListerner.onCollisionEnter2D.AddListener(delegate (GameObject g1, GameObject g2) {
+        //CollisionListerner.onCollisionEnter2D.AddListener(delegate (GameObject g1, GameObject g2)
+        //{
+        //    if (g2.tag == "platform")
+        //    {
+
+        //    }
         //    Debug.LogFormat("{0}¿ªÊ¼Åö×²{1}", g1.name, g2.name);
         //});
-        //CollisionListerner.onCollisionStay2D.AddListener(delegate (GameObject g1, GameObject g2) {
+        //CollisionListerner.onCollisionStay2D.AddListener(delegate (GameObject g1, GameObject g2)
+        //{
         //    Debug.LogFormat("{0}Åö×²ÖÐ{1}", g1.name, g2.name);
+        //    if (g2.tag == "platform")
+        //    {
+
+        //    }
         //});
-        //CollisionListerner.onCollisionExit2D.AddListener(delegate (GameObject g1, GameObject g2) {
+        //CollisionListerner.onCollisionExit2D.AddListener(delegate (GameObject g1, GameObject g2)
+        //{
         //    Debug.LogFormat("{0}½áÊøÅö×²{1}", g1.name, g2.name);
+        //    if (g2.tag == "platform")
+        //    {
+
+        //    }
         //});
+    }
+
+    void FixedUpdate()
+    {
+         Debug.DrawRay(transform.position, Vector2.down * 0.11f, Color.red);
+        RaycastHit2D hit = Physics2D.Raycast(heroRigidbody2D.transform.position, Vector2.down, 0.15f, 1 << 3);
+        if (hit.collider != null)
+        {
+            isGround = true;
+        }
+        else
+        {
+            isGround = false;
+        }
+        Debug.Log("isGround " + this.isGround);
     }
 
 
@@ -40,16 +75,36 @@ public class fragCtrl : MonoBehaviour
         //{
         //    Run(Vector2.right, false);
         //}
-        if (Input.GetKey(KeyCode.Space))
+        if (fragAnim.GetBool("power"))
         {
-            Jump(Vector2.up);
+            this.powerTime += Time.deltaTime;
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Power();
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            if (this.powerTime > 0.1)
+            {
+                Debug.Log("power time " + this.powerTime);
+                Jump(this.powerTime);
+                this.powerTime = 0;
+            }
+        }
+
     }
 
-    void Jump(Vector2 position)
+    void Power()
     {
-        fragAnim.SetBool("jump", true);
-        heroRigidbody2D.AddForce(position);
+        fragAnim.SetBool("power",true);
+    }
+
+    void Jump(double powerTime)
+    {
+        fragAnim.SetTrigger("jump-up");
+        float force = (float)(100 * powerTime);
+        heroRigidbody2D.AddForce(Vector2.up * force);
     }
 
     void Run(Vector2 position, bool flipx = false)

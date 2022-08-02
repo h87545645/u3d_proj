@@ -298,9 +298,9 @@ GameObject:
   m_Component:
   - component: {fileID: 244546511}
   - component: {fileID: 244546510}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Grid
-  m_TagString: Untagged
+  m_TagString: platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -331,7 +331,7 @@ Transform:
   m_Children:
   - {fileID: 1038377111}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &277039950
 GameObject:
@@ -879,6 +879,7 @@ GameObject:
   m_Component:
   - component: {fileID: 559727673}
   - component: {fileID: 559727672}
+  - component: {fileID: 559727674}
   m_Layer: 0
   m_Name: frag
   m_TagString: Untagged
@@ -909,7 +910,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 559727671}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0740688, y: -1.071533, z: -0.002230663}
+  m_LocalPosition: {x: 0.378, y: -2.706, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -917,6 +918,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &559727674
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559727671}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 36285d3b5f571614690dd186ec1c7a01, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,7 +1068,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &624428313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1148,7 +1169,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &624428317
 BoxCollider2D:
@@ -1309,6 +1330,8 @@ GameObject:
   - component: {fileID: 776410651}
   - component: {fileID: 776410654}
   - component: {fileID: 776410655}
+  - component: {fileID: 776410656}
+  - component: {fileID: 776410657}
   m_Layer: 0
   m_Name: frog-idle-4
   m_TagString: Untagged
@@ -1377,7 +1400,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b0305a6bb0adb4f66b864290967ea22b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 86ca59b9bca0e409b9ba2784fbe69f01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1387,7 +1410,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!4 &776410653
 Transform:
   m_ObjectHideFlags: 0
@@ -1396,7 +1419,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 776410650}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.73906875, y: -0.593467, z: 0.002230663}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1431,15 +1454,53 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 776410650}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.01334773, y: 0.022699788}
+  m_Size: {x: 0.29069558, y: 0.29069558}
+  m_Direction: 0
+--- !u!61 &776410656
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776410650}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.35, y: 0.32}
-  m_Direction: 0
+  m_Offset: {x: -0.009617537, y: -0.019235075}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.35, y: 0.32}
+    newSize: {x: 0.35, y: 0.32}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.24955028, y: 0.18749177}
+  m_EdgeRadius: 0
+--- !u!114 &776410657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776410650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fdc555bf80f7d043b4d89711a4c4ef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &989265398
 GameObject:
   m_ObjectHideFlags: 0
@@ -1590,7 +1651,7 @@ GameObject:
   - component: {fileID: 1038377115}
   - component: {fileID: 1038377114}
   - component: {fileID: 1038377117}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2822,7 +2883,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 348.43, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1785747525
