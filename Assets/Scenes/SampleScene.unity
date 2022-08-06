@@ -902,6 +902,8 @@ MonoBehaviour:
   heroRenderer: {fileID: 776410652}
   heroRigidbody2D: {fileID: 776410654}
   fragAnim: {fileID: 776410651}
+  isGround: 0
+  isDrop: 0
 --- !u!4 &559727673
 Transform:
   m_ObjectHideFlags: 0
@@ -2883,7 +2885,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 348.43, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1785747525

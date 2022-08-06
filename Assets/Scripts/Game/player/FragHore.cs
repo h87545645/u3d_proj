@@ -2,16 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class fragCtrl : MonoBehaviour
+public class FragHore : MonoBehaviour
 {
     public SpriteRenderer heroRenderer;
     public Rigidbody2D heroRigidbody2D;
     public Animator fragAnim;
 
+    [HideInInspector]
+    public bool isGround = false;
+    [HideInInspector]
+    public bool isDrop = false;
 
     private double powerTime = 0.0f;
-    private bool isGround = false;
 
+    BaseState _state;
+
+    //public FragHore()
+    //{
+    //    _state = new StandingState(this);
+    //    Debug.Log(_state);
+    //}
+    private void Awake()
+    {
+        _state = new StandingState(this);
+    }
+
+    public void SetHeroineState(BaseState newState)
+    {
+        _state = newState;
+    }
+
+    public void HandleInput()
+    {
+
+    }
+
+
+
+    public void Update()
+    {
+        _state.HandleInput();
+    }
 
     private void Start()
     {
@@ -53,65 +84,13 @@ public class fragCtrl : MonoBehaviour
         {
             isGround = false;
         }
-        Debug.Log("isGround " + this.isGround);
+
+        this.isDrop = heroRigidbody2D.velocity.y < -0.05;
+        //Debug.Log(" isGroud : " + isGround + "  isDrop: " + isDrop);
     }
 
 
-    private void LateUpdate()
-    {
-        //if (Input.GetKey(KeyCode.W))
-        //{
-        //    Run(Vector2.up);
-        //}
-        //else if (Input.GetKey(KeyCode.S))
-        //{
-        //    Run(Vector2.down);
-        //}
-        //else if (Input.GetKey(KeyCode.A))
-        //{
-        //    Run(Vector2.left, true);
-        //}
-        //else if (Input.GetKey(KeyCode.D))
-        //{
-        //    Run(Vector2.right, false);
-        //}
-        if (fragAnim.GetBool("power"))
-        {
-            this.powerTime += Time.deltaTime;
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Power();
-        }
-        else if (Input.GetKeyUp(KeyCode.Space))
-        {
-            if (this.powerTime > 0.1)
-            {
-                Debug.Log("power time " + this.powerTime);
-                Jump(this.powerTime);
-                this.powerTime = 0;
-            }
-        }
 
-    }
-
-    void Power()
-    {
-        fragAnim.SetBool("power",true);
-    }
-
-    void Jump(double powerTime)
-    {
-        fragAnim.SetTrigger("jump-up");
-        float force = (float)(100 * powerTime);
-        heroRigidbody2D.AddForce(Vector2.up * force);
-    }
-
-    void Run(Vector2 position, bool flipx = false)
-    {
-        heroRenderer.flipX = flipx;
-        heroRigidbody2D.position += (position * 0.1f);
-    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
