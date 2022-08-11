@@ -8,6 +8,7 @@
     "com.unity.ide.visualstudio": "2.0.15",
     "com.unity.ide.vscode": "1.2.5",
     "com.unity.render-pipelines.universal": "12.1.6",
+    "com.unity.scriptablebuildpipeline": "1.19.6",
     "com.unity.services.mediation": "file:D:/U3D/U3D_package/d45086feba8425cdca66e28c960ac2d63380cca3.tgz",
     "com.unity.test-framework": "1.1.31",
     "com.unity.textmeshpro": "3.0.6",

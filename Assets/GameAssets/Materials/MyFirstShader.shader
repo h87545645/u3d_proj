@@ -28,6 +28,8 @@ Shader "MyFirstShader"
 //导入矩阵文件，方便进行转换
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 			
+#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+			
 			//创建结构体
 			//顶点函数 Vertex 模型上所有顶点都会被其处理 vertex为顶点位置 POSITION也叫语义(semantic) 用:将参数vertex与之关联  
 			//UV 为贴图坐标，对应语义TEXCOORD0
@@ -35,6 +37,7 @@ Shader "MyFirstShader"
 			{
 				float4 vertex : POSITION;
 				float2 uv : TEXCOORD0;
+				float3 normal : NORMAL;  
 			};
 
 			//变体 返回值修饰顶点着色器输出的裁切空间位置也需要与SV_POSITION做关联
@@ -42,6 +45,7 @@ Shader "MyFirstShader"
 			{
 				float4 positionCS: SV_POSITION;
 				float2 uv : TEXCOORD0;
+				float3 normalWS : NORMAL;
 			};
 
 			//顶点着色器 返回值给像素着色器
@@ -56,14 +60,19 @@ Shader "MyFirstShader"
 
 				Varyings OUT;
 				OUT.positionCS = TransformObjectToHClip(IN.vertex.xyz);
+				OUT.normalWS = TransformObjectToWorldNormal(IN.normal);
 				OUT.uv = IN.uv;
 				return OUT;
 			}
-			//像素着色器
+			//像素着色器 (只表现颜色一般half即可) 
 			half4 Pixel(Varyings IN) :SV_TARGET
 			{
 				half4 color;
-				color.rgb = tex2D(_BaseMap,IN.uv).rgb * _Color;
+				Light light = GetMainLight();
+				float normalWS = normalize(IN.normalWS);
+				float NoL = max(0, dot(IN.normalWS , /*_MainLightPosition.xyz*/ light.direction)); //_MainLightPostion是平行光朝向， 将法线位置normalWS与灯光点乘
+				half3 gi = SampleSH(IN.normalWS) * 0.08;// 球谐函数 SampleSH 采样环境低频信息 作为环境光结果
+				color.rgb = tex2D(_BaseMap,IN.uv).rgb * _Color * NoL * /*_MainLightColor.rgb*/light.color + gi;
 				color.a = 1.0;
 				return color;
 			}
