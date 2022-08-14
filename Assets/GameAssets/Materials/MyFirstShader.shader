@@ -6,6 +6,7 @@ Shader "MyFirstShader"
 	{
 		_Color("Color",color) = (1,1,0,1)
 		_BaseMap("Base Map",2D) = "white" {}
+		_Shininess("Shininess",float) = 32
 	}
 	//一个shader有一个或多个subshader
 	SubShader
@@ -24,6 +25,7 @@ Shader "MyFirstShader"
 
 			half4 _Color;
 			sampler2D _BaseMap;
+			half _Shininess;
 
 //导入矩阵文件，方便进行转换
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
@@ -46,6 +48,7 @@ Shader "MyFirstShader"
 				float4 positionCS: SV_POSITION;
 				float2 uv : TEXCOORD0;
 				float3 normalWS : NORMAL;
+				float3 positionWS : TEXCOORD01; //世界空间的位置
 			};
 
 			//顶点着色器 返回值给像素着色器
@@ -62,6 +65,7 @@ Shader "MyFirstShader"
 				OUT.positionCS = TransformObjectToHClip(IN.vertex.xyz);
 				OUT.normalWS = TransformObjectToWorldNormal(IN.normal);
 				OUT.uv = IN.uv;
+				OUT.positionWS = mul(UNITY_MATRIX_M, float4(IN.vertex.xyz, 1.0));
 				return OUT;
 			}
 			//像素着色器 (只表现颜色一般half即可) 
@@ -69,10 +73,31 @@ Shader "MyFirstShader"
 			{
 				half4 color;
 				Light light = GetMainLight();
+
+				//兰伯特经验模型
 				float normalWS = normalize(IN.normalWS);
 				float NoL = max(0, dot(IN.normalWS , /*_MainLightPosition.xyz*/ light.direction)); //_MainLightPostion是平行光朝向， 将法线位置normalWS与灯光点乘
 				half3 gi = SampleSH(IN.normalWS) * 0.08;// 球谐函数 SampleSH 采样环境低频信息 作为环境光结果
-				color.rgb = tex2D(_BaseMap,IN.uv).rgb * _Color * NoL * /*_MainLightColor.rgb*/light.color + gi;
+
+				//Phong经验模型
+				// 获取观察方向
+				//float3 viewDir = normalize(IN.positionWS - _WorldSpaceCameraPos.xyz );
+				 
+				
+				//blinn-phong模型不需要使用reflect计算反射向量 节省开销 效果差不多
+				float3 viewDir = normalize(_WorldSpaceCameraPos.xyz - IN.positionWS);
+				float3 hVec = normalize(viewDir + light.direction);
+				float spec = max(0, dot( hVec, normalize(IN.normalWS)));
+
+				//获得灯光的反射向量
+				//float3 reflDir = reflect(light.direction, normalize(IN.normalWS));
+				//反射向量与灯光向量点乘获得高光加成
+				//float spec = max(0, dot(viewDir, reflDir));
+				spec = pow(spec, _Shininess);
+
+				
+
+				color.rgb = tex2D(_BaseMap,IN.uv).rgb * _Color * NoL * /*_MainLightColor.rgb*/light.color + gi + spec;
 				color.a = 1.0;
 				return color;
 			}

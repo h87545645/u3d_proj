@@ -77,6 +77,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.InternalAPIEngineBrid
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.RenderPipelines.Universal.Shaders", "Unity.RenderPipelines.Universal.Shaders.csproj", "{7CC7AEB4-EC87-88DD-64EA-F9FE33E72D47}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YamlDotNet", "YamlDotNet.csproj", "{76DDA7A2-423B-56B5-F6D5-7C854CB9DDFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YamlDotNet.Examples", "YamlDotNet.Examples.csproj", "{B075818B-6899-4F74-2C88-7DA84F800891}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.PlasticSCM.Editor", "Unity.PlasticSCM.Editor.csproj", "{79BE216D-52B0-AC68-63D7-FC235A64DB5D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.VisualScripting.Core.Editor", "Unity.VisualScripting.Core.Editor.csproj", "{0A29E122-B34A-B9E8-52FA-18C638CA8636}"
@@ -333,6 +337,14 @@ Global
 		{7CC7AEB4-EC87-88DD-64EA-F9FE33E72D47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CC7AEB4-EC87-88DD-64EA-F9FE33E72D47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CC7AEB4-EC87-88DD-64EA-F9FE33E72D47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76DDA7A2-423B-56B5-F6D5-7C854CB9DDFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76DDA7A2-423B-56B5-F6D5-7C854CB9DDFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76DDA7A2-423B-56B5-F6D5-7C854CB9DDFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76DDA7A2-423B-56B5-F6D5-7C854CB9DDFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B075818B-6899-4F74-2C88-7DA84F800891}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B075818B-6899-4F74-2C88-7DA84F800891}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B075818B-6899-4F74-2C88-7DA84F800891}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B075818B-6899-4F74-2C88-7DA84F800891}.Release|Any CPU.Build.0 = Release|Any CPU
 		{79BE216D-52B0-AC68-63D7-FC235A64DB5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{79BE216D-52B0-AC68-63D7-FC235A64DB5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79BE216D-52B0-AC68-63D7-FC235A64DB5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
