@@ -8,6 +8,7 @@ Shader "MyFirstShader"
 		_BaseMap("Base Map",2D) = "white" {}
 		_NormalMap("Normal Map",2D) = "bump" {}
 		_Shininess("Shininess",float) = 32
+		[Toggle(USE_NORMALMAP)]_UseRed("USE Normal Map",float) = 0
 	}
 	//一个shader有一个或多个subshader
 	SubShader
@@ -23,6 +24,9 @@ Shader "MyFirstShader"
 //预编译指定顶点与像素着色器的入口
 #pragma vertex Vertex
 #pragma fragment Pixel
+
+//宏定义一个开关 keyword
+#pragma multi_compile _ USE_NORMALMAP
 
 			half4 _Color;
 			sampler2D _BaseMap;
@@ -42,7 +46,10 @@ Shader "MyFirstShader"
 				float4 vertex : POSITION;
 				float2 uv : TEXCOORD0;
 				float3 normal : NORMAL;  
-				float4 tangent : TANGENT;
+				#ifdef USE_NORMALMAP 
+					float4 tangent : TANGENT;
+				#endif
+				
 			};
 
 			//变体 返回值修饰顶点着色器输出的裁切空间位置也需要与SV_POSITION做关联
@@ -51,7 +58,10 @@ Shader "MyFirstShader"
 				float4 positionCS: SV_POSITION;
 				float2 uv : TEXCOORD0;
 				float3 normalWS : NORMAL;
-				float4 tangentWS : TANGENT;
+				#ifdef USE_NORMALMAP 
+					float4 tangentWS : TANGENT;
+				#endif
+	
 				float3 positionWS : TEXCOORD01; //世界空间的位置
 			};
 
@@ -68,9 +78,13 @@ Shader "MyFirstShader"
 				Varyings OUT;
 				OUT.positionCS = TransformObjectToHClip(IN.vertex.xyz);
 				OUT.normalWS = TransformObjectToWorldNormal(IN.normal);
-				//法线不能直接单向量变换的 所以用TransformObjectToWorldDir
-				OUT.tangentWS.xyz = TransformObjectToWorldDir(IN.tangent.xyz).xyz;
-				OUT.tangentWS.w = IN.tangent.w;
+				//如果需要法线贴图才计算
+				#ifdef USE_NORMALMAP 
+					//法线不能直接单向量变换的 所以用TransformObjectToWorldDir
+					OUT.tangentWS.xyz = TransformObjectToWorldDir(IN.tangent.xyz).xyz;
+					OUT.tangentWS.w = IN.tangent.w;
+				#endif
+		
 				OUT.uv = IN.uv;
 				OUT.positionWS = mul(UNITY_MATRIX_M, float4(IN.vertex.xyz, 1.0)).xyz;
 				return OUT;
@@ -81,14 +95,18 @@ Shader "MyFirstShader"
 				half4 color;
 				Light light = GetMainLight();
 
-				// 负切线 bitangent IN.tangentWS.w相当于一个标志，如果模型有镜像使用 w是负数 正好取反
-				float3 bitangent = cross(IN.normalWS,IN.tangentWS.xyz) * IN.tangentWS.w;
-				// tbn矩阵 float3x3表示 3x3矩阵
-				float3x3 TBN = float3x3(IN.tangentWS.xyz,bitangent,IN.normalWS);
+				#ifdef USE_NORMALMAP
+					// 负切线 bitangent IN.tangentWS.w相当于一个标志，如果模型有镜像使用 w是负数 正好取反
+					float3 bitangent = cross(IN.normalWS,IN.tangentWS.xyz) * IN.tangentWS.w;
+					// tbn矩阵 float3x3表示 3x3矩阵
+					float3x3 TBN = float3x3(IN.tangentWS.xyz,bitangent,IN.normalWS);
+					float3 normal = UnpackNormal(tex2D(_NormalMap,IN.uv));
+					float3 worldSpaceNormal = TransformTangentToWorld(normal,TBN);
+				#else
+					float3 worldSpaceNormal = IN.normalWS;
+				#endif
 
 				
-				float3 normal = UnpackNormal(tex2D(_NormalMap,IN.uv));
-				float3 worldSpaceNormal = TransformTangentToWorld(normal,TBN);
 
 				
 				//float3 normal = UnpackNormal(tex2D(_NormalMap,IN.uv));
@@ -119,6 +137,12 @@ Shader "MyFirstShader"
 				
 
 				color.rgb = tex2D(_BaseMap,IN.uv).rgb * _Color.rgb * NoL * /*_MainLightColor.rgb*/light.color + gi + spec;
+
+				//#ifdef USE_RED
+				//	color.rgb = half3(1,0,0);
+				//#else
+				//	color.rgb = half3(0,1,0);
+				//#endif
 
 				color.a = 1.0;
 				return color;
