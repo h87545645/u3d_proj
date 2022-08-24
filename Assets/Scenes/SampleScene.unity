@@ -8,8 +8,8 @@ OcclusionCullingSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 8c9cfa26abfee488c85f1582747f6a02
+  m_OcclusionCullingData: {fileID: 36300000, guid: c17d194697f915545a9f4c2bded611e9, type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -1672,7 +1672,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 754163009}
   m_LocalRotation: {x: -0.09288257, y: 0.89763635, z: 0.36673102, w: 0.22611967}
-  m_LocalPosition: {x: 2.01, y: -2.17, z: -4.82}
+  m_LocalPosition: {x: 2.09, y: -2.01, z: -4.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4001,6 +4001,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5745836992317562112, guid: 680d3ce50124e87408cc110098cbb3a7, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5745836992317562112, guid: 680d3ce50124e87408cc110098cbb3a7, type: 3}
       propertyPath: m_StitchLightmapSeams
       value: 1
       objectReference: {fileID: 0}
@@ -4018,7 +4022,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5745836992317562126, guid: 680d3ce50124e87408cc110098cbb3a7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.02
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5745836992317562126, guid: 680d3ce50124e87408cc110098cbb3a7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4071,7 +4075,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6850380183605460746, guid: 5f2cf810c5cbc094eabe316a99cfb578, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.19
+      value: -1.2
       objectReference: {fileID: 0}
     - target: {fileID: 6850380183605460746, guid: 5f2cf810c5cbc094eabe316a99cfb578, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4079,7 +4083,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6850380183605460746, guid: 5f2cf810c5cbc094eabe316a99cfb578, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.16
+      value: -4.17
       objectReference: {fileID: 0}
     - target: {fileID: 6850380183605460746, guid: 5f2cf810c5cbc094eabe316a99cfb578, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4112,6 +4116,10 @@ PrefabInstance:
     - target: {fileID: 6850380183605460758, guid: 5f2cf810c5cbc094eabe316a99cfb578, type: 3}
       propertyPath: m_Name
       value: CubeLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 6850380183605460758, guid: 5f2cf810c5cbc094eabe316a99cfb578, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f2cf810c5cbc094eabe316a99cfb578, type: 3}
