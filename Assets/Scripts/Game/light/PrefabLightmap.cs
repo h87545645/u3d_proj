@@ -51,6 +51,7 @@ public class PrefabLightmap : MonoBehaviour
                     string localPath = "Assets/GameAssets/Prefabs/" + Selection.activeTransform.name + ".prefab";
                     localPath = AssetDatabase.GenerateUniqueAssetPath(localPath);
                     PrefabUtility.SaveAsPrefabAsset( Selection.activeTransform.gameObject, localPath);
+                    //PrefabUtility.ReplacePrefab(Selection.activeGameObject,prefab);
                 }
             }
         }
