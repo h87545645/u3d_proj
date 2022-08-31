@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class LightmapCopy : MonoBehaviour
 {
-    [MenuItem("Tool/DuplicateGameObject %#d")]
+    [MenuItem("Tools/DuplicateGameObject %#d")]
     static void DuplicateGameObject()
     {
         if (Selection.activeTransform)
