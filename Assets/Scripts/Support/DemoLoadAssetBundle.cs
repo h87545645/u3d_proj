@@ -16,8 +16,8 @@ public class DemoLoadAssetBundle : MonoBehaviour
         //GUILayout.BeginArea(new Rect(600, 300, 200, 200));//固定布局  //Rect(float x,float y,float width,float height)  
         //GUILayout.BeginVertical();//内层嵌套一个纵向布局 
 
-        if (GUILayout.Button("loadAssetbundle"))
-        {
+        if (GUILayout.Button("<size=50>loadAssetbundle</size>"))
+            {
             // InstantiateBundle();
             //  Object uObj_cur = AssetsLoadMgr.I.LoadSync(assetName);
             // GameObject g = Instantiate(uObj_cur) as GameObject;
@@ -25,12 +25,12 @@ public class DemoLoadAssetBundle : MonoBehaviour
             PrefabLoadMgr.I.LoadSync(assetName, GameObject.Find("Canvas/Panel").transform);
         }
 
-        if (GUILayout.Button("relese"))
+        if (GUILayout.Button("<size=50>relese</size>"))
         {
             releaseBundle();
         }
 
-        if (GUILayout.Button("releseAll"))
+        if (GUILayout.Button("<size=50>releseAll</size>"))
         {
             AssetBundleManager.GetInstance().ClearAllABPack();
         }

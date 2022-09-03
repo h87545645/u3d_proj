@@ -22,7 +22,7 @@ public class RecordTest : MonoBehaviour
     private Setting m_Setting = null;
     private void OnGUI()
     {
-        if (GUILayout.Button("<size=50>获取存档</size>"))
+        if (GUI.Button(new Rect(300, 100, 200, 100), "<size=25>获取存档</size>"))
         {
             m_Setting = JsonUtility.FromJson<Setting>(RecordUtil.Get("setting"));
         }

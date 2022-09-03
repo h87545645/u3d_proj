@@ -14,14 +14,14 @@ public class LightMapTest : MonoBehaviour
 
     private void OnGUI()
     {
-        if (GUILayout.Button("<size=50>lightmap1</size>"))
+        if (GUI.Button(new Rect(100 , 100, 200, 100), "<size=25>lightmap1</size>"))
         {
             LightmapData data = new LightmapData();
             data.lightmapColor = lightmap1;
             data.lightmapDir = greenDir1;
             LightmapSettings.lightmaps = new LightmapData[1] { data };
         }
-        if (GUILayout.Button("<size=50>lightmap2</size>"))
+        if (GUI.Button(new Rect(100, 200, 200, 100),"<size=25>lightmap2</size>"))
         {
             LightmapData data = new LightmapData();
             data.lightmapColor = lightmap2;
