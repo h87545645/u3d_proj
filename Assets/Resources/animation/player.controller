@@ -82,7 +82,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: "QQ\u622A\u56FE20220528094223"
+  m_Name: player
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:

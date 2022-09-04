@@ -13,4 +13,11 @@ public class MyTools
     //{
     //    Debug.Log(Selection.activeObject.name);
     //}
+
+
+    [MenuItem("Tools/My Tools/AssetLoadTest", false, 1)]
+    static void AssetLoadTest()
+    {
+        PrefabLoadMgr.I.LoadSync("player.prefab", GameObject.Find("Canvas/Panel").transform);
+    }
 }
