@@ -14,10 +14,23 @@ Shader "MyFirstShader"
 	SubShader
 	{
 		
+		Tags{"Queue" = "Geometry+500" "RenderType" = "Opaque"}
+		LOD 200
+
+		//Pass
+		//{
+		//	ZTest Greater
+		//	ZWrite Offset
+		//	Blend SrcAlpha OneMinusSrcAlpha
+		//	SetTexture[_BaseMap]{ConstantColor[_Color] combine constant * texture}
+		//}
 
 		//pass 块里是工作的地方
 		Pass
 		{
+
+			//ZTest LEqual
+			//SetTexture[_BaseMap]{combine texture}
 			//表示要使用哪种语言来编写shader
 			HLSLPROGRAM
 
