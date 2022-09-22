@@ -35,6 +35,11 @@ public class DemoLoadAssetBundle : MonoBehaviour
             AssetBundleManager.GetInstance().ClearAllABPack();
         }
 
+        if (GUILayout.Button("<size=50>pop watch ad panel</size>"))
+        {
+            UIManager.GetInstance().ShowPanel<WatchADPanel>("WatchADPanel.prefab", E_UI_Layer.Tip);
+        }
+
     }
 
     // Start is called before the first frame update
