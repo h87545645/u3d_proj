@@ -15,11 +15,11 @@ public class ResourcesLoadMgr
         }
     }
 
-    private Dictionary<string, string> _resourcesList;
+    private HashSet<string> _resourcesList;
 
     private ResourcesLoadMgr()
     {
-        _resourcesList = new Dictionary<string, string>();
+        _resourcesList = new HashSet<string>();
 #if UNITY_EDITOR
         ExportConfig();
 #endif
@@ -29,7 +29,7 @@ public class ResourcesLoadMgr
 #if UNITY_EDITOR
     private void ExportConfig()
     {
-        string path  = Application.dataPath + "/Resources/";
+        string path = Application.dataPath + "/Resources/";
         string[] files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
 
         string txt = "";
@@ -38,15 +38,13 @@ public class ResourcesLoadMgr
             if (file.EndsWith(".meta")) continue;
 
             string name = file.Replace(path, "");
-            //name = name.Substring(0, name.LastIndexOf("."));
+            name = name.Substring(0, name.LastIndexOf("."));
             name = name.Replace("\\", "/");
             txt += name + "\n";
         }
 
         path = path + "FileList.bytes";
-        if (File.Exists(path)) {
-            File.Delete(path);
-        }
+        if (File.Exists(path)) File.Delete(path);
         File.WriteAllText(path, txt);
     }
 #endif
@@ -60,38 +58,38 @@ public class ResourcesLoadMgr
         foreach (var line in txt.Split('\n'))
         {
             if (string.IsNullOrEmpty(line)) continue;
-            string name = Path.GetFileName(line);
-            if (!_resourcesList.ContainsKey(name))
-                _resourcesList.Add(name, line.Substring(0, line.LastIndexOf(".")));
+
+            if (!_resourcesList.Contains(line))
+                _resourcesList.Add(line);
         }
     }
 
     public bool IsFileExist(string _assetName)
     {
-        return _resourcesList.ContainsKey(_assetName);
+        return _resourcesList.Contains(_assetName);
     }
 
     public ResourceRequest LoadAsync(string _assetName)
     {
-        if (!_resourcesList.ContainsKey(_assetName))
+        if (!_resourcesList.Contains(_assetName))
         {
             Debug.LogError("EditorAssetLoadMgr No Find File " + _assetName);
             return null;
         }
 
-        ResourceRequest request = Resources.LoadAsync(_resourcesList[_assetName]);
+        ResourceRequest request = Resources.LoadAsync(_assetName);
 
         return request;
     }
     public UnityEngine.Object LoadSync(string _assetName)
     {
-        if (!_resourcesList.ContainsKey(_assetName))
+        if (!_resourcesList.Contains(_assetName))
         {
             Debug.LogError("EditorAssetLoadMgr No Find File " + _assetName);
             return null;
         }
 
-        UnityEngine.Object asset = Resources.Load(_resourcesList[_assetName]);
+        UnityEngine.Object asset = Resources.Load(_assetName);
 
         return asset;
     }

@@ -1,21 +1,21 @@
-FileList.bytes
-MyFirstShader.mat
-MyFirstShader.shader
-New Render Texture.renderTexture
-New Scriptable Object Test.asset
-New Sprite Atlas.spriteatlas
-NewShaderVariants.shadervariants
-Particle System.prefab
-animation/jump.anim
-animation/New Animation.anim
-animation/player.controller
-atlas test/QQ截图20211006123502.png
-atlas test/QQ截图20220528094223.png
-atlas test/src=http___bkimg.cdn.bcebos.com_pic_0b3a1c0810c2a9f862d986c5&refer=http___bkimg.cdn.bcebos.gif
-prefab/player.prefab
-tilePalette/New Palette.prefab
-tilePalette/QQ截图20211006123502.asset
-UI/Canvas.prefab
-UI/EventSystem.prefab
-UI/UIGray.shader
-UI/CommonPanel/WatchADPanel.prefab
+FileList
+MyFirstShader
+MyFirstShader
+New Render Texture
+New Scriptable Object Test
+New Sprite Atlas
+NewShaderVariants
+Particle System
+animation/jump
+animation/New Animation
+animation/player
+atlas test/QQ截图20211006123502
+atlas test/QQ截图20220528094223
+atlas test/src=http___bkimg.cdn.bcebos.com_pic_0b3a1c0810c2a9f862d986c5&refer=http___bkimg.cdn.bcebos
+prefab/player
+tilePalette/New Palette
+tilePalette/QQ截图20211006123502
+UI/Canvas
+UI/EventSystem
+UI/UIGray
+UI/CommonPanel/WatchADPanel

@@ -37,7 +37,7 @@ public class DemoLoadAssetBundle : MonoBehaviour
 
         if (GUILayout.Button("<size=50>pop watch ad panel</size>"))
         {
-            UIManager.GetInstance().ShowPanel<WatchADPanel>("WatchADPanel.prefab", E_UI_Layer.Tip);
+            UIManager.GetInstance().ShowPanel<WatchADPanel>("UI/CommonPanel/WatchADPanel", E_UI_Layer.Tip);
         }
 
     }
