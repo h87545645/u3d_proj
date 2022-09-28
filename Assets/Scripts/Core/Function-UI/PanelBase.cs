@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class PanelBase : MonoBehaviour
 {
@@ -78,7 +79,8 @@ public class PanelBase : MonoBehaviour
     /// </summary>
     public virtual void ShowUI()
     {
-
+        transform.localScale = new Vector3(0,0,0);
+        transform.DOScale(1, 0.5f);
     }
 
     /// <summary>
@@ -86,7 +88,7 @@ public class PanelBase : MonoBehaviour
     /// </summary>
     public virtual void HideUI()
     {
-
+        transform.DOScale(0, 0.5f);
     }
     #endregion
 

@@ -79,6 +79,8 @@ public class UIManager : SingletonBase<UIManager>
             (uObj_temp.transform as RectTransform).offsetMax = Vector2.zero;
             (uObj_temp.transform as RectTransform).offsetMin = Vector2.zero;
 
+            uObj_temp.GetComponent<PanelBase>().ShowUI();
+
             //得到预设体身上的脚本（继承自BasePanel）
             T panel_temp = uObj_temp.GetComponent<T>();
 

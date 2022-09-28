@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class GameMgr : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class GameMgr : MonoBehaviour
     void Start()
     {
         AssetBundleLoadMgr.I.LoadMainfest();
+        DOTween.Init(true,true, LogBehaviour.Verbose);
     }
 
     // Update is called once per frame
