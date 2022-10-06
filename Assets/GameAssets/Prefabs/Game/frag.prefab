@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1222242666290094711}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.378, y: -2.706, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1222242666508972125}
@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heroRenderer: {fileID: 1222242666508972124}
   heroRigidbody2D: {fileID: 1222242666508972126}
+  collider2D: {fileID: 1222242666508972128}
   fragAnim: {fileID: 1222242666508972123}
   isGround: 0
   isDrop: 0
@@ -85,6 +86,7 @@ GameObject:
   - component: {fileID: 1222242666508972127}
   - component: {fileID: 1222242666508972128}
   - component: {fileID: 1222242666508972129}
+  - component: {fileID: 1912412170}
   m_Layer: 0
   m_Name: frog-idle-4
   m_TagString: Untagged
@@ -148,12 +150,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f73668f8e3d5bf443a5ab2fba6b2a89c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a09a870711a4a6f4eb7024b7870c5601, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.35, y: 0.32}
+  m_Size: {x: 0.3, y: 0.22}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -229,18 +231,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.009617537, y: -0.019235075}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.517337, y: 0.13014343}
-    oldSize: {x: 0.64, y: 0.64}
-    newSize: {x: 0.35, y: 0.32}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.3, y: 0.22}
+    newSize: {x: 0.3, y: 0.22}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.24955028, y: 0.18749177}
+  m_Size: {x: 0.3, y: 0.22}
   m_EdgeRadius: 0
 --- !u!114 &1222242666508972129
 MonoBehaviour:
@@ -252,5 +254,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fdc555bf80f7d043b4d89711a4c4ef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1912412170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222242666508972122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edde4e59c4e618548bbafac5905b8aa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
