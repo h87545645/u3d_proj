@@ -31,7 +31,7 @@ public class JumpingState : BaseState
         }
         if (_fragHore.isDrop && _fragHore.isGround)
         {
-            _fragHore.SetHeroineState(new StandingState(_fragHore));
+            _fragHore.SetHeroineState(new LandingState(_fragHore));
         }
     }
 }

@@ -6,6 +6,8 @@ public class FragHore : MonoBehaviour
 {
     public SpriteRenderer heroRenderer;
     public Rigidbody2D heroRigidbody2D;
+
+    public BoxCollider2D collider2D;
     public Animator fragAnim;
 
     [HideInInspector]
@@ -74,8 +76,8 @@ public class FragHore : MonoBehaviour
 
     void FixedUpdate()
     {
-         Debug.DrawRay(transform.position, Vector2.down * 0.11f, Color.red);
-        RaycastHit2D hit = Physics2D.Raycast(heroRigidbody2D.transform.position, Vector2.down, 0.15f, 1 << 3);
+         Debug.DrawRay(new Vector3(heroRigidbody2D.transform.position.x, heroRigidbody2D.transform.position.y - this.collider2D.size.y/2*this.transform.localScale.y, heroRigidbody2D.transform.position.z), Vector2.down * 0.11f, Color.red);
+        RaycastHit2D hit = Physics2D.Raycast(new Vector3(heroRigidbody2D.transform.position.x, heroRigidbody2D.transform.position.y , heroRigidbody2D.transform.position.z) , Vector2.down, 0.11f + this.collider2D.size.y / 2 * this.transform.localScale.y, 1 << 3);
         if (hit.collider != null)
         {
             isGround = true;
@@ -86,9 +88,8 @@ public class FragHore : MonoBehaviour
         }
 
         this.isDrop = heroRigidbody2D.velocity.y < -0.05;
-        //Debug.Log(" isGroud : " + isGround + "  isDrop: " + isDrop);
+        Debug.Log(" isGroud : " + isGround + "  isDrop: " + isDrop);
     }
-
 
 
 
