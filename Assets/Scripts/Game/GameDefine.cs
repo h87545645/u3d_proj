@@ -1,3 +1,4 @@
+using System;
 /// <summary>
 /// ui显示层级, 数值小的显示在前（根据自身需要，可扩展所需层级）
 /// </summary>
@@ -9,4 +10,11 @@ public enum E_UI_Layer
     Top = 100,
     // 底层
     Bot = 1000,
+}
+
+public enum Game_Event 
+{
+    SceneLoading,
+    FragGameJump,
+
 }

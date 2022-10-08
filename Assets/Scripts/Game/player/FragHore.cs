@@ -29,6 +29,7 @@ public class FragHore : MonoBehaviour
         _state = new StandingState(this);
     }
 
+
     public void SetHeroineState(BaseState newState)
     {
         _state = newState;
@@ -72,6 +73,8 @@ public class FragHore : MonoBehaviour
 
         //    }
         //});
+
+        EventCenter.AddListener<float>(Game_Event.FragGameJump,this.OnFragJump);
     }
 
     void FixedUpdate()
@@ -116,5 +119,10 @@ public class FragHore : MonoBehaviour
                 print("down collision");
             }
         }
+    }
+
+    private void OnFragJump(float time)
+    {
+        SetHeroineState(new ChargeState(this));
     }
 }

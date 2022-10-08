@@ -37,7 +37,7 @@ public class SceneMgr : SingletonBase<SceneMgr>
         while (!obj_ao.isDone)
         {
             //像事件中心分发进度情况
-            EventCenter.PostEvent<float>("Loading", obj_ao.progress);
+            EventCenter.PostEvent<float>(Game_Event.SceneLoading, obj_ao.progress);
             //挂起一帧
             yield return obj_ao.progress;
         }

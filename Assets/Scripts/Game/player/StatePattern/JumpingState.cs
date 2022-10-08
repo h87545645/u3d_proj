@@ -13,7 +13,7 @@ public class JumpingState : BaseState
         _fragHore = frag;
         _fragHore.fragAnim.SetTrigger("jump-up");
         _fragHore.fragAnim.SetBool("standing", false);
-        float force = (float)(100 * chargeTime);
+        float force = (float)(300 * chargeTime);
         _fragHore.heroRigidbody2D.AddForce(Vector2.up * force);
         Debug.Log("------------------------Heroine in JumpingState~!(½øÈëÌøÔ¾×´Ì¬£¡)");
     }
