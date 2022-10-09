@@ -7,7 +7,7 @@ public class StandingState : BaseState
     public StandingState(FragHore frag)
     {
         _fragHore = frag;
-        //_fragHore.fragAnim.SetBool("standing", true);
+        _fragHore.fragAnim.SetBool("standing", true);
         Debug.Log("------------------------FragHore in StandingState~!£¨½øÈëÕ¾Á¢×´Ì¬£¡£©");
     }
 

@@ -332,7 +332,7 @@ public static class EventCenter
 			eventHandles = new Dictionary<Game_Event, Delegate>();
 		if (!eventHandles.ContainsKey(eventName))
 		{
-			eventHandles.Add(eventName, callback);
+			eventHandles.Add(eventName, null);
 		}
 		Delegate d = eventHandles[eventName];
 		if (d != null && d.GetType() != callback.GetType())

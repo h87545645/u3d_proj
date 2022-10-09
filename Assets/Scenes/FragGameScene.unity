@@ -1532,10 +1532,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1912412170, guid: 2a873c98a18cafc4688889afffe3077d, type: 3}
-      propertyPath: fragHore
-      value: 
-      objectReference: {fileID: 1065244499}
     - target: {fileID: 1222242666290094711, guid: 2a873c98a18cafc4688889afffe3077d, type: 3}
       propertyPath: m_Name
       value: frag
@@ -1550,7 +1546,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1222242666290094713, guid: 2a873c98a18cafc4688889afffe3077d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.75
+      value: -2.27
       objectReference: {fileID: 0}
     - target: {fileID: 1222242666290094713, guid: 2a873c98a18cafc4688889afffe3077d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1583,6 +1579,10 @@ PrefabInstance:
     - target: {fileID: 1222242666290094713, guid: 2a873c98a18cafc4688889afffe3077d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1222242666508972125, guid: 2a873c98a18cafc4688889afffe3077d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a873c98a18cafc4688889afffe3077d, type: 3}
@@ -1657,17 +1657,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1065244499 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1222242666290094712, guid: 2a873c98a18cafc4688889afffe3077d, type: 3}
-  m_PrefabInstance: {fileID: 683341045}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d683e1906617ab144a775dc9d92fc71c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1128108392
 GameObject:
   m_ObjectHideFlags: 0
@@ -1929,7 +1918,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -639.00006, y: -403.9999}
+  m_AnchoredPosition: {x: -788, y: -403.9999}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1579933042

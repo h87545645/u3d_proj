@@ -7,7 +7,7 @@ public class LandingState : BaseState
     public LandingState(FragHore frag)
     {
         _fragHore = frag;
-        _fragHore.fragAnim.SetBool("standing", true);
+        _fragHore.fragAnim.SetBool("landing", true);
         Debug.Log("------------------------FragHore in LandingState~!£¨½øÈë×ÅÂ½×´Ì¬£¡£©");
     }
 

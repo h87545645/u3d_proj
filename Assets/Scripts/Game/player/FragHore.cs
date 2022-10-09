@@ -15,7 +15,7 @@ public class FragHore : MonoBehaviour
     [HideInInspector]
     public bool isDrop = false;
 
-    private double powerTime = 0.0f;
+    public Game_Direction direction = Game_Direction.Right;
 
     BaseState _state;
 
@@ -44,7 +44,7 @@ public class FragHore : MonoBehaviour
 
     public void Update()
     {
-        _state.HandleInput();
+        
     }
 
     private void Start()
@@ -73,8 +73,20 @@ public class FragHore : MonoBehaviour
 
         //    }
         //});
+        EventCenter.AddListener<Game_Direction>(Game_Event.FragGameDirection, this.OnFragDirection);
 
         EventCenter.AddListener<float>(Game_Event.FragGameJump,this.OnFragJump);
+        EventCenter.AddListener(Game_Event.FragGameCharge, this.OnFragCharge);
+        EventCenter.AddListener(Game_Event.FragGameChargeCancel, this.OnFragChargeCancel);
+    }
+
+
+    private void OnDestroy()
+    {
+        EventCenter.RemoveListener<Game_Direction>(Game_Event.FragGameDirection, this.OnFragDirection);
+        EventCenter.RemoveListener<float>(Game_Event.FragGameDirection, this.OnFragJump);
+        EventCenter.RemoveListener(Game_Event.FragGameDirection, this.OnFragCharge);
+        EventCenter.RemoveListener(Game_Event.FragGameDirection, this.OnFragChargeCancel);
     }
 
     void FixedUpdate()
@@ -91,7 +103,9 @@ public class FragHore : MonoBehaviour
         }
 
         this.isDrop = heroRigidbody2D.velocity.y < -0.05;
-        Debug.Log(" isGroud : " + isGround + "  isDrop: " + isDrop);
+        //Debug.Log(" isGroud : " + isGround + "  isDrop: " + isDrop);
+
+        _state.HandleInput();
     }
 
 
@@ -121,8 +135,30 @@ public class FragHore : MonoBehaviour
         }
     }
 
-    private void OnFragJump(float time)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dir">0 left  1 right</param>
+    private void OnFragDirection(Game_Direction dir)
+    {
+        if (dir == direction)
+        {
+            return;
+        }
+        direction = dir;
+        this.heroRigidbody2D.transform.localScale = new Vector3((float)dir,1,1);
+    }
+
+    private void OnFragCharge()
     {
         SetHeroineState(new ChargeState(this));
+    }
+    private void OnFragChargeCancel()
+    {
+        SetHeroineState(new StandingState(this));
+    }
+    private void OnFragJump(float chargeTime)
+    {
+        SetHeroineState(new JumpingState(this, chargeTime));
     }
 }

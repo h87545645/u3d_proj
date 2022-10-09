@@ -15,6 +15,14 @@ public enum E_UI_Layer
 public enum Game_Event 
 {
     SceneLoading,
+    FragGameChargeCancel,
+    FragGameCharge,
     FragGameJump,
+    FragGameDirection,
+}
 
+public enum Game_Direction
+{
+    Left = -1,
+    Right = 1,
 }

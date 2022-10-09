@@ -268,3 +268,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edde4e59c4e618548bbafac5905b8aa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fragHore: {fileID: 1222242666290094712}
