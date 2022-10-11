@@ -1,13 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-public class ChargeState : BaseState
+public class ChargeState : IBaseState
 {
 
-    private FragHore _fragHore;
+    private FragHero _fragHore;
 
     //private double chargeTime = .0f;
-    public ChargeState(FragHore frag)
+    public ChargeState(FragHero frag)
     {
         _fragHore = frag;
         //chargeTime = .0f;

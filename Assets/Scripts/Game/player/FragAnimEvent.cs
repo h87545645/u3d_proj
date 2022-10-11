@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class FragAnimEvent : MonoBehaviour
 {
-    public FragHore fragHore;
+    public FragHero fragHore;
     public void OnLandingFinish()
     {
         fragHore.SetHeroineState(new StandingState(fragHore));
+        fragHore.IsReady = true;
     }
 }

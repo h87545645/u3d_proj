@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public interface BaseState
+public interface IBaseState
 {
     void Update();
     void HandleInput();

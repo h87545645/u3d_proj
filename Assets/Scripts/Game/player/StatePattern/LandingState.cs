@@ -1,14 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
-public class LandingState : BaseState
+public class LandingState : IBaseState
 {
-    private FragHore _fragHore;
-    public LandingState(FragHore frag)
+    private FragHero _fragHore;
+    public LandingState(FragHero frag)
     {
         _fragHore = frag;
         _fragHore.fragAnim.SetBool("landing", true);
-        Debug.Log("------------------------FragHore in LandingState~!£¨½øÈë×ÅÂ½×´Ì¬£¡£©");
+        _fragHore.heroRigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX;
+        Debug.Log("------------------------FragHore in LandingState~!");
     }
 
     public void Update()

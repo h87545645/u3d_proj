@@ -1,31 +1,33 @@
 using UnityEngine;
 using System.Collections;
 
-public class JumpingState : BaseState
+public class JumpingState : IBaseState
 {
 
-    private FragHore _fragHore;
+    private FragHero _fragHore;
 
-
+  
     
-    public JumpingState(FragHore frag, double chargeTime)
+    public JumpingState(FragHero frag, double chargeTime)
     {
         _fragHore = frag;
         _fragHore.fragAnim.SetTrigger("jump-up");
         _fragHore.fragAnim.SetBool("standing", false);
-        float chargeValue = (float)(300 * chargeTime);
-        float yValue = Mathf.Clamp(chargeValue, 100,600);
-        float xValue = Mathf.Clamp(chargeValue, 100, 150);
+        _fragHore.heroRigidbody2D.constraints = RigidbodyConstraints2D.None;
+        float chargeValue = (float)(400 * chargeTime);
+        // float yValue = Mathf.Clamp(chargeValue, 100,600);
+        // float xValue = Mathf.Clamp(chargeValue, 100, 150);
+        chargeValue = Mathf.Clamp(chargeValue, 170,700);
         //float dir = (float)frag.direction * force;
-        Vector2 force = new Vector2((float)frag.direction * xValue , yValue);
+        Vector2 force = new Vector2((float)frag.direction * chargeValue * 0.5f , chargeValue);
         _fragHore.heroRigidbody2D.AddForce(force);
         if (chargeValue < 300)
         {
-            _fragHore.fragAnim.speed = 1.5f;
+            _fragHore.fragAnim.speed = 1.9f;
         }
         else
         {
-            _fragHore.fragAnim.speed = 1.0f;
+            _fragHore.fragAnim.speed = 1.3f;
         }
         //_fragHore.heroRigidbody2D.AddForce(frag.direction == Game_Direction.Left ? Vector2.left * chargeVaule :  Vector2.right * chargeVaule);
         //_fragHore.heroRigidbody2D.velocity = force;

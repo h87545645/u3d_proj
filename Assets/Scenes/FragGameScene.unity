@@ -1263,6 +1263,10 @@ PrefabInstance:
       value: 1920
       objectReference: {fileID: 0}
     - target: {fileID: 1294683608996187708, guid: 6ca81169da8fc8b4c969b1a9ae74e4cc, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 1294683608996187708, guid: 6ca81169da8fc8b4c969b1a9ae74e4cc, type: 3}
       propertyPath: m_ReferencePixelsPerUnit
       value: 100
       objectReference: {fileID: 0}
@@ -1580,13 +1584,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1222242666508972124, guid: 2a873c98a18cafc4688889afffe3077d, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1222242666508972125, guid: 2a873c98a18cafc4688889afffe3077d, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1222242666508972126, guid: 2a873c98a18cafc4688889afffe3077d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 88e5e0f5e526c114f90ab6aa3a1cf9d4, type: 2}
+    - target: {fileID: 1222242666508972126, guid: 2a873c98a18cafc4688889afffe3077d, type: 3}
       propertyPath: m_Constraints
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1222242666508972126, guid: 2a873c98a18cafc4688889afffe3077d, type: 3}
+      propertyPath: m_GravityScale
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1222242666508972128, guid: 2a873c98a18cafc4688889afffe3077d, type: 3}
+      propertyPath: m_Size.y
+      value: 0.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1222242666508972128, guid: 2a873c98a18cafc4688889afffe3077d, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a873c98a18cafc4688889afffe3077d, type: 3}
