@@ -1,13 +1,14 @@
 using UnityEngine;
 using System.Collections;
 
-public class StandingState : BaseState
+public class StandingState : IBaseState
 {
-    private FragHore _fragHore;
-    public StandingState(FragHore frag)
+    private FragHero _fragHore;
+    public StandingState(FragHero frag)
     {
         _fragHore = frag;
-        //_fragHore.fragAnim.SetBool("standing", true);
+        _fragHore.fragAnim.SetBool("standing", true);
+        _fragHore.fragAnim.speed = 1f;
         Debug.Log("------------------------FragHore in StandingState~!£¨½øÈëÕ¾Á¢×´Ì¬£¡£©");
     }
 

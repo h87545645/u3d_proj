@@ -8,14 +8,14 @@ public static class EventCenter
 	public delegate void EventHandle<T>(T value);
 	public delegate void EventHandle<T1, T2>(T1 value1, T2 value2);
 	public delegate void EventHandle<T1, T2, T3>(T1 value1, T2 value2, T3 value3);
-	static Dictionary<string, Delegate> eventHandles;
+	static Dictionary<Game_Event, Delegate> eventHandles;
 
 	/// <summary>
 	/// 发送事件
 	/// </summary>
 	/// <param name="eventName">事件名</param>
 	[Obsolete("已过时，请使用PostEvent函数")]
-	public static void SendEvent(string eventName)
+	public static void SendEvent(Game_Event eventName)
 	{
 		PostEvent(eventName);
 	}
@@ -26,7 +26,7 @@ public static class EventCenter
 	/// <param name="eventName">事件名</param>
 	/// <param name="value">数据</param>
 	[Obsolete("已过时，请使用PostEvent函数")]
-	public static void SendEvent(string eventName, object value)
+	public static void SendEvent(Game_Event eventName, object value)
 	{
 		PostEvent(eventName, value);
 	}
@@ -35,7 +35,7 @@ public static class EventCenter
 	/// 发送事件
 	/// </summary>
 	/// <param name="eventName">事件名</param>
-	public static void PostEvent(string eventName)
+	public static void PostEvent(Game_Event eventName)
 	{
 		if (eventHandles == null) return;
 		Delegate d;
@@ -66,7 +66,7 @@ public static class EventCenter
 	/// <param name="eventName"></param>
 	/// <param name="value"></param>
 	/// <typeparam name="T"></typeparam>
-	public static void PostEvent<T>(string eventName, T value)
+	public static void PostEvent<T>(Game_Event eventName, T value)
 	{
 		if (eventHandles == null) return;
 		Delegate d;
@@ -93,7 +93,7 @@ public static class EventCenter
 	/// <param name="value2"></param>
 	/// <typeparam name="T1"></typeparam>
 	/// <typeparam name="T2"></typeparam>
-	public static void PostEvent<T1, T2>(string eventName, T1 value1, T2 value2)
+	public static void PostEvent<T1, T2>(Game_Event eventName, T1 value1, T2 value2)
 	{
 		if (eventHandles == null) return;
 		Delegate d;
@@ -122,7 +122,7 @@ public static class EventCenter
 	/// <typeparam name="T1"></typeparam>
 	/// <typeparam name="T2"></typeparam>
 	/// <typeparam name="T3"></typeparam>
-	public static void PostEvent<T1, T2, T3>(string eventName, T1 value1, T2 value2, T3 value3)
+	public static void PostEvent<T1, T2, T3>(Game_Event eventName, T1 value1, T2 value2, T3 value3)
 	{
 		if (eventHandles == null) return;
 		Delegate d;
@@ -146,7 +146,7 @@ public static class EventCenter
 	/// </summary>
 	/// <param name="eventName">事件名</param>
 	/// <param name="handle">回调</param>
-	public static void AddListener(string eventName, EventHandle handle)
+	public static void AddListener(Game_Event eventName, EventHandle handle)
 	{
 		OnListeningAdd(eventName, handle);
 		eventHandles[eventName] = (EventHandle)eventHandles[eventName] + handle;
@@ -157,7 +157,7 @@ public static class EventCenter
 	/// </summary>
 	/// <param name="eventName">事件名</param>
 	/// <param name="handle">回调</param>
-	public static void AddListener(string eventName, EventHandle<object> handle)
+	public static void AddListener(Game_Event eventName, EventHandle<object> handle)
 	{
 		OnListeningAdd(eventName, handle);
 		eventHandles[eventName] = (EventHandle<object>)eventHandles[eventName] + handle;
@@ -169,7 +169,7 @@ public static class EventCenter
 	/// <param name="eventName"></param>
 	/// <param name="handle"></param>
 	/// <typeparam name="T"></typeparam>
-	public static void AddListener<T>(string eventName, EventHandle<T> handle)
+	public static void AddListener<T>(Game_Event eventName, EventHandle<T> handle)
 	{
 		OnListeningAdd(eventName, handle);
 		eventHandles[eventName] = (EventHandle<T>)eventHandles[eventName] + handle;
@@ -182,7 +182,7 @@ public static class EventCenter
 	/// <param name="handle"></param>
 	/// <typeparam name="T1"></typeparam>
 	/// <typeparam name="T2"></typeparam>
-	public static void AddListener<T1, T2>(string eventName, EventHandle<T1, T2> handle)
+	public static void AddListener<T1, T2>(Game_Event eventName, EventHandle<T1, T2> handle)
 	{
 		OnListeningAdd(eventName, handle);
 		eventHandles[eventName] = (EventHandle<T1, T2>)eventHandles[eventName] + handle;
@@ -196,7 +196,7 @@ public static class EventCenter
 	/// <typeparam name="T1"></typeparam>
 	/// <typeparam name="T2"></typeparam>
 	/// <typeparam name="T3"></typeparam>
-	public static void AddListener<T1, T2, T3>(string eventName, EventHandle<T1, T2, T3> handle)
+	public static void AddListener<T1, T2, T3>(Game_Event eventName, EventHandle<T1, T2, T3> handle)
 	{
 		OnListeningAdd(eventName, handle);
 		eventHandles[eventName] = (EventHandle<T1, T2, T3>)eventHandles[eventName] + handle;
@@ -208,7 +208,7 @@ public static class EventCenter
 	/// <param name="eventName">事件名</param>
 	/// <param name="handle">回调</param>
 	[Obsolete("已过时，请使用RemoveListener函数")]
-	public static void RemoveHandle(string eventName, EventHandle handle)
+	public static void RemoveHandle(Game_Event eventName, EventHandle handle)
 	{
 		RemoveListener(eventName, handle);
 	}
@@ -219,7 +219,7 @@ public static class EventCenter
 	/// <param name="eventName">事件名</param>
 	/// <param name="handle">回调</param>
 	[Obsolete("已过时，请使用RemoveListener函数")]
-	public static void RemoveHandle(string eventName, EventHandle<object> handle)
+	public static void RemoveHandle(Game_Event eventName, EventHandle<object> handle)
 	{
 		RemoveListener<object>(eventName, handle);
 	}
@@ -229,7 +229,7 @@ public static class EventCenter
 	/// </summary>
 	/// <param name="eventName">事件名</param>
 	/// <param name="handle">回调</param>
-	public static void RemoveListener(string eventName, EventHandle handle)
+	public static void RemoveListener(Game_Event eventName, EventHandle handle)
 	{
 		if (eventHandles == null)
 		{
@@ -245,7 +245,7 @@ public static class EventCenter
 	/// </summary>
 	/// <param name="eventName">事件名</param>
 	/// <param name="handle">回调</param>
-	public static void RemoveListener(string eventName, EventHandle<object> handle)
+	public static void RemoveListener(Game_Event eventName, EventHandle<object> handle)
 	{
 		RemoveListener<object>(eventName, handle);
 	}
@@ -255,7 +255,7 @@ public static class EventCenter
 	/// </summary>
 	/// <param name="eventName">事件名</param>
 	/// <param name="handle"></param>
-	public static void RemoveListener<T>(string eventName, EventHandle<T> handle)
+	public static void RemoveListener<T>(Game_Event eventName, EventHandle<T> handle)
 	{
 		if (eventHandles == null)
 		{
@@ -271,7 +271,7 @@ public static class EventCenter
 	/// </summary>
 	/// <param name="eventName">事件名</param>
 	/// <param name="handle"></param>
-	public static void RemoveListener<T1, T2>(string eventName, EventHandle<T1, T2> handle)
+	public static void RemoveListener<T1, T2>(Game_Event eventName, EventHandle<T1, T2> handle)
 	{
 		if (eventHandles == null)
 		{
@@ -287,7 +287,7 @@ public static class EventCenter
 	/// </summary>
 	/// <param name="eventName">事件名</param>
 	/// <param name="handle"></param>
-	public static void RemoveListener<T1, T2, T3>(string eventName, EventHandle<T1, T2, T3> handle)
+	public static void RemoveListener<T1, T2, T3>(Game_Event eventName, EventHandle<T1, T2, T3> handle)
 	{
 		if (eventHandles == null)
 		{
@@ -302,12 +302,12 @@ public static class EventCenter
 	/// 移除事件
 	/// </summary>
 	/// <param name="eventName"></param>
-	public static void RemoveEvent(string eventName)
+	public static void RemoveEvent(Game_Event eventName)
 	{
 		Internal_RemoveEvent(eventName, true);
 	}
 
-	static void Internal_RemoveEvent(string eventName, bool removeFromDic)
+	static void Internal_RemoveEvent(Game_Event eventName, bool removeFromDic)
 	{
 		if (eventHandles == null)
 		{
@@ -326,13 +326,13 @@ public static class EventCenter
 		}
 	}
 
-	static void OnListeningAdd(string eventName, Delegate callback)
+	static void OnListeningAdd(Game_Event eventName, Delegate callback)
 	{
 		if (eventHandles == null)
-			eventHandles = new Dictionary<string, Delegate>();
+			eventHandles = new Dictionary<Game_Event, Delegate>();
 		if (!eventHandles.ContainsKey(eventName))
 		{
-			eventHandles.Add(eventName, callback);
+			eventHandles.Add(eventName, null);
 		}
 		Delegate d = eventHandles[eventName];
 		if (d != null && d.GetType() != callback.GetType())
@@ -341,7 +341,7 @@ public static class EventCenter
 		}
 	}
 
-	static void OnListeningRemove(string eventName, Delegate callback)
+	static void OnListeningRemove(Game_Event eventName, Delegate callback)
 	{
 		if (eventHandles.ContainsKey(eventName))
 		{
