@@ -14,14 +14,14 @@ public class JumpingState : IBaseState
         _fragHore.fragAnim.SetTrigger("jump-up");
         _fragHore.fragAnim.SetBool("standing", false);
         _fragHore.heroRigidbody2D.constraints = RigidbodyConstraints2D.None;
-        float chargeValue = (float)(400 * chargeTime);
+        float chargeValue = (float)(2000 * chargeTime);
         // float yValue = Mathf.Clamp(chargeValue, 100,600);
         // float xValue = Mathf.Clamp(chargeValue, 100, 150);
-        chargeValue = Mathf.Clamp(chargeValue, 170,700);
+        chargeValue = Mathf.Clamp(chargeValue, 500,2000);
         //float dir = (float)frag.direction * force;
         Vector2 force = new Vector2((float)frag.direction * chargeValue * 0.5f , chargeValue);
         _fragHore.heroRigidbody2D.AddForce(force);
-        if (chargeValue < 300)
+        if (chargeValue < 700)
         {
             _fragHore.fragAnim.speed = 1.9f;
         }

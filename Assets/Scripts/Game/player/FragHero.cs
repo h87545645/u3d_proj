@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class FragHero : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class FragHero : MonoBehaviour
     public BoxCollider2D collider2D;
     public Animator fragAnim;
 
+    // public Tilemap tilemap;
+
     [HideInInspector]
     public bool isGround = false;
     [HideInInspector]
@@ -17,8 +20,17 @@ public class FragHero : MonoBehaviour
 
     public Game_Direction direction = Game_Direction.Right;
 
-    private bool _isReady = false;
+    private Vector2 _lastPosition = Vector2.zero;
+    public Vector2 LastPosition
+    {
+        get { return _lastPosition; }
+        set
+        {
+            _lastPosition = value;
+        }
+    }
     
+    private bool _isReady = false;
     public bool IsReady
     {
         get { return _isReady; }
@@ -28,14 +40,8 @@ public class FragHero : MonoBehaviour
         }
     }
     
-
     IBaseState _state;
-
-    //public FragHore()
-    //{
-    //    _state = new StandingState(this);
-    //    Debug.Log(_state);
-    //}
+    
     private void Awake()
     {
         _state = new StandingState(this);
@@ -52,9 +58,7 @@ public class FragHero : MonoBehaviour
     {
 
     }
-
-
-
+    
     public void Update()
     {
         
@@ -86,7 +90,7 @@ public class FragHero : MonoBehaviour
 
         //    }
         //});
-        EventCenter.AddListener<Game_Direction>(Game_Event.FragGameDirection, this.OnFragDirection);
+        EventCenter.AddListener<Game_Direction,bool>(Game_Event.FragGameDirection, this.OnFragDirection);
 
         EventCenter.AddListener<float>(Game_Event.FragGameJump,this.OnFragJump);
         EventCenter.AddListener(Game_Event.FragGameCharge, this.OnFragCharge);
@@ -96,7 +100,7 @@ public class FragHero : MonoBehaviour
 
     private void OnDestroy()
     {
-        EventCenter.RemoveListener<Game_Direction>(Game_Event.FragGameDirection, this.OnFragDirection);
+        EventCenter.RemoveListener<Game_Direction,bool>(Game_Event.FragGameDirection, this.OnFragDirection);
         EventCenter.RemoveListener<float>(Game_Event.FragGameDirection, this.OnFragJump);
         EventCenter.RemoveListener(Game_Event.FragGameDirection, this.OnFragCharge);
         EventCenter.RemoveListener(Game_Event.FragGameDirection, this.OnFragChargeCancel);
@@ -122,41 +126,14 @@ public class FragHero : MonoBehaviour
 
         _state.HandleInput();
     }
-
-
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        foreach (ContactPoint2D contact in collision.contacts)
-        {
-            Debug.DrawLine(contact.point, transform.position, Color.red);
-            var direction = transform.InverseTransformPoint(contact.point);
-            if (direction.x > 0f)
-            {
-                print("right collision");
-            }
-            if (direction.x < 0f)
-            {
-                print("left collision");
-            }
-            if (direction.y > 0f)
-            {
-                print("up collision");
-            }
-            if (direction.y < 0f)
-            {
-                print("down collision");
-            }
-        }
-    }
-
+    
     /// <summary>
     /// 
     /// </summary>
     /// <param name="dir">0 left  1 right</param>
-    private void OnFragDirection(Game_Direction dir)
+    public void OnFragDirection(Game_Direction dir , bool force = false)
     {
-        if (!this._isReady || dir == direction)
+        if (!force && (!this._isReady || dir == direction))
         {
             return;
         }
@@ -175,7 +152,7 @@ public class FragHero : MonoBehaviour
     }
     private void OnFragChargeCancel()
     {
-        if (!this._isReady)
+        if (!this._isReady )
         {
             return;
         }
@@ -183,7 +160,7 @@ public class FragHero : MonoBehaviour
     }
     private void OnFragJump(float chargeTime)
     {
-        if (!this._isReady)
+        if (!this._isReady || _state.GetType() != typeof(ChargeState))
         {
             return;
         }

@@ -23,7 +23,7 @@ public class ScrollRocker : ScrollRect
             contentPostion = contentPostion.normalized * mRadius;
             SetContentAnchoredPosition(contentPostion);
             Game_Direction dir = contentPostion.x < 0 ? Game_Direction.Left : Game_Direction.Right;
-            EventCenter.PostEvent<Game_Direction>(Game_Event.FragGameDirection, dir);
+            EventCenter.PostEvent<Game_Direction,bool>(Game_Event.FragGameDirection, dir,false);
         }
     }
 }

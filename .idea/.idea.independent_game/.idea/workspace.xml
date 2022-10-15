@@ -10,6 +10,9 @@
   <component name="Git.Settings">
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/211e75180efa4e0fb5772e391a398210157800/40/6caad566/SpriteRenderer.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -70,6 +73,9 @@
       <workItem from="1665413332802" duration="3166000" />
       <workItem from="1665491182425" duration="869000" />
       <workItem from="1665500381132" duration="2087000" />
+      <workItem from="1665579216076" duration="6800000" />
+      <workItem from="1665668911069" duration="5372000" />
+      <workItem from="1665818245185" duration="75000" />
     </task>
     <servers />
   </component>
