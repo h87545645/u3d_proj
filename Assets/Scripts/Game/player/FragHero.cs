@@ -18,7 +18,12 @@ public class FragHero : MonoBehaviour
     [HideInInspector]
     public bool isDrop = false;
 
-    public Game_Direction direction = Game_Direction.Right;
+    public Game_Direction direction = Game_Direction.None;
+    
+    /// <summary>
+    /// 缓存0.1秒前的方向状态
+    /// </summary>
+    public Game_Direction lastDirection = Game_Direction.None;
 
     private Vector2 _lastPosition = Vector2.zero;
     public Vector2 LastPosition
@@ -61,7 +66,26 @@ public class FragHero : MonoBehaviour
     
     public void Update()
     {
-        
+        // Debug.DrawRay(new Vector3(heroRigidbody2D.transform.position.x, heroRigidbody2D.transform.position.y - this.collider2D.size.y/2*this.heroRigidbody2D.transform.localScale.y, heroRigidbody2D.transform.position.z), Vector2.down * 0.11f, Color.red);
+        RaycastHit2D hit = Physics2D.Raycast(new Vector3(heroRigidbody2D.transform.position.x + this.collider2D.size.x * 0.4f * this.heroRigidbody2D.transform.localScale.x, heroRigidbody2D.transform.position.y , heroRigidbody2D.transform.position.z) ,
+            Vector2.down, 0.11f + this.collider2D.size.y / 2 * this.heroRigidbody2D.transform.localScale.y, 1 << 3);
+        RaycastHit2D hit2 = Physics2D.Raycast(new Vector3(heroRigidbody2D.transform.position.x - this.collider2D.size.x * 0.4f * this.heroRigidbody2D.transform.localScale.x, heroRigidbody2D.transform.position.y , heroRigidbody2D.transform.position.z) ,
+            Vector2.down, 0.11f + this.collider2D.size.y / 2 * this.heroRigidbody2D.transform.localScale.y, 1 << 3);
+        if (hit.collider != null  || hit2.collider != null)
+        {
+            isGround = true;
+        }
+        else
+        {
+            isGround = false;
+        }
+
+        this.isDrop = heroRigidbody2D.velocity.y < 0;
+        // Debug.Log(" isGroud : " + isGround + "  isDrop: " + isDrop + " heroRigidbody2D.velocity: " +heroRigidbody2D.velocity);
+
+        _state.HandleInput();
+        // AnimatorClipInfo[] info = fragAnim.GetCurrentAnimatorClipInfo(0);
+        // Debug.Log("walk state anim "+ info[0].clip.name);
     }
 
     private void Start()
@@ -110,36 +134,95 @@ public class FragHero : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Debug.DrawRay(new Vector3(heroRigidbody2D.transform.position.x, heroRigidbody2D.transform.position.y - this.collider2D.size.y/2*this.transform.localScale.y, heroRigidbody2D.transform.position.z), Vector2.down * 0.11f, Color.red);
-        RaycastHit2D hit = Physics2D.Raycast(new Vector3(heroRigidbody2D.transform.position.x, heroRigidbody2D.transform.position.y , heroRigidbody2D.transform.position.z) , Vector2.down, 0.11f + this.collider2D.size.y / 2 * this.transform.localScale.y, 1 << 3);
-        if (hit.collider != null)
-        {
-            isGround = true;
-        }
-        else
-        {
-            isGround = false;
-        }
-
-        this.isDrop = heroRigidbody2D.velocity.y < -0.05;
-        //Debug.Log(" isGroud : " + isGround + "  isDrop: " + isDrop);
-
-        _state.HandleInput();
+        
+        
+       
     }
     
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="dir">0 left  1 right</param>
+    /// <param name="dir"></param>
     public void OnFragDirection(Game_Direction dir , bool force = false)
     {
         if (!force && (!this._isReady || dir == direction))
         {
             return;
         }
-        direction = dir;
-        this.heroRenderer.flipX = dir == Game_Direction.Left;
+        
+        switch (dir)
+        {
+            case Game_Direction.None:
+                
+                break;
+            case Game_Direction.Right:
+                this.heroRenderer.flipX = false;
+                break;
+            case Game_Direction.Left:
+                this.heroRenderer.flipX = true;
+                break;
+        }
+
+        if (force)
+        {
+            direction = dir;
+        }
+        else
+        {
+            if (dir == Game_Direction.None)
+            {
+                StartCoroutine(UnityUtils.DelayFuc(() =>
+                {
+                    lastDirection = direction;
+                    // Debug.Log("dir is up!!!!!!!");
+                },0.1f));
+                direction = dir;
+                if ( isGround && _state.GetType() != typeof(ChargeState))
+                {
+                    // Debug.Log("dir is up!!!!!!!");
+                    SetHeroineState(new StandingState(this));
+                    fragAnim.SetBool("walk", false);
+                }
+            }
+            else
+            {
+                direction = dir;
+                lastDirection = direction;
+                if ( isGround && _state.GetType() != typeof(ChargeState))
+                {
+                    
+                    
+                    fragAnim.SetBool("standing", false);
+                    fragAnim.SetBool("walk", true);
+                    SetHeroineState(new WalkingState(this));
+                }
+            }
+        }
+ 
+       
+      
+        
         // this.heroRigidbody2D.transform.localScale = new Vector3((float)dir,1,1);
+
+        // if (!force && isGround && _state.GetType() != typeof(ChargeState))
+        // {
+        //     if (dir != Game_Direction.None )
+        //     {
+        //             fragAnim.SetBool("standing", false);
+        //             fragAnim.SetBool("walk", true);
+        //             SetHeroineState(new WalkingState(this));
+        //     }
+        //     else
+        //     {
+        //         if (_state.GetType() != typeof(WalkingState))
+        //         {
+        //             Debug.Log("walk to standing state!!!!!!!");
+        //             SetHeroineState(new StandingState(this));
+        //             fragAnim.SetBool("walk", false);
+        //         }
+        //         
+        //     }
+        // }
     }
 
     private void OnFragCharge()
@@ -166,6 +249,12 @@ public class FragHero : MonoBehaviour
         }
 
         this._isReady = false;
+        fragAnim.SetBool("walk", false);
         SetHeroineState(new JumpingState(this, chargeTime));
+    }
+
+    public IBaseState GetState()
+    {
+        return this._state;
     }
 }

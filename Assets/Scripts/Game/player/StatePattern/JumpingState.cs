@@ -14,12 +14,13 @@ public class JumpingState : IBaseState
         _fragHore.fragAnim.SetTrigger("jump-up");
         _fragHore.fragAnim.SetBool("standing", false);
         _fragHore.heroRigidbody2D.constraints = RigidbodyConstraints2D.None;
+        _fragHore.heroRigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
         float chargeValue = (float)(2000 * chargeTime);
-        // float yValue = Mathf.Clamp(chargeValue, 100,600);
-        // float xValue = Mathf.Clamp(chargeValue, 100, 150);
-        chargeValue = Mathf.Clamp(chargeValue, 500,2000);
+        float yValue = Mathf.Clamp(chargeValue, 500,1800);
+        float xValue = Mathf.Clamp(chargeValue, 500, 900);
+        // chargeValue = Mathf.Clamp(chargeValue, 500,1800);
         //float dir = (float)frag.direction * force;
-        Vector2 force = new Vector2((float)frag.direction * chargeValue * 0.5f , chargeValue);
+        Vector2 force = new Vector2((float)frag.lastDirection * xValue , yValue);
         _fragHore.heroRigidbody2D.AddForce(force);
         if (chargeValue < 700)
         {
@@ -41,13 +42,14 @@ public class JumpingState : IBaseState
 
     public void HandleInput()
     {
-        if(_fragHore.isDrop && !_fragHore.fragAnim.GetBool("jump-down"))
+        if(_fragHore.isDrop)
         {
-            _fragHore.fragAnim.SetTrigger("jump-down");
+            // Debug.Log("jump-down bool ");
+            
+            _fragHore.SetHeroineState(new FallingState(_fragHore));
         }
-        if (_fragHore.isDrop && _fragHore.isGround)
-        {
-            _fragHore.SetHeroineState(new LandingState(_fragHore));
-        }
+  
+        // AnimatorClipInfo[] info = _fragHore.fragAnim.GetCurrentAnimatorClipInfo(0);
+        // Debug.Log("walk state anim "+ info[0].clip.name);
     }
 }

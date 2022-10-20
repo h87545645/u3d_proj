@@ -7,13 +7,25 @@ public class FragAnimEvent : MonoBehaviour
     public FragHero fragHero;
     public void OnLandingFinish()
     {
-        fragHero.fragAnim.SetBool("standing", true);
-        fragHero.SetHeroineState(new StandingState(fragHero));
+        fragHero.direction = Game_Direction.None;
         StartCoroutine(UnityUtils.DelayFuc(() =>
         {
             Debug.Log("frag ready");
             fragHero.IsReady = true;
-        },0.15f));
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+            {
+                Game_Direction direction = Input.GetKey(KeyCode.LeftArrow) ? Game_Direction.Left : Game_Direction.Right;
+                // fragHero.SetHeroineState(new WalkingState(fragHero));
+                // fragHero.fragAnim.SetBool("walk", true);
+                EventCenter.PostEvent<Game_Direction,bool>(Game_Event.FragGameDirection, direction,false);
+            }
+            else
+            {
+                fragHero.fragAnim.SetBool("standing", true);
+                // fragHero.fragAnim.SetBool("jump-down",true);
+                fragHero.SetHeroineState(new StandingState(fragHero));
+            }
+        },0.05f));
     }
     
     private void OnCollisionEnter2D(Collision2D collision)
@@ -41,6 +53,10 @@ public class FragAnimEvent : MonoBehaviour
         // }
         if (collision.collider.tag == "wall")
         {
+            if (fragHero.GetState().GetType() == typeof(WalkingState))
+            {
+                return;
+            }
             Debug.Log("wall");
             Game_Direction dir = fragHero.direction == Game_Direction.Left ? Game_Direction.Right : Game_Direction.Left;
             fragHero.OnFragDirection(dir , true);

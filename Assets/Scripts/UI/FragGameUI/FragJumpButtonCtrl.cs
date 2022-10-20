@@ -16,6 +16,8 @@ public class FragJumpButtonCtrl : MonoBehaviour, IPointerDownHandler, IPointerUp
             EventCenter.PostEvent<float>(Game_Event.FragGameJump, 1);
             _lastTime = 0;
         }
+        
+    
     }
 
     public void OnPointerDown(PointerEventData eventData)
