@@ -16,8 +16,9 @@ public class JumpingState : IBaseState
         _fragHore.heroRigidbody2D.constraints = RigidbodyConstraints2D.None;
         _fragHore.heroRigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
         float chargeValue = (float)(2000 * chargeTime);
-        float yValue = Mathf.Clamp(chargeValue, 500,1800);
-        float xValue = Mathf.Clamp(chargeValue, 500, 900);
+        float varyValue = (float)(500 * chargeTime)+400;
+        float yValue = Mathf.Clamp(chargeValue, 500,1900);
+        float xValue = Mathf.Clamp(varyValue, 500, 900);
         // chargeValue = Mathf.Clamp(chargeValue, 500,1800);
         //float dir = (float)frag.direction * force;
         Vector2 force = new Vector2((float)frag.lastDirection * xValue , yValue);

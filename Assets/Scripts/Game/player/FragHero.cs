@@ -66,10 +66,11 @@ public class FragHero : MonoBehaviour
     
     public void Update()
     {
-        // Debug.DrawRay(new Vector3(heroRigidbody2D.transform.position.x, heroRigidbody2D.transform.position.y - this.collider2D.size.y/2*this.heroRigidbody2D.transform.localScale.y, heroRigidbody2D.transform.position.z), Vector2.down * 0.11f, Color.red);
-        RaycastHit2D hit = Physics2D.Raycast(new Vector3(heroRigidbody2D.transform.position.x + this.collider2D.size.x * 0.4f * this.heroRigidbody2D.transform.localScale.x, heroRigidbody2D.transform.position.y , heroRigidbody2D.transform.position.z) ,
+        Debug.DrawRay(new Vector3(heroRigidbody2D.transform.position.x + this.collider2D.size.x * 0.49f * this.heroRigidbody2D.transform.localScale.x, heroRigidbody2D.transform.position.y - 
+            this.collider2D.size.y/2*this.heroRigidbody2D.transform.localScale.y, heroRigidbody2D.transform.position.z), Vector2.down * 0.11f, Color.red);
+        RaycastHit2D hit = Physics2D.Raycast(new Vector3(heroRigidbody2D.transform.position.x + this.collider2D.size.x * 0.5f * this.heroRigidbody2D.transform.localScale.x, heroRigidbody2D.transform.position.y , heroRigidbody2D.transform.position.z) ,
             Vector2.down, 0.11f + this.collider2D.size.y / 2 * this.heroRigidbody2D.transform.localScale.y, 1 << 3);
-        RaycastHit2D hit2 = Physics2D.Raycast(new Vector3(heroRigidbody2D.transform.position.x - this.collider2D.size.x * 0.4f * this.heroRigidbody2D.transform.localScale.x, heroRigidbody2D.transform.position.y , heroRigidbody2D.transform.position.z) ,
+        RaycastHit2D hit2 = Physics2D.Raycast(new Vector3(heroRigidbody2D.transform.position.x - this.collider2D.size.x * 0.5f * this.heroRigidbody2D.transform.localScale.x, heroRigidbody2D.transform.position.y , heroRigidbody2D.transform.position.z) ,
             Vector2.down, 0.11f + this.collider2D.size.y / 2 * this.heroRigidbody2D.transform.localScale.y, 1 << 3);
         if (hit.collider != null  || hit2.collider != null)
         {
@@ -80,7 +81,8 @@ public class FragHero : MonoBehaviour
             isGround = false;
         }
 
-        this.isDrop = heroRigidbody2D.velocity.y < 0;
+        this.isDrop = heroRigidbody2D.velocity.y < -0.05;
+        // Debug.Log("velocity : " + heroRigidbody2D.velocity.y);
         // Debug.Log(" isGroud : " + isGround + "  isDrop: " + isDrop + " heroRigidbody2D.velocity: " +heroRigidbody2D.velocity);
 
         _state.HandleInput();

@@ -17,6 +17,7 @@ public class FragAnimEvent : MonoBehaviour
                 Game_Direction direction = Input.GetKey(KeyCode.LeftArrow) ? Game_Direction.Left : Game_Direction.Right;
                 // fragHero.SetHeroineState(new WalkingState(fragHero));
                 // fragHero.fragAnim.SetBool("walk", true);
+                Debug.Log("landing over to walk dir : " +direction);
                 EventCenter.PostEvent<Game_Direction,bool>(Game_Event.FragGameDirection, direction,false);
             }
             else
@@ -57,7 +58,7 @@ public class FragAnimEvent : MonoBehaviour
             {
                 return;
             }
-            Debug.Log("wall");
+            Debug.Log("--------------------wall------");
             Game_Direction dir = fragHero.direction == Game_Direction.Left ? Game_Direction.Right : Game_Direction.Left;
             fragHero.OnFragDirection(dir , true);
             // heroRigidbody2D.velocity.x = -heroRigidbody2D.velocity.x;

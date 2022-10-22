@@ -7,7 +7,12 @@ public class FragGameCameraCtrl : MonoBehaviour
 {
 
     public double screenHeight = 13;
-    
+
+    private void Start()
+    {
+        this.OnBecameInvisible();
+    }
+
     private void OnBecameVisible()
     {
        
@@ -19,6 +24,9 @@ public class FragGameCameraCtrl : MonoBehaviour
         // print("在摄像机视野外");
         int index = (int)Math.Floor((transform.position.y + screenHeight*0.5) / screenHeight);
         index = Math.Max(index, 0);
-        Camera.main.transform.position = new Vector3(0,(float)(index * screenHeight),-10);
+        if (Camera.main != null)
+        {
+            Camera.main.transform.position = new Vector3(0,(float)(index * screenHeight),-10);
+        }
     }
 }
