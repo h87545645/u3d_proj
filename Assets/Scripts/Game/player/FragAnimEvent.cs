@@ -60,6 +60,11 @@ public class FragAnimEvent : MonoBehaviour
             }
             Debug.Log("--------------------wall------");
             Game_Direction dir = fragHero.direction == Game_Direction.Left ? Game_Direction.Right : Game_Direction.Left;
+            if (fragHero.direction == Game_Direction.None)
+            {
+                dir = fragHero.heroRenderer.flipX ? Game_Direction.Right : Game_Direction.Left;
+            }
+
             fragHero.OnFragDirection(dir , true);
             // heroRigidbody2D.velocity.x = -heroRigidbody2D.velocity.x;
         }

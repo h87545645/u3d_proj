@@ -32,6 +32,7 @@ public class FragHero : MonoBehaviour
         set
         {
             _lastPosition = value;
+            RecordUtil.Set("PlayerPosition", JsonUtility.ToJson(_lastPosition));
         }
     }
     
@@ -51,6 +52,18 @@ public class FragHero : MonoBehaviour
     {
         _state = new StandingState(this);
         _isReady = true;
+        
+        //get frag last position record
+        string recordStr = RecordUtil.Get("PlayerPosition");
+        if (recordStr != "")
+        {
+            Vector2 pos = JsonUtility.FromJson<Vector2>(RecordUtil.Get("PlayerPosition"));
+            if (pos != null)
+            {
+                this._lastPosition = pos;
+                this.heroRenderer.transform.position = pos;
+            }
+        }
     }
 
 
@@ -258,5 +271,28 @@ public class FragHero : MonoBehaviour
     public IBaseState GetState()
     {
         return this._state;
+    }
+    
+    //游戏切后台自动保存
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            RecordUtil.Save();
+        }
+    }
+    
+    //游戏退出时自动保存
+    private void OnApplicationQuit()
+    {
+        RecordUtil.Save();
+    }
+
+    [System.Serializable]
+    class PlayerRecord
+    {
+        // public string stringValue;
+        // public int intValue;
+        public Vector2 playerPosition;
     }
 }
