@@ -27,3 +27,8 @@ public enum Game_Direction
     Left = -1,
     Right = 1,
 }
+
+public static class GlobalValue
+{
+    public static float JumpMaxChargeTime = 1;
+}

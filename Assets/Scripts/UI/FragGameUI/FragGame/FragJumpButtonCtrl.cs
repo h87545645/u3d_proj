@@ -11,7 +11,7 @@ public class FragJumpButtonCtrl : MonoBehaviour, IPointerDownHandler, IPointerUp
 
     private void Update()
     {
-        if (_lastTime > 0 && Time.time - _lastTime > 1)
+        if (_lastTime > 0 && Time.time - _lastTime > GlobalValue.JumpMaxChargeTime)
         {
             EventCenter.PostEvent<float>(Game_Event.FragGameJump, 1);
             _lastTime = 0;

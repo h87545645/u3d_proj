@@ -10,6 +10,11 @@ public class FragHero : MonoBehaviour
 
     public BoxCollider2D collider2D;
     public Animator fragAnim;
+    
+    public float jumpVaryX = 1200;
+    public float jumpStaticX = 200;
+    public float jumpVaryY = 2000;
+    public float jumpStaticY = 200;
 
     // public Tilemap tilemap;
 
@@ -17,6 +22,8 @@ public class FragHero : MonoBehaviour
     public bool isGround = false;
     [HideInInspector]
     public bool isDrop = false;
+    [HideInInspector]
+    public float chargeTime = 0;
 
     public Game_Direction direction = Game_Direction.None;
     
@@ -264,6 +271,7 @@ public class FragHero : MonoBehaviour
         }
 
         this._isReady = false;
+        this.chargeTime = chargeTime;
         fragAnim.SetBool("walk", false);
         SetHeroineState(new JumpingState(this, chargeTime));
     }
