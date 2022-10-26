@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1222242666290094713}
   - component: {fileID: 1222242666290094712}
-  - component: {fileID: 1222242666290094714}
   m_Layer: 0
   m_Name: frag
   m_TagString: Untagged
@@ -27,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1222242666290094711}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.378, y: -2.706, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1222242666508972125}
@@ -52,26 +51,8 @@ MonoBehaviour:
   fragAnim: {fileID: 1222242666508972123}
   isGround: 0
   isDrop: 0
-  direction: 1
---- !u!320 &1222242666290094714
-PlayableDirector:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1222242666290094711}
-  m_Enabled: 0
-  serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 028e74df2de3ef542abdb8b1f260253b, type: 2}
-  m_InitialState: 1
-  m_WrapMode: 2
-  m_DirectorUpdateMode: 1
-  m_InitialTime: 0
-  m_SceneBindings:
-  - key: {fileID: -2646263727737611253, guid: 028e74df2de3ef542abdb8b1f260253b, type: 2}
-    value: {fileID: 1222242666508972122}
-  m_ExposedReferences:
-    m_References: []
+  direction: 0
+  lastDirection: 0
 --- !u!1 &1222242666508972122
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,6 +69,7 @@ GameObject:
   - component: {fileID: 1222242666508972128}
   - component: {fileID: 1222242666508972129}
   - component: {fileID: 1912412170}
+  - component: {fileID: 1727434328}
   m_Layer: 0
   m_Name: frog-idle-4
   m_TagString: Untagged
@@ -103,8 +85,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1222242666508972122}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.05, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -4.62, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1222242666290094713}
@@ -201,8 +183,8 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: 88e5e0f5e526c114f90ab6aa3a1cf9d4, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!70 &1222242666508972127
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -270,3 +252,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fragHero: {fileID: 1222242666290094712}
+--- !u!114 &1727434328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222242666508972122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17bce4ebf3bb8484f91d4b4d78663f57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenHeight: 13

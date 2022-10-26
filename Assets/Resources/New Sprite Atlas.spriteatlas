@@ -32,20 +32,13 @@ SpriteAtlas:
       enableAlphaDilation: 0
     secondaryTextureSettings: {}
     variantMultiplier: 1
-    packables:
-    - {fileID: 102900000, guid: f49588607ada82a4ab3cfcfc45c291ed, type: 3}
+    packables: []
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites:
-  - {fileID: 21300000, guid: 977337f1a9eb5bc458f656e529ab9089, type: 3}
-  - {fileID: 21300000, guid: ea4a83223aa4d914ba8361b782cf419f, type: 3}
-  - {fileID: 21300000, guid: 8e859ad801ec78e4fabbb69630a09e04, type: 3}
-  m_PackedSpriteNamesToIndex:
-  - "QQ\u622A\u56FE20220528094223"
-  - src=http___bkimg.cdn.bcebos.com_pic_0b3a1c0810c2a9f862d986c5&refer=http___bkimg.cdn.bcebos
-  - "QQ\u622A\u56FE20211006123502"
+  m_PackedSprites: []
+  m_PackedSpriteNamesToIndex: []
   m_RenderDataMap: {}
   m_Tag: New Sprite Atlas
   m_IsVariant: 0

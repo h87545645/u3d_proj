@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-//场景切换模块
+//?????л????
 public class SceneMgr : SingletonBase<SceneMgr>
 {
     /// <summary>
@@ -17,7 +17,10 @@ public class SceneMgr : SingletonBase<SceneMgr>
         //场景同步加载
         SceneManager.LoadScene(sName);
         //加载完成过后才会执行func
-        fun_temp();
+        if (fun_temp != null)
+        {
+            fun_temp();
+        }
     }
 
     /// <summary>
@@ -27,7 +30,7 @@ public class SceneMgr : SingletonBase<SceneMgr>
     /// <param name="fun_temp">加载场景完成后的回调方法</param>
     public void LoadSceneAsync(string name, UnityAction fun_temp)
     {
-        //公共Mono模块
+        //????Mono???
         MonoMgr.GetInstance().StartCoroutine(ILoadSceneAsync(name, fun_temp));
     }
 

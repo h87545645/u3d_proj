@@ -169,7 +169,7 @@ TextureImporter:
       - - {x: -16, y: -12}
         - {x: -16, y: -16}
         - {x: 16, y: -16}
-        - {x: 15, y: -12}
+        - {x: 16, y: -12}
       tessellationDetail: 0
       bones: []
       spriteID: 2e46c0ba02eb81241acc401add960646
@@ -755,123 +755,6 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: tile_jungle_ground_brown_28
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 128
-        width: 192
-        height: 36
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3fc006202c968014a9c6139ee64049bd
-      internalID: 1357325921
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tile_jungle_ground_brown_29
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 96
-        height: 37
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 44139c6eb6899ca489066ca4bcbc1c98
-      internalID: 274341444
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tile_jungle_ground_brown_30
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 64
-        width: 160
-        height: 36
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 9}
-      outline: []
-      physicsShape:
-      - - {x: -80, y: 18}
-        - {x: -80, y: -18}
-        - {x: 80, y: -18}
-        - {x: 80, y: 18}
-      tessellationDetail: 0
-      bones: []
-      spriteID: d68e34c99fcc4544093c32c163664d3c
-      internalID: 2092140566
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tile_jungle_ground_brown_31
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 128
-        width: 192
-        height: 36
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -96, y: 18}
-        - {x: -96, y: -18}
-        - {x: 96, y: -18}
-        - {x: 96, y: 18}
-      tessellationDetail: 0
-      bones: []
-      spriteID: a5c0e2e35f452e34c985949f4b1c8d18
-      internalID: -105983025
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tile_jungle_ground_brown_32
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 96
-        height: 36
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -48, y: 18}
-        - {x: -48, y: -18}
-        - {x: 48, y: -18}
-        - {x: 48, y: 18}
-      tessellationDetail: 0
-      bones: []
-      spriteID: b8585d974335b6e4dad146f34e2a0e4c
-      internalID: -1658246450
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -886,7 +769,6 @@ TextureImporter:
       tile_jungle_ground_brown_23: -1305683638
       tile_jungle_ground_brown_5: 102365254
       tile_jungle_ground_brown_8: -116483678
-      tile_jungle_ground_brown_32: 114573169
       tile_jungle_ground_brown_4: 1646722455
       tile_jungle_ground_brown_12: -23867456
       tile_jungle_ground_brown_17: -1276532241
@@ -895,14 +777,11 @@ TextureImporter:
       tile_jungle_ground_brown_7: 617676464
       tile_jungle_ground_brown_10: 2139333399
       tile_jungle_ground_brown_3: 2065752457
-      tile_jungle_ground_brown_28: 1773298441
       tile_jungle_ground_brown_16: 202193492
       tile_jungle_ground_brown_24: -697505061
       tile_jungle_ground_brown_13: -1478098331
-      tile_jungle_ground_brown_31: -105983025
       tile_jungle_ground_brown_0: -1208269665
       tile_jungle_ground_brown_2: 576362442
-      tile_jungle_ground_brown_29: 274341444
       tile_jungle_ground_brown_1: 880868692
       tile_jungle_ground_brown_9: -1503598500
       tile_jungle_ground_brown_18: 1783604462
@@ -910,7 +789,6 @@ TextureImporter:
       tile_jungle_ground_brown_11: 707679703
       tile_jungle_ground_brown_19: -480602168
       tile_jungle_ground_brown_20: -75410990
-      tile_jungle_ground_brown_30: 2092140566
       tile_jungle_ground_brown_25: 144009495
       tile_jungle_ground_brown_21: 941823573
       tile_jungle_ground_brown_22: -2089913686

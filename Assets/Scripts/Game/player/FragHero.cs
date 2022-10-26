@@ -10,6 +10,11 @@ public class FragHero : MonoBehaviour
 
     public BoxCollider2D collider2D;
     public Animator fragAnim;
+    
+    public float jumpVaryX = 1200;
+    public float jumpStaticX = 200;
+    public float jumpVaryY = 2000;
+    public float jumpStaticY = 200;
 
     // public Tilemap tilemap;
 
@@ -17,8 +22,15 @@ public class FragHero : MonoBehaviour
     public bool isGround = false;
     [HideInInspector]
     public bool isDrop = false;
+    [HideInInspector]
+    public float chargeTime = 0;
 
-    public Game_Direction direction = Game_Direction.Right;
+    public Game_Direction direction = Game_Direction.None;
+    
+    /// <summary>
+    /// 缓存0.1秒前的方向状态
+    /// </summary>
+    public Game_Direction lastDirection = Game_Direction.None;
 
     private Vector2 _lastPosition = Vector2.zero;
     public Vector2 LastPosition
@@ -27,6 +39,7 @@ public class FragHero : MonoBehaviour
         set
         {
             _lastPosition = value;
+            RecordUtil.Set("PlayerPosition", JsonUtility.ToJson(_lastPosition));
         }
     }
     
@@ -46,6 +59,18 @@ public class FragHero : MonoBehaviour
     {
         _state = new StandingState(this);
         _isReady = true;
+        
+        //get frag last position record
+        string recordStr = RecordUtil.Get("PlayerPosition");
+        if (recordStr != "")
+        {
+            Vector2 pos = JsonUtility.FromJson<Vector2>(RecordUtil.Get("PlayerPosition"));
+            if (pos != null)
+            {
+                this._lastPosition = pos;
+                this.heroRenderer.transform.position = pos;
+            }
+        }
     }
 
 
@@ -61,7 +86,28 @@ public class FragHero : MonoBehaviour
     
     public void Update()
     {
-        
+        Debug.DrawRay(new Vector3(heroRigidbody2D.transform.position.x + this.collider2D.size.x * 0.49f * this.heroRigidbody2D.transform.localScale.x, heroRigidbody2D.transform.position.y - 
+            this.collider2D.size.y/2*this.heroRigidbody2D.transform.localScale.y, heroRigidbody2D.transform.position.z), Vector2.down * 0.11f, Color.red);
+        RaycastHit2D hit = Physics2D.Raycast(new Vector3(heroRigidbody2D.transform.position.x + this.collider2D.size.x * 0.5f * this.heroRigidbody2D.transform.localScale.x, heroRigidbody2D.transform.position.y , heroRigidbody2D.transform.position.z) ,
+            Vector2.down, 0.11f + this.collider2D.size.y / 2 * this.heroRigidbody2D.transform.localScale.y, 1 << 3);
+        RaycastHit2D hit2 = Physics2D.Raycast(new Vector3(heroRigidbody2D.transform.position.x - this.collider2D.size.x * 0.5f * this.heroRigidbody2D.transform.localScale.x, heroRigidbody2D.transform.position.y , heroRigidbody2D.transform.position.z) ,
+            Vector2.down, 0.11f + this.collider2D.size.y / 2 * this.heroRigidbody2D.transform.localScale.y, 1 << 3);
+        if (hit.collider != null  || hit2.collider != null)
+        {
+            isGround = true;
+        }
+        else
+        {
+            isGround = false;
+        }
+
+        this.isDrop = heroRigidbody2D.velocity.y < -0.05;
+        // Debug.Log("velocity : " + heroRigidbody2D.velocity.y);
+        // Debug.Log(" isGroud : " + isGround + "  isDrop: " + isDrop + " heroRigidbody2D.velocity: " +heroRigidbody2D.velocity);
+
+        _state.HandleInput();
+        // AnimatorClipInfo[] info = fragAnim.GetCurrentAnimatorClipInfo(0);
+        // Debug.Log("walk state anim "+ info[0].clip.name);
     }
 
     private void Start()
@@ -110,36 +156,95 @@ public class FragHero : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Debug.DrawRay(new Vector3(heroRigidbody2D.transform.position.x, heroRigidbody2D.transform.position.y - this.collider2D.size.y/2*this.transform.localScale.y, heroRigidbody2D.transform.position.z), Vector2.down * 0.11f, Color.red);
-        RaycastHit2D hit = Physics2D.Raycast(new Vector3(heroRigidbody2D.transform.position.x, heroRigidbody2D.transform.position.y , heroRigidbody2D.transform.position.z) , Vector2.down, 0.11f + this.collider2D.size.y / 2 * this.transform.localScale.y, 1 << 3);
-        if (hit.collider != null)
-        {
-            isGround = true;
-        }
-        else
-        {
-            isGround = false;
-        }
-
-        this.isDrop = heroRigidbody2D.velocity.y < -0.05;
-        //Debug.Log(" isGroud : " + isGround + "  isDrop: " + isDrop);
-
-        _state.HandleInput();
+        
+        
+       
     }
     
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="dir">0 left  1 right</param>
+    /// <param name="dir"></param>
     public void OnFragDirection(Game_Direction dir , bool force = false)
     {
         if (!force && (!this._isReady || dir == direction))
         {
             return;
         }
-        direction = dir;
-        this.heroRenderer.flipX = dir == Game_Direction.Left;
+        
+        switch (dir)
+        {
+            case Game_Direction.None:
+                
+                break;
+            case Game_Direction.Right:
+                this.heroRenderer.flipX = false;
+                break;
+            case Game_Direction.Left:
+                this.heroRenderer.flipX = true;
+                break;
+        }
+
+        if (force)
+        {
+            direction = dir;
+        }
+        else
+        {
+            if (dir == Game_Direction.None)
+            {
+                StartCoroutine(UnityUtils.DelayFuc(() =>
+                {
+                    lastDirection = direction;
+                    // Debug.Log("dir is up!!!!!!!");
+                },0.1f));
+                direction = dir;
+                if ( isGround && _state.GetType() != typeof(ChargeState))
+                {
+                    // Debug.Log("dir is up!!!!!!!");
+                    SetHeroineState(new StandingState(this));
+                    fragAnim.SetBool("walk", false);
+                }
+            }
+            else
+            {
+                direction = dir;
+                lastDirection = direction;
+                if ( isGround && _state.GetType() != typeof(ChargeState))
+                {
+                    
+                    
+                    fragAnim.SetBool("standing", false);
+                    fragAnim.SetBool("walk", true);
+                    SetHeroineState(new WalkingState(this));
+                }
+            }
+        }
+ 
+       
+      
+        
         // this.heroRigidbody2D.transform.localScale = new Vector3((float)dir,1,1);
+
+        // if (!force && isGround && _state.GetType() != typeof(ChargeState))
+        // {
+        //     if (dir != Game_Direction.None )
+        //     {
+        //             fragAnim.SetBool("standing", false);
+        //             fragAnim.SetBool("walk", true);
+        //             SetHeroineState(new WalkingState(this));
+        //     }
+        //     else
+        //     {
+        //         if (_state.GetType() != typeof(WalkingState))
+        //         {
+        //             Debug.Log("walk to standing state!!!!!!!");
+        //             SetHeroineState(new StandingState(this));
+        //             fragAnim.SetBool("walk", false);
+        //         }
+        //         
+        //     }
+        // }
     }
 
     private void OnFragCharge()
@@ -166,6 +271,36 @@ public class FragHero : MonoBehaviour
         }
 
         this._isReady = false;
+        this.chargeTime = chargeTime;
+        fragAnim.SetBool("walk", false);
         SetHeroineState(new JumpingState(this, chargeTime));
+    }
+
+    public IBaseState GetState()
+    {
+        return this._state;
+    }
+    
+    //游戏切后台自动保存
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            RecordUtil.Save();
+        }
+    }
+    
+    //游戏退出时自动保存
+    private void OnApplicationQuit()
+    {
+        RecordUtil.Save();
+    }
+
+    [System.Serializable]
+    class PlayerRecord
+    {
+        // public string stringValue;
+        // public int intValue;
+        public Vector2 playerPosition;
     }
 }

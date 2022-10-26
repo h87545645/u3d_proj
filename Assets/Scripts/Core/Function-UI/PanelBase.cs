@@ -52,9 +52,9 @@ public class PanelBase : MonoBehaviour
 
 
     /// <summary>
-    /// 找到相对应的UI控件并记录到字典中
+    /// ?????????UI???????????????
     /// </summary>
-    /// <typeparam name="T">泛型, 指UI控件</typeparam>
+    /// <typeparam name="T">????, ?UI???</typeparam>
     private void FindChildControl<T>() where T : UIBehaviour
     {
         T[] arr_control = this.GetComponentsInChildren<T>();
@@ -75,7 +75,7 @@ public class PanelBase : MonoBehaviour
 
     #region 让子类重写（覆盖）此方法，来实现UI的隐藏与出现
     /// <summary>
-    /// 显示ui操作
+    /// ???ui????
     /// </summary>
     public virtual void ShowUI()
     {
@@ -84,7 +84,7 @@ public class PanelBase : MonoBehaviour
     }
 
     /// <summary>
-    /// 隐藏UI
+    /// ????UI
     /// </summary>
     public virtual void HideUI()
     {
