@@ -1,15 +1,7 @@
 ManifestFileVersion: 0
-CRC: 2500965787
+CRC: 638054070
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: common
+      Name: dialogprefab
       Dependencies: {}
-    Info_1:
-      Name: player_pack
-      Dependencies:
-        Dependency_0: common
-    Info_2:
-      Name: player_pack2
-      Dependencies:
-        Dependency_0: common

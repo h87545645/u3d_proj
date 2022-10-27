@@ -32,16 +32,7 @@ public class Pelican : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 显示文字.
-    /// </summary>
-    public void Speak(string sentence)
-    {
-        _sentenceQueue.Enqueue(sentence);
-        //重复调用 文字打印机 方法.
-        InvokeRepeating("ShowText", 0, Time.deltaTime * 0.01f);
 
-    }
 
 
 }
