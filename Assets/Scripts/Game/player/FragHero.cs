@@ -28,7 +28,7 @@ public class FragHero : MonoBehaviour
     public Game_Direction direction = Game_Direction.None;
     
     /// <summary>
-    /// 缓存0.1秒前的方向状态
+    /// ????0.1??????????
     /// </summary>
     public Game_Direction lastDirection = Game_Direction.None;
 
@@ -118,11 +118,11 @@ public class FragHero : MonoBehaviour
         //    {
 
         //    }
-        //    Debug.LogFormat("{0}??????×?{1}", g1.name, g2.name);
+        //    Debug.LogFormat("{0}?????????{1}", g1.name, g2.name);
         //});
         //CollisionListerner.onCollisionStay2D.AddListener(delegate (GameObject g1, GameObject g2)
         //{
-        //    Debug.LogFormat("{0}??×???{1}", g1.name, g2.name);
+        //    Debug.LogFormat("{0}???????{1}", g1.name, g2.name);
         //    if (g2.tag == "platform")
         //    {
 
@@ -130,7 +130,7 @@ public class FragHero : MonoBehaviour
         //});
         //CollisionListerner.onCollisionExit2D.AddListener(delegate (GameObject g1, GameObject g2)
         //{
-        //    Debug.LogFormat("{0}?á????×?{1}", g1.name, g2.name);
+        //    Debug.LogFormat("{0}??????????{1}", g1.name, g2.name);
         //    if (g2.tag == "platform")
         //    {
 
@@ -281,7 +281,7 @@ public class FragHero : MonoBehaviour
         return this._state;
     }
     
-    //游戏切后台自动保存
+    //???????????????
     private void OnApplicationPause(bool pause)
     {
         if (pause)
@@ -290,7 +290,7 @@ public class FragHero : MonoBehaviour
         }
     }
     
-    //游戏退出时自动保存
+    //??????????????
     private void OnApplicationQuit()
     {
         RecordUtil.Save();

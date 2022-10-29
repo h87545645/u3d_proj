@@ -43,9 +43,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.Timeline", "Unity.Tim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.Mathematics", "Unity.Mathematics.csproj", "{29e763ac-c112-0584-2ea2-bb874d7e3145}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.Mediation", "Unity.Mediation.csproj", "{459fcd3d-433f-467a-bf72-2df963881b6d}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{ec5186cd-8644-0c6c-0339-da988266f66c}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.Mediation", "Unity.Mediation.csproj", "{459fcd3d-433f-467a-bf72-2df963881b6d}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.Services.Core.Scheduler", "Unity.Services.Core.Scheduler.csproj", "{8ba26a8a-43ce-2eff-1582-deb9066c7e71}"
 EndProject
@@ -296,10 +296,10 @@ Global
 		{26df6a2a-168e-e56a-bd32-00e47527f3a2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29e763ac-c112-0584-2ea2-bb874d7e3145}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{29e763ac-c112-0584-2ea2-bb874d7e3145}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{459fcd3d-433f-467a-bf72-2df963881b6d}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{459fcd3d-433f-467a-bf72-2df963881b6d}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ec5186cd-8644-0c6c-0339-da988266f66c}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ec5186cd-8644-0c6c-0339-da988266f66c}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{459fcd3d-433f-467a-bf72-2df963881b6d}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{459fcd3d-433f-467a-bf72-2df963881b6d}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ba26a8a-43ce-2eff-1582-deb9066c7e71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8ba26a8a-43ce-2eff-1582-deb9066c7e71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{296e108d-bc4f-4557-c8a0-19963d353503}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

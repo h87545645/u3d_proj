@@ -1,38 +1,77 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using Random = System.Random;
 
-public class Pelican : MonoBehaviour
+public class Pelican : DialogBase
 {
-    public SpriteRenderer PelicanRenderer;
-    
-    private float _speed = 1;    //显示的速度.
-    private Queue<string> _sentenceQueue = new Queue<string>();
-    private string _currentSentence = string.Empty;
+    public SpriteRenderer pelicanRenderer;
+    public PelicanAnimController animController;
+    public Transform standPos;
 
-
-    /// <summary>
-    /// 文本打字机.
-    /// </summary>
-    private void ShowText()
+    protected new void Awake()
     {
-        //如果计数长度(显示速度) < 文本长度，则运行，否则停止Invoke调用当前方法.
-        if (_speed == 1)
+        base.Awake();
+        if (animController == null)
         {
-            _speed += Time.deltaTime * 2;    //每次调用增加计数.
- 
-            //m_LogingText为 需要显示的Text文本的物体.
-            // m_LogingText.GetComponent<TextMesh>().text = str.Substring(0, (int)_speed);
-            //Substring(0,2)方法：截取字符串，从下标为0的位置截取2个字符.
-        }
-        else
-        {
-            //停止Invoke调用方法.
-            CancelInvoke();
+            animController = GetComponent<PelicanAnimController>();
         }
     }
 
+    private void Start()
+    {
+        StartCoroutine(UnityUtils.DelayFuc(() =>
+        {
+            string test = GameMgr.GetInstance().langMgr.getValue("^game_guide1");
+            Speak(test);
+        },1));
+    }
+    
+    private void OnBecameInvisible()
+    {
+        float minDis = int.MaxValue;
+        int idx = 0;
+        for (int i = 0; i < standPos.childCount; i++)
+        {
+            float dis = Vector3.Distance(Camera.main.transform.position,standPos.GetChild(i).position);
+            if (minDis > dis)
+            {
+                idx = i;
+                minDis = dis;
+            }
+        }
+
+        Transform finalPos;
+        Transform area = standPos.GetChild(idx);
+        if (area.childCount > 1)
+        {
+            Random rd = new Random();
+            int finalIdx = rd.Next(area.childCount) % 10;
+            finalPos = area.GetChild(Math.Clamp(finalIdx,0,area.childCount-1));
+        }
+        else
+        {
+            finalPos = area.GetChild(0);
+        }
+        
+    }
+
+    public override void Speak(string sentence)
+    {
+        animController.Speak();
+        base.Speak(sentence);
+    }
+
+    protected override void FinishedDialog()
+    {
+        animController.FinishSpeak();
+        base.FinishedDialog();
+    }
 
 
-
+    public void FlyTo(Transform pos)
+    {
+        
+    }
 }
