@@ -6,7 +6,9 @@ using UnityEngine;
 public class FragGameCameraCtrl : MonoBehaviour
 {
 
-    public double screenHeight = 13;
+    public double screenHeight = 14;
+
+    [HideInInspector] public int currentCameraIndex = 0;
 
     private void Start()
     {
@@ -22,11 +24,11 @@ public class FragGameCameraCtrl : MonoBehaviour
     private void OnBecameInvisible()
     {
         // print("在摄像机视野外");
-        int index = (int)Math.Floor((transform.position.y + screenHeight*0.5) / screenHeight);
-        index = Math.Max(index, 0);
+        currentCameraIndex = (int)Math.Floor((transform.position.y + screenHeight*0.5) / screenHeight);
+        currentCameraIndex = Math.Max(currentCameraIndex, 0);
         if (Camera.main != null)
         {
-            Camera.main.transform.position = new Vector3(0,(float)(index * screenHeight),-10);
+            Camera.main.transform.position = new Vector3(0,(float)(currentCameraIndex * screenHeight),-10);
         }
     }
 }

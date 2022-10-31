@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = System.Random;
@@ -9,6 +10,8 @@ public class Pelican : DialogBase
     public SpriteRenderer pelicanRenderer;
     public PelicanAnimController animController;
     public Transform standPos;
+
+    [HideInInspector] public bool isVisible;
 
     protected new void Awake()
     {
@@ -27,9 +30,15 @@ public class Pelican : DialogBase
             Speak(test);
         },1));
     }
-    
+
+    private void OnBecameVisible()
+    {
+        isVisible = true;
+    }
+
     private void OnBecameInvisible()
     {
+        isVisible = false;
         float minDis = int.MaxValue;
         int idx = 0;
         for (int i = 0; i < standPos.childCount; i++)
@@ -72,6 +81,7 @@ public class Pelican : DialogBase
 
     public void FlyTo(Transform pos)
     {
-        
+        pelicanRenderer.flipX = pos.position.x < transform.position.x ? true : false;
+        transform.DOMove(pos.position,1,true);
     }
 }

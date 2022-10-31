@@ -14,7 +14,7 @@ public class PelicanAnimController : MonoBehaviour
         {
             animtor = GetComponent<Animator>();
         }
-        InvokeRepeating("RandomIdelAnim", 0, 10);
+        InvokeRepeating("RandomIdelAnim", 7, 10);
     }
 
     // Update is called once per frame
