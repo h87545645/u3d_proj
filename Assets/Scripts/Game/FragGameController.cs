@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class FragGameController : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class FragGameController : MonoBehaviour
     public FragHero fragHero;
 
     public Pelican pelican;
+
+    public Light2D globalLight;
+    
+    
     
     // Start is called before the first frame update
     void Start()
