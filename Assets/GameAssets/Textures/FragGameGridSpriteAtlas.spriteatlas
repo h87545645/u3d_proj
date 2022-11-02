@@ -373,7 +373,34 @@ SpriteAtlas:
   - {fileID: 1460803151, guid: 2349fce831cfeeb459d3881de8bd0902, type: 3}
   - {fileID: 1109890645, guid: 2349fce831cfeeb459d3881de8bd0902, type: 3}
   - {fileID: 1193091509, guid: 2349fce831cfeeb459d3881de8bd0902, type: 3}
-  - {fileID: 21300000, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: -885777013, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: -1462471633, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: -872875885, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: -1516245223, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: 2100767739, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: -1920143841, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: -843683542, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: -666811007, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: -242066546, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: 780028754, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: 188816732, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: 745906036, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: -2139307122, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: 1403654646, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: 1558384342, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: -893507926, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: 1118377929, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: 2032484620, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: 498818137, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: -568423747, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: -322739948, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: 1838487990, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: 605881666, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: 300919550, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: -1247375248, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: 212301141, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: -329961474, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
+  - {fileID: 601992608, guid: 02d9b54bbf1c1494f9502a365fe5fc4b, type: 3}
   - {fileID: -1817373737, guid: 1d4e823cdff8cc8498d1a2e02a5a0854, type: 3}
   - {fileID: 314149698, guid: 1d4e823cdff8cc8498d1a2e02a5a0854, type: 3}
   - {fileID: -1333746032, guid: 1d4e823cdff8cc8498d1a2e02a5a0854, type: 3}
@@ -997,7 +1024,34 @@ SpriteAtlas:
   - tile_jungle_tree_dark_21
   - tile_jungle_tree_dark_22
   - tile_jungle_tree_dark_23
-  - tile_jungle_bridge
+  - tile_jungle_bridge_24
+  - tile_jungle_bridge_25
+  - tile_jungle_bridge_26
+  - tile_jungle_bridge_27
+  - tile_jungle_bridge_20
+  - tile_jungle_bridge_21
+  - tile_jungle_bridge_22
+  - tile_jungle_bridge_23
+  - tile_jungle_bridge_15
+  - tile_jungle_bridge_14
+  - tile_jungle_bridge_17
+  - tile_jungle_bridge_16
+  - tile_jungle_bridge_11
+  - tile_jungle_bridge_10
+  - tile_jungle_bridge_13
+  - tile_jungle_bridge_12
+  - tile_jungle_bridge_19
+  - tile_jungle_bridge_18
+  - tile_jungle_bridge_6
+  - tile_jungle_bridge_7
+  - tile_jungle_bridge_4
+  - tile_jungle_bridge_5
+  - tile_jungle_bridge_2
+  - tile_jungle_bridge_3
+  - tile_jungle_bridge_0
+  - tile_jungle_bridge_1
+  - tile_jungle_bridge_8
+  - tile_jungle_bridge_9
   - tile_jungle_slopes_grey_23
   - tile_jungle_slopes_grey_22
   - tile_jungle_slopes_grey_18
