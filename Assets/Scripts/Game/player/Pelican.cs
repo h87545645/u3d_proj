@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using Random = System.Random;
 
 public class Pelican : DialogBase
@@ -10,6 +11,8 @@ public class Pelican : DialogBase
     public SpriteRenderer pelicanRenderer;
     public PelicanAnimController animController;
     public Transform standPos;
+    public Light2D globalLight;
+    
 
     [HideInInspector] public bool isVisible;
 

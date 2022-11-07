@@ -15,6 +15,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/211e75180efa4e0fb5772e391a398210157800/40/6caad566/SpriteRenderer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/211e75180efa4e0fb5772e391a398210157800/4c/d8ed402d/PlayerPrefs.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/81426fb2f082419eb14e96c5244705f02aa00/9f/444a6e08/ShortcutExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/ChainPack/Chain2D/Editor/ChainEditor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/player/PelicanAnimController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/player/StatePattern/FallingState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/player/StatePattern/WalkingState.cs" root0="FORCE_HIGHLIGHTING" />
@@ -107,6 +108,7 @@
       <workItem from="1667306336591" duration="692000" />
       <workItem from="1667398457163" duration="604000" />
       <workItem from="1667478879014" duration="594000" />
+      <workItem from="1667825047855" duration="3037000" />
     </task>
     <servers />
   </component>

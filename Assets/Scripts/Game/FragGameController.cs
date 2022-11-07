@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,9 +13,12 @@ public class FragGameController : MonoBehaviour
     public Pelican pelican;
 
     public Light2D globalLight;
-    
-    
-    
+
+    private void Awake()
+    {
+        EventCenter.AddListener<int>(Game_Event.FragGameCameraMove,OnCameraMove);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,5 +29,17 @@ public class FragGameController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnCameraMove(int index)
+    {
+        switch (index)
+        {
+            case 6:
+            {
+                globalLight.intensity = 0.2f;
+                break;
+            }
+        }
     }
 }

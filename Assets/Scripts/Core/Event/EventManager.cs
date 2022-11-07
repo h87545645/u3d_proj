@@ -11,30 +11,30 @@ public static class EventCenter
 	static Dictionary<Game_Event, Delegate> eventHandles;
 
 	/// <summary>
-	/// 发送事件
+	/// ???????
 	/// </summary>
-	/// <param name="eventName">事件名</param>
-	[Obsolete("已过时，请使用PostEvent函数")]
+	/// <param name="eventName">?????</param>
+	[Obsolete("???????????PostEvent????")]
 	public static void SendEvent(Game_Event eventName)
 	{
 		PostEvent(eventName);
 	}
 
 	/// <summary>
-	/// 发送事件
+	/// ???????
 	/// </summary>
-	/// <param name="eventName">事件名</param>
-	/// <param name="value">数据</param>
-	[Obsolete("已过时，请使用PostEvent函数")]
+	/// <param name="eventName">?????</param>
+	/// <param name="value">????</param>
+	[Obsolete("???????????PostEvent????")]
 	public static void SendEvent(Game_Event eventName, object value)
 	{
 		PostEvent(eventName, value);
 	}
 
 	/// <summary>
-	/// 发送事件
+	/// ???????
 	/// </summary>
-	/// <param name="eventName">事件名</param>
+	/// <param name="eventName">?????</param>
 	public static void PostEvent(Game_Event eventName)
 	{
 		if (eventHandles == null) return;
@@ -49,19 +49,19 @@ public static class EventCenter
 			}
 			else if (d is EventHandle<object>)
 			{
-				//兼容之前旧版本EgoEventCenter逻辑
+				//????????汾EgoEventCenter???
 				EventHandle<object> call2 = d as EventHandle<object>;
 				call2(null);
 			}
 			else
 			{
-				throw new Exception(string.Format("事件{0}包含着不同类型的委托", eventName));
+				throw new Exception(string.Format("???{0}????????????????", eventName));
 			}
 		}
 	}
 
 	/// <summary>
-	/// 发送事件
+	/// ???????
 	/// </summary>
 	/// <param name="eventName"></param>
 	/// <param name="value"></param>
@@ -80,13 +80,13 @@ public static class EventCenter
 			}
 			else
 			{
-				throw new Exception(string.Format("事件{0}包含着不同类型的委托{1}", eventName, d.GetType()));
+				throw new Exception(string.Format("???{0}????????????????{1}", eventName, d.GetType()));
 			}
 		}
 	}
 
 	/// <summary>
-	/// 发送事件
+	/// ???????
 	/// </summary>
 	/// <param name="eventName"></param>
 	/// <param name="value1"></param>
@@ -107,13 +107,13 @@ public static class EventCenter
 			}
 			else
 			{
-				throw new Exception(string.Format("事件{0}包含着不同类型的委托{1}", eventName, d.GetType()));
+				throw new Exception(string.Format("???{0}????????????????{1}", eventName, d.GetType()));
 			}
 		}
 	}
 
 	/// <summary>
-	/// 发送事件
+	/// ???????
 	/// </summary>
 	/// <param name="eventName"></param>
 	/// <param name="value1"></param>
@@ -136,16 +136,16 @@ public static class EventCenter
 			}
 			else
 			{
-				throw new Exception(string.Format("事件{0}包含着不同类型的委托{1}", eventName, d.GetType()));
+				throw new Exception(string.Format("???{0}????????????????{1}", eventName, d.GetType()));
 			}
 		}
 	}
 
 	/// <summary>
-	/// 监听事件
+	/// ???????
 	/// </summary>
-	/// <param name="eventName">事件名</param>
-	/// <param name="handle">回调</param>
+	/// <param name="eventName">?????</param>
+	/// <param name="handle">???</param>
 	public static void AddListener(Game_Event eventName, EventHandle handle)
 	{
 		OnListeningAdd(eventName, handle);
@@ -153,10 +153,10 @@ public static class EventCenter
 	}
 
 	/// <summary>
-	/// 监听事件
+	/// ???????
 	/// </summary>
-	/// <param name="eventName">事件名</param>
-	/// <param name="handle">回调</param>
+	/// <param name="eventName">?????</param>
+	/// <param name="handle">???</param>
 	public static void AddListener(Game_Event eventName, EventHandle<object> handle)
 	{
 		OnListeningAdd(eventName, handle);
@@ -164,7 +164,7 @@ public static class EventCenter
 	}
 
 	/// <summary>
-	/// 监听事件
+	/// ???????
 	/// </summary>
 	/// <param name="eventName"></param>
 	/// <param name="handle"></param>
@@ -176,7 +176,7 @@ public static class EventCenter
 	}
 
 	/// <summary>
-	/// 监听事件
+	/// ???????
 	/// </summary>
 	/// <param name="eventName"></param>
 	/// <param name="handle"></param>
@@ -189,7 +189,7 @@ public static class EventCenter
 	}
 
 	/// <summary>
-	/// 监听事件
+	/// ???????
 	/// </summary>
 	/// <param name="eventName"></param>
 	/// <param name="handle"></param>
@@ -203,32 +203,32 @@ public static class EventCenter
 	}
 
 	/// <summary>
-	/// 移除事件监听
+	/// ??????????
 	/// </summary>
-	/// <param name="eventName">事件名</param>
-	/// <param name="handle">回调</param>
-	[Obsolete("已过时，请使用RemoveListener函数")]
+	/// <param name="eventName">?????</param>
+	/// <param name="handle">???</param>
+	[Obsolete("???????????RemoveListener????")]
 	public static void RemoveHandle(Game_Event eventName, EventHandle handle)
 	{
 		RemoveListener(eventName, handle);
 	}
 
 	/// <summary>
-	/// 移除事件监听
+	/// ??????????
 	/// </summary>
-	/// <param name="eventName">事件名</param>
-	/// <param name="handle">回调</param>
-	[Obsolete("已过时，请使用RemoveListener函数")]
+	/// <param name="eventName">?????</param>
+	/// <param name="handle">???</param>
+	[Obsolete("???????????RemoveListener????")]
 	public static void RemoveHandle(Game_Event eventName, EventHandle<object> handle)
 	{
 		RemoveListener<object>(eventName, handle);
 	}
 
 	/// <summary>
-	/// 移除事件监听
+	/// ??????????
 	/// </summary>
-	/// <param name="eventName">事件名</param>
-	/// <param name="handle">回调</param>
+	/// <param name="eventName">?????</param>
+	/// <param name="handle">???</param>
 	public static void RemoveListener(Game_Event eventName, EventHandle handle)
 	{
 		if (eventHandles == null)
@@ -241,19 +241,19 @@ public static class EventCenter
 	}
 
 	/// <summary>
-	/// 移除事件监听
+	/// ??????????
 	/// </summary>
-	/// <param name="eventName">事件名</param>
-	/// <param name="handle">回调</param>
+	/// <param name="eventName">?????</param>
+	/// <param name="handle">???</param>
 	public static void RemoveListener(Game_Event eventName, EventHandle<object> handle)
 	{
 		RemoveListener<object>(eventName, handle);
 	}
 
 	/// <summary>
-	/// 移除事件监听
+	/// ??????????
 	/// </summary>
-	/// <param name="eventName">事件名</param>
+	/// <param name="eventName">?????</param>
 	/// <param name="handle"></param>
 	public static void RemoveListener<T>(Game_Event eventName, EventHandle<T> handle)
 	{
@@ -267,9 +267,9 @@ public static class EventCenter
 	}
 
 	/// <summary>
-	/// 移除事件监听
+	/// ??????????
 	/// </summary>
-	/// <param name="eventName">事件名</param>
+	/// <param name="eventName">?????</param>
 	/// <param name="handle"></param>
 	public static void RemoveListener<T1, T2>(Game_Event eventName, EventHandle<T1, T2> handle)
 	{
@@ -283,9 +283,9 @@ public static class EventCenter
 	}
 
 	/// <summary>
-	/// 移除事件监听
+	/// ??????????
 	/// </summary>
-	/// <param name="eventName">事件名</param>
+	/// <param name="eventName">?????</param>
 	/// <param name="handle"></param>
 	public static void RemoveListener<T1, T2, T3>(Game_Event eventName, EventHandle<T1, T2, T3> handle)
 	{
@@ -299,7 +299,7 @@ public static class EventCenter
 	}
 
 	/// <summary>
-	/// 移除事件
+	/// ??????
 	/// </summary>
 	/// <param name="eventName"></param>
 	public static void RemoveEvent(Game_Event eventName)
@@ -337,7 +337,7 @@ public static class EventCenter
 		Delegate d = eventHandles[eventName];
 		if (d != null && d.GetType() != callback.GetType())
 		{
-			throw new Exception(string.Format("尝试添加两种不同类型的委托,委托1为{0}，委托2为{1}", d.GetType(), callback.GetType()));
+			throw new Exception(string.Format("??????????????????????,???1?{0}?????2?{1}", d.GetType(), callback.GetType()));
 		}
 	}
 
@@ -348,17 +348,17 @@ public static class EventCenter
 			Delegate d = eventHandles[eventName];
 			if (d != null && d.GetType() != callback.GetType())
 			{
-				throw new Exception(string.Format("尝试移除不同类型的事件，事件名{0},已存储的委托类型{1},当前事件委托{2}", eventName, d.GetType(), callback.GetType()));
+				throw new Exception(string.Format("?????????????????????????{0},??洢?????????{1},?????????{2}", eventName, d.GetType(), callback.GetType()));
 			}
 		}
 		else
 		{
-			throw new Exception(string.Format("没有事件名{0}", eventName));
+			throw new Exception(string.Format("????????{0}", eventName));
 		}
 	}
 
 	/// <summary>
-	/// 移除所有事件
+	/// ??????????
 	/// </summary>
 	public static void RemoveAllEvent()
 	{

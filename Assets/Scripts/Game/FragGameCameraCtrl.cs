@@ -29,6 +29,7 @@ public class FragGameCameraCtrl : MonoBehaviour
         if (Camera.main != null)
         {
             Camera.main.transform.position = new Vector3(0,(float)(currentCameraIndex * screenHeight),-10);
+            EventCenter.PostEvent(Game_Event.FragGameCameraMove,currentCameraIndex);
         }
     }
 }
