@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
 
 public class FragHero : MonoBehaviour
@@ -10,6 +11,11 @@ public class FragHero : MonoBehaviour
 
     public BoxCollider2D collider2D;
     public Animator fragAnim;
+
+    public Light2D light;
+
+    public Transform groundCheck;
+    public LayerMask grond;
     
     public float jumpVaryX = 1200;
     public float jumpStaticX = 200;
@@ -154,11 +160,16 @@ public class FragHero : MonoBehaviour
     
     
 
-    void FixedUpdate()
+    // void FixedUpdate()
+    // {
+    //
+    //     isGround = Physics2D.OverlapCircle(groundCheck.position, 0.1f, grond);
+    //
+    // }
+
+    public void OnLight(bool on)
     {
-        
-        
-       
+        light.gameObject.SetActive(on);
     }
     
     /// <summary>

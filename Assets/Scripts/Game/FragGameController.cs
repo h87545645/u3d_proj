@@ -37,7 +37,23 @@ public class FragGameController : MonoBehaviour
         {
             case 6:
             {
+                fragHero.OnLight(true);
                 globalLight.intensity = 0.2f;
+                break;
+            }
+            case 7:
+            {
+                globalLight.intensity = 0f;
+                break;
+            }
+            case 8:
+            {
+                globalLight.intensity = 0.5f;
+                break;
+            }
+            default:
+            {
+                fragHero.OnLight(false);
                 break;
             }
         }
