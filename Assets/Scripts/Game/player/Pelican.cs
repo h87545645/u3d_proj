@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Unity.VisualScripting;
@@ -11,8 +12,13 @@ public class Pelican : DialogBase
     public SpriteRenderer pelicanRenderer;
     public PelicanAnimController animController;
     public Transform standPos;
-    public Light2D globalLight;
+    public float flySpeed = 1;
+
+    private bool isFlying = false;
     
+    // private delegate void PelicanCallBack();
+
+    private Action _calllback;
 
     [HideInInspector] public bool isVisible;
 
@@ -27,11 +33,11 @@ public class Pelican : DialogBase
 
     private void Start()
     {
-        StartCoroutine(UnityUtils.DelayFuc(() =>
-        {
-            string test = GameMgr.GetInstance().langMgr.getValue("^game_guide1");
-            Speak(test);
-        },1));
+        // StartCoroutine(UnityUtils.DelayFuc(() =>
+        // {
+        //     string test = GameMgr.GetInstance().langMgr.getValue("^game_guide1");
+        //     Speak(test);
+        // },1));
     }
 
     private void OnBecameVisible()
@@ -42,11 +48,15 @@ public class Pelican : DialogBase
     private void OnBecameInvisible()
     {
         isVisible = false;
+    }
+
+    private Transform GetNearestPos(Transform target)
+    {
         float minDis = int.MaxValue;
         int idx = 0;
         for (int i = 0; i < standPos.childCount; i++)
         {
-            float dis = Vector3.Distance(Camera.main.transform.position,standPos.GetChild(i).position);
+            float dis = Vector3.Distance(target.position,standPos.GetChild(i).position);
             if (minDis > dis)
             {
                 idx = i;
@@ -66,7 +76,7 @@ public class Pelican : DialogBase
         {
             finalPos = area.GetChild(0);
         }
-        
+        return finalPos;
     }
 
     public override void Speak(string sentence)
@@ -79,12 +89,61 @@ public class Pelican : DialogBase
     {
         animController.FinishSpeak();
         base.FinishedDialog();
+        if (_calllback != null)
+        {
+            _calllback();
+            _calllback = null;
+        }
+    }
+
+    public void RandomSpeak()
+    {
+        Random rd = new Random();
+        int randomIndex = rd.Next(20);
+        string text = GameMgr.GetInstance().langMgr.getValue("^game_random"+randomIndex);
+        Speak(text);
+    }
+
+    public void GuideSpeak(Action callback)
+    {
+        _calllback = callback;
+        for (int i = 1; i <= 3; i++)
+        {
+            string str = GameMgr.GetInstance().langMgr.getValue("^game_guide"+i);
+            Speak(str);
+        }
     }
 
 
-    public void FlyTo(Transform pos)
+    public void LookAt(Transform pos)
     {
         pelicanRenderer.flipX = pos.position.x < transform.position.x ? true : false;
-        transform.DOMove(pos.position,1,true);
+    }
+    
+    public IEnumerator FlyTo(Transform pos , Action action = null)
+    {
+        isFlying = true;
+        LookAt(pos);
+        float dis = Vector3.Distance(pos.position,transform.position);
+        float time = dis / flySpeed;
+        animController.Fly();
+        transform.DOMove(pos.position,time,true);
+        yield return new WaitForSeconds(time);
+        animController.FlyEnd();
+        isFlying = false;
+        if (action != null)
+        {
+            action();
+        }
+    }
+
+    public void FlyToPlayer(Transform target, Action action = null)
+    {
+        Transform nearPos = GetNearestPos(target);
+        if (isFlying)
+        {
+            transform.DOKill();
+        }
+        StartCoroutine(FlyTo(nearPos, action));
     }
 }

@@ -5,6 +5,17 @@ using UnityEngine.UI;
 
 public class FragGameMainUI : PanelBase
 {
+    public Transform root;
+    protected override void Awake()
+    {
+        if (root == null)
+        {
+            root = transform.Find("Root");
+        }
+        EventCenter.AddListener<bool>(Game_Event.FragActiveAllUI,OnActiveAllUI);
+        base.Awake();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,5 +33,10 @@ public class FragGameMainUI : PanelBase
     void Update()
     {
         
+    }
+
+    private void OnActiveAllUI(bool active)
+    {
+        root.gameObject.SetActive(active);
     }
 }

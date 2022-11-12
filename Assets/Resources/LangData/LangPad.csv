@@ -3,3 +3,8 @@
 ^exit	Exit	退出游戏
 ^lang	中文	En
 ^game_guide1	Oh,where are you from!	老天,你怎么来的
+^game_guide2	guide text 2!	引导2
+^game_guide3	guide text 3!	引导3
+
+
+^game_random1	emm,maybe I can fly you up	老弟，也许我能带你飞上去

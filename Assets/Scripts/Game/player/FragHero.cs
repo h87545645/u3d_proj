@@ -16,6 +16,8 @@ public class FragHero : MonoBehaviour
 
     public Transform groundCheck;
     public LayerMask grond;
+
+    public Animator guideAnim;
     
     public float jumpVaryX = 1200;
     public float jumpStaticX = 200;
@@ -71,11 +73,12 @@ public class FragHero : MonoBehaviour
         if (recordStr != "")
         {
             Vector2 pos = JsonUtility.FromJson<Vector2>(RecordUtil.Get("PlayerPosition"));
-            if (pos != null)
-            {
-                this._lastPosition = pos;
-                this.heroRenderer.transform.position = pos;
-            }
+            this._lastPosition = pos;
+            // if (pos != null)
+            // {
+            //     this._lastPosition = pos;
+            //     this.heroRenderer.transform.position = pos;
+            // }
         }
     }
 
@@ -166,6 +169,19 @@ public class FragHero : MonoBehaviour
     //     isGround = Physics2D.OverlapCircle(groundCheck.position, 0.1f, grond);
     //
     // }
+
+    public void OnGuide()
+    {
+        _lastPosition = new Vector2(-0.84f, -4.61f);
+        heroRigidbody2D.gameObject.SetActive(false);
+        guideAnim.gameObject.SetActive(true);
+        guideAnim.SetTrigger("guide");
+    }
+
+    public void SetRecordPos()
+    {
+        this.heroRenderer.transform.position = _lastPosition;
+    }
 
     public void OnLight(bool on)
     {
@@ -292,20 +308,6 @@ public class FragHero : MonoBehaviour
         return this._state;
     }
     
-    //???????????????
-    private void OnApplicationPause(bool pause)
-    {
-        if (pause)
-        {
-            RecordUtil.Save();
-        }
-    }
-    
-    //??????????????
-    private void OnApplicationQuit()
-    {
-        RecordUtil.Save();
-    }
 
     [System.Serializable]
     class PlayerRecord

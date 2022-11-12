@@ -10,6 +10,8 @@ public class FragGameCameraCtrl : MonoBehaviour
 
     [HideInInspector] public int currentCameraIndex = 0;
 
+    public bool enable = false;
+
     private void Start()
     {
         this.OnBecameInvisible();
@@ -23,6 +25,10 @@ public class FragGameCameraCtrl : MonoBehaviour
  
     private void OnBecameInvisible()
     {
+        if (!enable)
+        {
+            return;
+        }
         // print("在摄像机视野外");
         currentCameraIndex = (int)Math.Floor((transform.position.y + screenHeight*0.5) / screenHeight);
         currentCameraIndex = Math.Max(currentCameraIndex, 0);

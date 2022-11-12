@@ -7,7 +7,7 @@ using System.Text;
 
 public class RecordUtil 
 {
-    //游戏存档保存的根目录
+    //????浵????????
     static string RecordRootPath
     {
         get
@@ -20,13 +20,13 @@ public class RecordUtil
         }
     }
 
-    //游戏存档
+    //????浵
     static Dictionary<string, string> recordDic = new Dictionary<string, string>();
-    //标记某个游戏存档是否需要重新写入
+    //??????????浵??????????д??
     static List<string> recordDirty = new List<string>();
-    //标记某个游戏存档是否要删除
+    //??????????浵???????
     static List<string> deletaDirty = new List<string>();
-    //表示某个游戏存档读取时需要重新从文件读取
+    //??????????浵??????????????????
     static List<string> readDirty = new List<string>();
 
     static private readonly UTF8Encoding UTF8 = new UTF8Encoding(false);
@@ -47,7 +47,7 @@ public class RecordUtil
         }
     }
 
-    //强制写入文件
+    //???д?????
     public static void Save()
     {
         foreach (string key in deletaDirty)

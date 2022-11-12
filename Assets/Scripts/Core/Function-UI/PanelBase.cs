@@ -9,13 +9,13 @@ public class PanelBase : MonoBehaviour
 {
     private Dictionary<string, List<UIBehaviour>> dict_allUI = new Dictionary<string, List<UIBehaviour>>();
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         FindAllControl();
     }
 
     /// <summary>
-    /// 查找所有子节点控件
+    /// ??????????????
     /// </summary>
     protected virtual void FindAllControl()
     {
@@ -28,19 +28,19 @@ public class PanelBase : MonoBehaviour
     }
 
     /// <summary>
-    /// 得到对应名字的对应控件脚本
+    /// ???????????????????
     /// </summary>
-    /// <param name="sControlName">控件名字</param>
-    /// <typeparam name="T">泛型, 指UI控件</typeparam>
-    /// <returns>返回对应的ui控件, 不存在则返回null值</returns>
+    /// <param name="sControlName">???????</param>
+    /// <typeparam name="T">????, ?UI???</typeparam>
+    /// <returns>????????ui???, ?????????null?</returns>
     protected T GetControl<T>(string sControlName) where T : UIBehaviour
     {
         if (dict_allUI.ContainsKey(sControlName))
         {
             for (int i = 0; i < dict_allUI[sControlName].Count; i++)
             {
-                //对应字典的值（是个集合）中，符合要求的类型的
-                //则返回出去，这样外部就
+                //???????????????????У??????????????
+                //???????????????
                 if (dict_allUI[sControlName][i] is T)
                 {
                     return dict_allUI[sControlName][i] as T;
@@ -73,7 +73,7 @@ public class PanelBase : MonoBehaviour
         }
     }
 
-    #region 让子类重写（覆盖）此方法，来实现UI的隐藏与出现
+    #region ????????д???????????????????UI???????????
     /// <summary>
     /// ???ui????
     /// </summary>

@@ -20,6 +20,7 @@ public enum Game_Event
     FragGameJump,
     FragGameDirection,
     FragGameCameraMove,
+    FragActiveAllUI,
 }
 
 public enum Game_Direction
