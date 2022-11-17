@@ -14,6 +14,14 @@ public class FragMenuMainUI : PanelBase
     {
         GetControl<Button>("StartButton").onClick.AddListener(() =>
         {
+            // clear player game record
+            FragGameRecord.GetInstance().reocrd.playerPosition = new Vector2(0, 0);
+            FragGameRecord.GetInstance().reocrd.playerAlreadyGuide = false;
+            SceneMgr.GetInstance().LoadScene("FragGameScene",null);
+        });
+        
+        GetControl<Button>("ContinueButton").onClick.AddListener(() =>
+        {
             SceneMgr.GetInstance().LoadScene("FragGameScene",null);
         });
         

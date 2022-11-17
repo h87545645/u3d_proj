@@ -6,37 +6,37 @@ using UnityEngine.Events;
 public class SoundMgr : MonoSingletonBase<SoundMgr>
 {
     /// <summary>
-    /// 缓存背景音乐的播放器
+    /// ???汳????????????
     /// </summary>
     private AudioSource uObj_bgAudio = null;
 
     /// <summary>
-    /// 音效播放器的游戏对象
+    /// ??Ч???????????????
     /// </summary>
     private GameObject uObj_effectObj = null;
 
     /// <summary>
-    /// 背景音量
+    /// ????????
     /// </summary>
     private float fBgVolume = 1;
 
     /// <summary>
-    /// 音效音量
+    /// ??Ч????
     /// </summary>
     private float fEffectVolume = 1;
 
     /// <summary>
-    /// 背景音效基础路径
+    /// ??????Ч????·??
     /// </summary>
     private string sBgSoundBasePath = "SoundRes/Bg/";
     /// <summary>
-    /// 音效基础路径
+    /// ??Ч????·??
     /// </summary>
     private string sEffectSoundBasePath = "SoundRes/Effect/";
 
 
     /// <summary>
-    /// 缓存当前播放着的所有音效播放器
+    /// ???浱??????????????Ч??????
     /// </summary>
     /// <typeparam name="AudioSource"></typeparam>
     /// <returns></returns>
@@ -56,9 +56,9 @@ public class SoundMgr : MonoSingletonBase<SoundMgr>
 
     }
 
-    #region  背景音乐
+    #region  ????????
     /// <summary>
-    /// 同步播放背景音乐
+    /// ??????????????
     /// </summary>
     /// <param name="name"></param>
     public void PlayBgMusic(string name)
@@ -78,7 +78,7 @@ public class SoundMgr : MonoSingletonBase<SoundMgr>
     }
 
     /// <summary>
-    /// 异步播放背景音乐
+    /// ?????????????
     /// </summary>
     /// <param name="name"></param>
     public void PlayBgMusicAsync(string name)
@@ -98,7 +98,7 @@ public class SoundMgr : MonoSingletonBase<SoundMgr>
     }
 
     /// <summary>
-    /// 改变背景音乐的音量大小
+    /// ????????????????С
     /// </summary>
     /// <param name="nVolume"></param>
     public void ChangeBgVolume(float nVolume)
@@ -116,7 +116,7 @@ public class SoundMgr : MonoSingletonBase<SoundMgr>
     }
 
     /// <summary>
-    /// 暂停播放背景音乐
+    /// ??????????????
     /// </summary>
     public void PauseBgMusic()
     {
@@ -125,7 +125,7 @@ public class SoundMgr : MonoSingletonBase<SoundMgr>
     }
 
     /// <summary>
-    /// 停止播放背景音乐
+    /// ?????????????
     /// </summary>
     public void StopBgMusic()
     {
@@ -134,7 +134,7 @@ public class SoundMgr : MonoSingletonBase<SoundMgr>
     }
     #endregion
 
-    #region 音效处理
+    #region ??Ч????
     private void InitEffectSoundObj()
     {
         if (uObj_effectObj == null)
@@ -145,7 +145,7 @@ public class SoundMgr : MonoSingletonBase<SoundMgr>
         }
     }
 
-    //播放音效
+    //??????Ч
     public void PlayEffectSound(string sName, bool bIsLoop, UnityAction<AudioSource> callback = null)
     {
         InitEffectSoundObj();
@@ -154,10 +154,10 @@ public class SoundMgr : MonoSingletonBase<SoundMgr>
         AudioSource uObj_curAudio = uObj_effectObj.AddComponent<AudioSource>();
         uObj_curAudio.clip = uObj_effectClip;
         uObj_curAudio.loop = bIsLoop;
-        //调整大小 
+        //??????С 
         uObj_curAudio.volume = fEffectVolume;
         uObj_curAudio.Play();
-        //音效资源异步加载结束后，将这个音效组件加入集合中
+        //??Ч????????????????????Ч???????????
         list_allEffectAudio.Add(uObj_curAudio);
         if (callback != null)
         {
@@ -165,7 +165,7 @@ public class SoundMgr : MonoSingletonBase<SoundMgr>
         }
     }
 
-    //播放音效
+    //??????Ч
     public void PlayEffectSoundAsync(string sName, bool bIsLoop, UnityAction<AudioSource> callback = null)
     {
         InitEffectSoundObj();
@@ -175,10 +175,10 @@ public class SoundMgr : MonoSingletonBase<SoundMgr>
             AudioSource uObj_curAudio = uObj_effectObj.AddComponent<AudioSource>();
             uObj_curAudio.clip = obj as AudioClip;
             uObj_curAudio.loop = bIsLoop;
-            //调整大小 
+            //??????С 
             uObj_curAudio.volume = fEffectVolume;
             uObj_curAudio.Play();
-            //音效资源异步加载结束后，将这个音效组件加入集合中
+            //??Ч????????????????????Ч???????????
             list_allEffectAudio.Add(uObj_curAudio);
             if (callback != null)
             {
@@ -187,7 +187,7 @@ public class SoundMgr : MonoSingletonBase<SoundMgr>
         });
     }
 
-    //改变所有音效大小
+    //?????????Ч??С
     public void ChangeSoundValue(float nVolume)
     {
         fEffectVolume = nVolume;
@@ -197,7 +197,7 @@ public class SoundMgr : MonoSingletonBase<SoundMgr>
         }
     }
 
-    //停止音效
+    //????Ч
     public void StopSound(AudioSource uObj_effectAudio)
     {
         if (list_allEffectAudio.Contains(uObj_effectAudio))

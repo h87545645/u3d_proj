@@ -9,7 +9,7 @@ public class RecordTest : MonoBehaviour
     void Start()
     {
         Setting setting = new Setting();
-        setting.stringValue = "测试";
+        setting.stringValue = "????";
         setting.intValue = 10000;
 
         RecordUtil.Set("setting", JsonUtility.ToJson(setting));
@@ -22,7 +22,7 @@ public class RecordTest : MonoBehaviour
     private Setting m_Setting = null;
     private void OnGUI()
     {
-        if (GUI.Button(new Rect(300, 100, 200, 100), "<size=25>获取存档</size>"))
+        if (GUI.Button(new Rect(300, 100, 200, 100), "<size=25>????浵</size>"))
         {
             m_Setting = JsonUtility.FromJson<Setting>(RecordUtil.Get("setting"));
         }
@@ -32,7 +32,7 @@ public class RecordTest : MonoBehaviour
         }
     }
 
-    //游戏切后台自动保存
+    //????к?????????
     private void OnApplicationPause(bool pause)
     {
         if (pause)

@@ -14,13 +14,13 @@ public class FragGameController : MonoBehaviour
 
     public Light2D globalLight;
 
-    private long _totalPlayTime = 0;
+    // private long _totalPlayTime = 0;
 
     // private float _curLevelTime = 0;
     //
     // private bool _levelLongStay = false;
 
-    private bool _isAlreadyGuide = true;
+    // private bool _isAlreadyGuide = true;
     
     
     //???????????????
@@ -28,7 +28,7 @@ public class FragGameController : MonoBehaviour
     {
         if (pause)
         {
-            RecordPlayTime();
+            FragGameRecord.GetInstance().SetRecordItem();
             RecordUtil.Save();
         }
     }
@@ -36,32 +36,20 @@ public class FragGameController : MonoBehaviour
     //??????????????
     private void OnApplicationQuit()
     {
-        RecordPlayTime();
+        FragGameRecord.GetInstance().SetRecordItem();
         RecordUtil.Save();
     }
 
     private void Awake()
     {
         EventCenter.AddListener<int>(Game_Event.FragGameCameraMove,OnCameraMove);
-        string recordStr = RecordUtil.Get("PlayerTotalTime");
-        if (recordStr != "")
-        {
-            long recordTime = JsonUtility.FromJson<long>(RecordUtil.Get("PlayerTotalTime"));
-            _totalPlayTime = recordTime;
-        }
-        
-        string recordGuideStr = RecordUtil.Get("PlayerAlreadyGuide");
-        if (recordGuideStr != "")
-        {
-            _isAlreadyGuide = JsonUtility.FromJson<bool>(RecordUtil.Get("PlayerAlreadyGuide"));
-        }
         
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        if (_isAlreadyGuide)
+        if (FragGameRecord.GetInstance().reocrd.playerAlreadyGuide)
         {
             StartGuide();
         }
@@ -74,7 +62,7 @@ public class FragGameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _totalPlayTime += (long)Time.deltaTime;
+        FragGameRecord.GetInstance().reocrd.playerTotalTime += (long)Time.deltaTime;
         // _curLevelTime += Time.deltaTime;
         // if (!_levelLongStay)
         // {
@@ -109,10 +97,6 @@ public class FragGameController : MonoBehaviour
         InvokeRepeating(nameof(OnPelicanSpeak), 35, 35);
     }
 
-    private void RecordPlayTime()
-    {
-        RecordUtil.Set("PlayerTotalTime", JsonUtility.ToJson(_totalPlayTime));
-    }
 
     private void OnPelicanSpeak()
     {

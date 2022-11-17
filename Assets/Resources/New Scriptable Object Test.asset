@@ -1,17 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2d63595b18f10f458d000bf70ee7d64, type: 3}
-  m_Name: New Scriptable Object Test
-  m_EditorClassIdentifier: 
-  m_PlayerInfo:
-  - id: 0
-    name: tsp
+version https://git-lfs.github.com/spec/v1
+oid sha256:425473fdbe4589695c45ace1dbd2d209d861ad7bbc5e110f513f8f8427605277
+size 455

@@ -47,7 +47,8 @@ public class FragHero : MonoBehaviour
         set
         {
             _lastPosition = value;
-            RecordUtil.Set("PlayerPosition", JsonUtility.ToJson(_lastPosition));
+            FragGameRecord.GetInstance().reocrd.playerPosition = value;
+            FragGameRecord.GetInstance().SetRecordItem();
         }
     }
     
@@ -69,17 +70,7 @@ public class FragHero : MonoBehaviour
         _isReady = true;
         
         //get frag last position record
-        string recordStr = RecordUtil.Get("PlayerPosition");
-        if (recordStr != "")
-        {
-            Vector2 pos = JsonUtility.FromJson<Vector2>(RecordUtil.Get("PlayerPosition"));
-            this._lastPosition = pos;
-            // if (pos != null)
-            // {
-            //     this._lastPosition = pos;
-            //     this.heroRenderer.transform.position = pos;
-            // }
-        }
+        _lastPosition = FragGameRecord.GetInstance().reocrd.playerPosition;
     }
 
 
@@ -309,11 +300,11 @@ public class FragHero : MonoBehaviour
     }
     
 
-    [System.Serializable]
-    class PlayerRecord
-    {
-        // public string stringValue;
-        // public int intValue;
-        public Vector2 playerPosition;
-    }
+    // [System.Serializable]
+    // class PlayerRecord
+    // {
+    //     // public string stringValue;
+    //     // public int intValue;
+    //     public Vector2 playerPosition;
+    // }
 }

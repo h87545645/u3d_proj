@@ -95,7 +95,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.assetbundlebrowser": {
-      "version": "file:D:\\U3D\\U3D_package\\assetbundle-browser",
+      "version": "file:C:\\U3D\\U3D_package\\assetbundle-browser",
       "depth": 0,
       "source": "local",
       "dependencies": {}
