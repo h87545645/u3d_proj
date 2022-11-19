@@ -1,7 +1,13 @@
 ﻿Lang Code	EN	SCN
 ^new_game	New Game	新游戏
+^continue_game	Continue	继续游戏
+^rank	Rank	好友排行
 ^exit	Exit	退出游戏
 ^lang	中文	En
+
+^player_record	BEST RECORD\nTIME: {0}\nJUMPS: {1}\nHEIGHT: {2} 	最好记录\n时长: {0}\n跳跃次数: {1}\n高度: {2}
+^game_completed	COMPLETED ON ATTEMPT!	到达世界最高层！
+
 ^game_guide1	Oh,where are you from!	老天,你怎么来的
 ^game_guide2	guide text 2!	引导2
 ^game_guide3	guide text 3!	引导3

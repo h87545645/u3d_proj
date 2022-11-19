@@ -11,7 +11,7 @@ public class FragGameRecord : SingletonBase<FragGameRecord>
         string recordStr = RecordUtil.Get("FragGameRecord");
         if (recordStr != "")
         {
-            PlayerRecord record = JsonUtility.FromJson<PlayerRecord>(RecordUtil.Get("PlayerPosition"));
+            PlayerRecord record = JsonUtility.FromJson<PlayerRecord>(RecordUtil.Get("FragGameRecord"));
             reocrd = record;
         }
         else
@@ -30,8 +30,10 @@ public class FragGameRecord : SingletonBase<FragGameRecord>
     public class PlayerRecord
     {
         public Vector2 playerPosition = new Vector2(0,0);
-        public long playerTotalTime = 0;
+        public float playerTotalTime = 0;
         public bool playerAlreadyGuide = false;
-        public int hightRecord = 0;
+        public float heightRecord = 0;
+        public int jumpCnt = 0;
+        public bool isCompleted = false;
     }
 }

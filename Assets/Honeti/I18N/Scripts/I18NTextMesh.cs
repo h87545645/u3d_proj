@@ -20,7 +20,7 @@ namespace Honeti
         private bool _dontOverwrite = false;
 
         [SerializeField]
-        private string[] _params;
+        public string[] _params;
 
         void OnEnable()
         {

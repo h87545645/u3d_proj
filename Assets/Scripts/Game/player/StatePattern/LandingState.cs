@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Tilemaps;
@@ -21,7 +22,8 @@ public class LandingState : IBaseState
         // TileBase cell = _fragHore.tilemap.GetTile(cellPos);
 
         _fragHore.LastPosition = _fragHore.heroRenderer.transform.position;
-        
+        FragGameRecord.GetInstance().reocrd.heightRecord = Math.Max(FragGameRecord.GetInstance().reocrd.heightRecord,_fragHore.LastPosition.y);
+        FragGameRecord.GetInstance().reocrd.jumpCnt++;
         Debug.Log("------------------------FragHore in LandingState~!");
     }
 

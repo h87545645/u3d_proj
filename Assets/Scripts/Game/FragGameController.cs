@@ -62,7 +62,7 @@ public class FragGameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FragGameRecord.GetInstance().reocrd.playerTotalTime += (long)Time.deltaTime;
+        FragGameRecord.GetInstance().reocrd.playerTotalTime += Time.deltaTime;
         // _curLevelTime += Time.deltaTime;
         // if (!_levelLongStay)
         // {
@@ -82,6 +82,7 @@ public class FragGameController : MonoBehaviour
             pelican.GuideSpeak(() =>
             {
                 fragHero.guideAnim.gameObject.SetActive(false);
+                FragGameRecord.GetInstance().reocrd.playerAlreadyGuide = true;
                 StartGame();
             });
         },3));
