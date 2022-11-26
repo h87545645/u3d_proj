@@ -7,6 +7,8 @@
 
 ^player_record	BEST RECORD\nTIME: {0}\nJUMPS: {1}\nHEIGHT: {2} 	最好记录\n时长: {0}\n跳跃次数: {1}\n高度: {2}
 ^game_completed	COMPLETED ON ATTEMPT!	到达世界最高层！
+^game_continue	CONTINUE	继续
+
 
 ^game_guide1	Oh,where are you from!	老天,你怎么来的
 ^game_guide2	guide text 2!	引导2
@@ -14,3 +16,10 @@
 
 
 ^game_random1	emm,maybe I can fly you up	老弟，也许我能带你飞上去
+^game_random2	radom2	随机2
+^game_random3	radom3	随机3
+^game_random4	radom4	随机4
+^game_random5	radom5	随机5
+^game_random6	radom6	随机6
+
+^game_completed	you really achived!	你真的上来了

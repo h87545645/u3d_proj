@@ -112,32 +112,7 @@ public class FragHero : MonoBehaviour
 
     private void Start()
     {
-        //CollisionListerner.onCollisionEnter2D.AddListener(delegate (GameObject g1, GameObject g2)
-        //{
-        //    if (g2.tag == "platform")
-        //    {
-
-        //    }
-        //    Debug.LogFormat("{0}?????????{1}", g1.name, g2.name);
-        //});
-        //CollisionListerner.onCollisionStay2D.AddListener(delegate (GameObject g1, GameObject g2)
-        //{
-        //    Debug.LogFormat("{0}???????{1}", g1.name, g2.name);
-        //    if (g2.tag == "platform")
-        //    {
-
-        //    }
-        //});
-        //CollisionListerner.onCollisionExit2D.AddListener(delegate (GameObject g1, GameObject g2)
-        //{
-        //    Debug.LogFormat("{0}??????????{1}", g1.name, g2.name);
-        //    if (g2.tag == "platform")
-        //    {
-
-        //    }
-        //});
         EventCenter.AddListener<Game_Direction,bool>(Game_Event.FragGameDirection, this.OnFragDirection);
-
         EventCenter.AddListener<float>(Game_Event.FragGameJump,this.OnFragJump);
         EventCenter.AddListener(Game_Event.FragGameCharge, this.OnFragCharge);
         EventCenter.AddListener(Game_Event.FragGameChargeCancel, this.OnFragChargeCancel);
@@ -145,6 +120,11 @@ public class FragHero : MonoBehaviour
 
 
     private void OnDestroy()
+    {
+       RemoveListener();
+    }
+
+    public void RemoveListener()
     {
         EventCenter.RemoveListener<Game_Direction,bool>(Game_Event.FragGameDirection, this.OnFragDirection);
         EventCenter.RemoveListener<float>(Game_Event.FragGameDirection, this.OnFragJump);

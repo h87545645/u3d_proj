@@ -13,6 +13,8 @@ public class FragGameController : MonoBehaviour
     public Pelican pelican;
 
     public Light2D globalLight;
+    
+    
 
     // private long _totalPlayTime = 0;
 
@@ -21,6 +23,8 @@ public class FragGameController : MonoBehaviour
     // private bool _levelLongStay = false;
 
     // private bool _isAlreadyGuide = true;
+
+    private bool _isCompleted = false;
     
     
     //???????????????
@@ -43,7 +47,7 @@ public class FragGameController : MonoBehaviour
     private void Awake()
     {
         EventCenter.AddListener<int>(Game_Event.FragGameCameraMove,OnCameraMove);
-        
+        EventCenter.AddListener(Game_Event.FragGameFinish,OnPlayerCompleted);
     }
 
     // Start is called before the first frame update
@@ -62,7 +66,11 @@ public class FragGameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FragGameRecord.GetInstance().reocrd.playerTotalTime += Time.deltaTime;
+        if (!_isCompleted)
+        {
+            FragGameRecord.GetInstance().reocrd.playerTotalTime += Time.deltaTime;
+        }
+        
         // _curLevelTime += Time.deltaTime;
         // if (!_levelLongStay)
         // {
@@ -139,6 +147,23 @@ public class FragGameController : MonoBehaviour
                 fragHero.OnLight(false);
                 break;
             }
+        }
+    }
+
+    private void OnPlayerCompleted()
+    {
+        if (!_isCompleted)
+        {
+            _isCompleted = true;
+            fragHero.RemoveListener();
+            pelican.FlyToPlayer(fragHero.heroRigidbody2D.transform, () =>
+            {
+                pelican.Speak(GameMgr.GetInstance().langMgr.getValue("^game_completed"));
+                StartCoroutine(UnityUtils.DelayFuc(() =>
+                {
+                    
+                },3));
+            });
         }
     }
 }

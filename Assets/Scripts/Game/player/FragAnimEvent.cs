@@ -39,20 +39,20 @@ public class FragAnimEvent : MonoBehaviour
         bool isLeft = false;
         bool isDown = false;
         if (Math.Round(collision.contacts[0].normal.y) == -1) {
-            Debug.Log("++++++++++++++´ÓÉÏ·½Åö×²");
+            Debug.Log("++++++++++++++ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½×²");
             isUp = true;
         } else if (Math.Round(collision.contacts[0].normal.y) == 1)
         {
             isDown = true;
-            Debug.Log("++++++++++++++´ÓÏÂ·½Åö×²");
+            Debug.Log("++++++++++++++ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½×²");
         }else if (Math.Round(collision.contacts[0].normal.x) == 1)
         {
             isLeft = true;
-            Debug.Log("++++++++++++++´Ó×ó±ßÅö×²");
+            Debug.Log("++++++++++++++ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²");
         }else if (Math.Round(collision.contacts[0].normal.x) == -1)
         {
             isRight = true;
-            Debug.Log("++++++++++++++´ÓÓÒ±ßÅö×²");
+            Debug.Log("++++++++++++++ï¿½ï¿½ï¿½Ò±ï¿½ï¿½ï¿½×²");
         }
     
         // foreach (ContactPoint2D contact in collision.contacts)
@@ -111,37 +111,11 @@ public class FragAnimEvent : MonoBehaviour
 
         
         
-        // if (collision.collider.tag == "wall")
-        // {
-        //     if (fragHero.GetState().GetType() == typeof(WalkingState) || isUp)
-        //     {
-        //         return;
-        //     }
-        //     Debug.Log("--------------------wall------");
-        //     Game_Direction dir = fragHero.direction == Game_Direction.Left ? Game_Direction.Right : Game_Direction.Left;
-        //     if (fragHero.direction == Game_Direction.None)
-        //     {
-        //         dir = fragHero.heroRenderer.flipX ? Game_Direction.Right : Game_Direction.Left;
-        //     }
-        //
-        //     fragHero.OnFragDirection(dir , true);
-        //     // heroRigidbody2D.velocity.x = -heroRigidbody2D.velocity.x;
-        // } else if (collision.collider.tag == "platform")
-        // {
-        //     Debug.Log("--------------------platform------");
-        //     if (isLeft || isRight)
-        //     {
-        //         Game_Direction dir = isLeft  ? Game_Direction.Right : Game_Direction.Left;
-        //         if (fragHero.direction == Game_Direction.None)
-        //         {
-        //             dir = fragHero.heroRenderer.flipX ? Game_Direction.Right : Game_Direction.Left;
-        //         }
-        //
-        //         fragHero.OnFragDirection(dir , true);
-        //         Vector2 force = new Vector2((float)fragHero.direction * 200 , 0);
-        //         fragHero.heroRigidbody2D.AddForce(force);
-        //     }
-        // }
+        if (collision.collider.tag == "final")
+        {
+            EventCenter.PostEvent(Game_Event.FragGameFinish);
+        } 
+ 
     }
 
     private void OnCollisionExit2D(Collision2D other)
