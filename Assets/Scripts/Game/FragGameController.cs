@@ -13,8 +13,8 @@ public class FragGameController : MonoBehaviour
     public Pelican pelican;
 
     public Light2D globalLight;
-    
-    
+
+    public FragGameCompleted completedPanel;
 
     // private long _totalPlayTime = 0;
 
@@ -154,6 +154,8 @@ public class FragGameController : MonoBehaviour
     {
         if (!_isCompleted)
         {
+            FragGameRecord.GetInstance().history.jumpCnt = FragGameRecord.GetInstance().reocrd.jumpCnt;
+            FragGameRecord.GetInstance().history.playerTotalTime = FragGameRecord.GetInstance().reocrd.playerTotalTime;
             _isCompleted = true;
             fragHero.RemoveListener();
             pelican.FlyToPlayer(fragHero.heroRigidbody2D.transform, () =>
@@ -161,7 +163,7 @@ public class FragGameController : MonoBehaviour
                 pelican.Speak(GameMgr.GetInstance().langMgr.getValue("^game_completed"));
                 StartCoroutine(UnityUtils.DelayFuc(() =>
                 {
-                    
+                    completedPanel.OnFadeIn();
                 },3));
             });
         }
