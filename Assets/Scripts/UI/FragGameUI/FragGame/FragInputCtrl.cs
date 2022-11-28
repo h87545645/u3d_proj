@@ -9,13 +9,18 @@ public class FragInputCtrl : MonoBehaviour
     public FragMoveButtonCtrl left;
 
     public FragMoveButtonCtrl right;
+
+    private bool _inputEnable = false;
     
     // private float _upWaitTime  = 0f;
 
     // Update is called once per frame
     void Update()
     {
-       
+        if (!_inputEnable)
+        {
+            return;
+        }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             // Debug.Log("left arrow");
@@ -45,5 +50,22 @@ public class FragInputCtrl : MonoBehaviour
             jump.OnPointerUp(null);
         }
 
+    }
+
+    public void EnableInput(bool enable)
+    {
+        _inputEnable = enable;
+        jump.enabled = enable;
+        left.enabled = enable;
+        right.enabled = enable;
+    }
+
+    public void OnMenuBtn()
+    {
+        if (!_inputEnable)
+        {
+            return;
+        }
+        UIManager.GetInstance().ShowPanel<FragSettingPanel>("FragSettingPanel", E_UI_Layer.Tip);
     }
 }

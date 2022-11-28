@@ -8,6 +8,7 @@ public class FragJumpButtonCtrl : MonoBehaviour, IPointerDownHandler, IPointerUp
 {
 
     private float _lastTime = 0;
+    
 
     private void Update()
     {
@@ -16,15 +17,13 @@ public class FragJumpButtonCtrl : MonoBehaviour, IPointerDownHandler, IPointerUp
             EventCenter.PostEvent<float>(Game_Event.FragGameJump, 1);
             _lastTime = 0;
         }
-        
-    
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         EventCenter.PostEvent(Game_Event.FragGameCharge);
         _lastTime = Time.time;
-        //Debug.Log("°´ÏÂ");
+        //Debug.Log("ï¿½ï¿½ï¿½ï¿½");
     }
     public void OnPointerUp(PointerEventData eventData)
     {
@@ -32,7 +31,7 @@ public class FragJumpButtonCtrl : MonoBehaviour, IPointerDownHandler, IPointerUp
         {
             EventCenter.PostEvent<float>(Game_Event.FragGameJump, Time.time - _lastTime);
             _lastTime = 0;
-            //Debug.Log("Ì§Æð");
+            //Debug.Log("Ì§ï¿½ï¿½");
         }
         else
         {
@@ -47,11 +46,11 @@ public class FragJumpButtonCtrl : MonoBehaviour, IPointerDownHandler, IPointerUp
     //{
     //    LastTime = 0;
     //    EventCenter.PostEvent(Game_Event.FragGameChargeCancel);
-    //    //Debug.Log("Àë¿ª");
+    //    //Debug.Log("ï¿½ë¿ª");
     //}
     //public void OnPointerEnter(PointerEventData eventData)
     //{
-    //    //Debug.Log("½øÈë");
+    //    //Debug.Log("ï¿½ï¿½ï¿½ï¿½");
     //}
     
     

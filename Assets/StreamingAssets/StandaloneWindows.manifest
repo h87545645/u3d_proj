@@ -1,7 +1,10 @@
 ManifestFileVersion: 0
-CRC: 508240467
+CRC: 2040182239
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: dialogprefab
+      Dependencies: {}
+    Info_1:
+      Name: fragsettingpanel
       Dependencies: {}

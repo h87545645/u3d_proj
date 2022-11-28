@@ -25,15 +25,15 @@ public class UIManager : SingletonBase<UIManager>
         }
 
         Transform uTrans_uiRoot = uObj_uiRoot.transform;
-        //´´½¨Canvas£¬ÈÃÆä¹ý³¡¾°µÄÊ±ºò²»±»ÒÆ³ý
+        //ï¿½ï¿½ï¿½ï¿½Canvasï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ò²»±ï¿½ï¿½Æ³ï¿½
         GameObject.DontDestroyOnLoad(uObj_uiRoot);
 
-        //ÕÒµ½¸÷²ã
+        //ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½
         uObj_TipLayer = uTrans_uiRoot.Find("uObj_tip");
         uObj_TopLayer = uTrans_uiRoot.Find("uObj_top");
         uObj_BotLayer = uTrans_uiRoot.Find("uObj_bot");
 
-        //¼ÓÔØEventSystem£¬ÓÐÁËËü£¬°´Å¥µÈ×é¼þ²ÅÄÜÏìÓ¦
+        //ï¿½ï¿½ï¿½ï¿½EventSystemï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦
         GameObject uObj_eventSystem = GameObject.Find("/EventSystem");
         if (uObj_eventSystem == null)
         {
@@ -45,10 +45,10 @@ public class UIManager : SingletonBase<UIManager>
 
     public void ShowPanel<T>(string sPanelName, E_UI_Layer eLayerType = E_UI_Layer.Top, UnityAction<T> callback = null) where T : PanelBase
     {
-        //ÒÑ¾­ÏÔÊ¾ÁË´ËÃæ°å
+        //ï¿½Ñ¾ï¿½ï¿½ï¿½Ê¾ï¿½Ë´ï¿½ï¿½ï¿½ï¿½
         if (dict_allPanel.ContainsKey(sPanelName))
         {
-            //µ÷ÓÃÖØÐ´·½·¨£¬¾ßÌåÄÚÈÝ×Ô¼ºÌí¼Ó
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½
             dict_allPanel[sPanelName].ShowUI();
             if (callback != null)
                 callback(dict_allPanel[sPanelName] as T);
@@ -56,9 +56,9 @@ public class UIManager : SingletonBase<UIManager>
         }
 
         PrefabLoadMgr.I.LoadAsync(sPanelName, (string path  ,GameObject uObj_temp) => {
-            //°ÑËü×÷ÎªCanvasµÄ×Ó¶ÔÏó
-            //²¢ÇÒÉèÖÃËüµÄÏà¶ÔÎ»ÖÃ
-            //ÕÒµ½¸¸¶ÔÏó
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªCanvasï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+            //ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             Transform uObj_father = uObj_BotLayer;
             switch (eLayerType)
             {
@@ -69,10 +69,10 @@ public class UIManager : SingletonBase<UIManager>
                     uObj_father = uObj_TopLayer;
                     break;
             }
-            //ÉèÖÃ¸¸¶ÔÏó
+            //ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ï¿½
             uObj_temp.transform.SetParent(uObj_father);
 
-            //ÉèÖÃÏà¶ÔÎ»ÖÃºÍ´óÐ¡
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ÃºÍ´ï¿½Ð¡
             uObj_temp.transform.localPosition = Vector3.zero;
             uObj_temp.transform.localScale = Vector3.one;
 
@@ -81,26 +81,26 @@ public class UIManager : SingletonBase<UIManager>
 
             uObj_temp.GetComponent<PanelBase>().ShowUI();
 
-            //µÃµ½Ô¤ÉèÌåÉíÉÏµÄ½Å±¾£¨¼Ì³Ð×ÔBasePanel£©
+            //ï¿½Ãµï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÄ½Å±ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ï¿½ï¿½BasePanelï¿½ï¿½
             T panel_temp = uObj_temp.GetComponent<T>();
 
-            //Ö´ÐÐÍâÃæÏëÒª×öµÄÊÂÇé
+            //Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (callback != null)
             {
                 callback(panel_temp);
             }
 
-            //ÔÚ×ÖµäÖÐÌí¼Ó´ËÃæ°å
+            //ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½
             dict_allPanel.Add(sPanelName, panel_temp);
         });
     }
 
-    //Òþ²ØÃæ°å
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void HidePanel(string sPanelName)
     {
         if (dict_allPanel.ContainsKey(sPanelName))
         {
-            //µ÷ÓÃÖØÐ´·½·¨£¬¾ßÌåÄÚÈÝ×Ô¼ºÌí¼Ó
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½
             dict_allPanel[sPanelName].HideUI();
             GameObject.Destroy(dict_allPanel[sPanelName].gameObject);
             dict_allPanel.Remove(sPanelName);
@@ -108,7 +108,7 @@ public class UIManager : SingletonBase<UIManager>
     }
 
     /// <summary>
-    /// µÃµ½Ä³Ò»¸öÒÑ¾­ÏÔÊ¾µÄÃæ°å ·½±ãÍâ²¿Ê¹ÓÃ
+    /// ï¿½Ãµï¿½Ä³Ò»ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½â²¿Ê¹ï¿½ï¿½
     /// </summary>
     public T GetPanel<T>(string sName) where T : PanelBase
     {
@@ -120,11 +120,11 @@ public class UIManager : SingletonBase<UIManager>
     }
 
     /// <summary>
-    /// ¸ø¿Ø¼þÌí¼Ó×Ô¶¨ÒåÊÂ¼þ¼àÌý
+    /// ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
-    /// <param name="uObj_control">¿Ø¼þ¶ÔÏó</param>
-    /// <param name="eTriggerType">ÊÂ¼þÀàÐÍ</param>
-    /// <param name="fun_callback">ÊÂ¼þµÄÏìÓ¦º¯Êý</param>
+    /// <param name="uObj_control">ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½</param>
+    /// <param name="eTriggerType">ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½</param>
+    /// <param name="fun_callback">ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½</param>
     public static void AddCustomEventListener(UIBehaviour uObj_control, EventTriggerType eTriggerType, UnityAction<BaseEventData> fun_callback)
     {
         EventTrigger uObj_trigger = uObj_control.GetComponent<EventTrigger>();

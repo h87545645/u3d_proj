@@ -16,6 +16,8 @@ public class FragGameController : MonoBehaviour
 
     public FragGameCompleted completedPanel;
 
+    public FragInputCtrl inputCtrl;
+
     // private long _totalPlayTime = 0;
 
     // private float _curLevelTime = 0;
@@ -98,6 +100,7 @@ public class FragGameController : MonoBehaviour
 
     private void StartGame()
     {
+        inputCtrl.EnableInput(true);
         fragHero.heroRigidbody2D.gameObject.SetActive(true);
         fragHero.SetRecordPos();
         EventCenter.PostEvent<bool>(Game_Event.FragActiveAllUI,true);
@@ -154,13 +157,14 @@ public class FragGameController : MonoBehaviour
     {
         if (!_isCompleted)
         {
+            inputCtrl.EnableInput(false);
             FragGameRecord.GetInstance().history.jumpCnt = FragGameRecord.GetInstance().reocrd.jumpCnt;
             FragGameRecord.GetInstance().history.playerTotalTime = FragGameRecord.GetInstance().reocrd.playerTotalTime;
             _isCompleted = true;
             fragHero.RemoveListener();
             pelican.FlyToPlayer(fragHero.heroRigidbody2D.transform, () =>
             {
-                pelican.Speak(GameMgr.GetInstance().langMgr.getValue("^game_completed"));
+                pelican.Speak(GameMgr.GetInstance().langMgr.getValue("^game_completed_speak"));
                 StartCoroutine(UnityUtils.DelayFuc(() =>
                 {
                     completedPanel.OnFadeIn();

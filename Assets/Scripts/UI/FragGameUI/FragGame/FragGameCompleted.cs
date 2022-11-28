@@ -18,7 +18,7 @@ public class FragGameCompleted : PanelBase
     // Start is called before the first frame update
     void Start()
     {
-        GetControl<Button>("continueBtn").onClick.AddListener(() =>
+        GetControl<Button>("ContinueBtn").onClick.AddListener(() =>
         {
             if (_showReady)
             {
@@ -36,6 +36,7 @@ public class FragGameCompleted : PanelBase
 
     public void OnFadeIn()
     {
+        InitRecord();
         root.gameObject.SetActive(true);
         root.DOFade(1,0.5f);
         StartCoroutine(UnityUtils.DelayFuc(() =>
@@ -50,6 +51,7 @@ public class FragGameCompleted : PanelBase
 
     private void InitRecord()
     {
+        recordText.gameObject.SetActive(true);
         string[] record = new string[]
         {
             UnityUtils.TimeToStringHMS(FragGameRecord.GetInstance().history.playerTotalTime),
