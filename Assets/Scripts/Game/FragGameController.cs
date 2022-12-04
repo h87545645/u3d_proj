@@ -57,7 +57,7 @@ public class FragGameController : MonoBehaviour
     {
         if (FragGameRecord.GetInstance().reocrd.playerAlreadyGuide)
         {
-            StartGuide();
+            StartGame();
         }
         else
         {

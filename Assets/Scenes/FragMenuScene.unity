@@ -2242,6 +2242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 071dfbea40c79f4449afcac272ce0f29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBlock: 0
+  blockNode: {fileID: 0}
   Lang: {fileID: 986605240}
   playerRecordText: {fileID: 1416576375}
 --- !u!1 &2069896788
@@ -2487,6 +2489,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1677658509193375289, guid: e05d0841440b7794e8dce58ab36adbe4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677658509349053156, guid: e05d0841440b7794e8dce58ab36adbe4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677658509349053156, guid: e05d0841440b7794e8dce58ab36adbe4, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

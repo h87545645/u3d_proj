@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 2040182239
+CRC: 1529666522
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -7,4 +7,7 @@ AssetBundleManifest:
       Dependencies: {}
     Info_1:
       Name: fragsettingpanel
+      Dependencies: {}
+    Info_2:
+      Name: popupmask
       Dependencies: {}

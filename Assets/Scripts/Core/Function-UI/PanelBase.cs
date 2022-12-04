@@ -4,14 +4,44 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using UnityEditor;
 
 public class PanelBase : MonoBehaviour
 {
+    [SerializeField, SetProperty("IsBlock")]
+    [Tooltip("is need generate block node")]
+    private bool isBlock = false;
+    public bool IsBlock
+    {
+        get => isBlock;
+        set
+        {
+            isBlock = value;
+            EditorGenBlock();
+        }
+    }
+
+    private GameObject content;
+    
+
+    [HideInInspector] public GameObject blockNode;
+    
     private Dictionary<string, List<UIBehaviour>> dict_allUI = new Dictionary<string, List<UIBehaviour>>();
 
     protected virtual void Awake()
     {
+
         FindAllControl();
+    }
+    
+    void Reset()
+    {
+        if (content == null)
+        {
+            content = new GameObject("content"); 
+            content.transform.SetParent(transform);
+            content.transform.position = new Vector3(0, 0, 0);
+        }
     }
 
     /// <summary>
@@ -39,7 +69,7 @@ public class PanelBase : MonoBehaviour
         {
             for (int i = 0; i < dict_allUI[sControlName].Count; i++)
             {
-                //???????????????????ßµ??????????????
+                //???????????????????ÔøΩÔøΩ??????????????
                 //???????????????
                 if (dict_allUI[sControlName][i] is T)
                 {
@@ -72,15 +102,49 @@ public class PanelBase : MonoBehaviour
             }
         }
     }
+    
+    private void EditorGenBlock()
+    {
+#if UNITY_EDITOR
+        
+        if (isBlock)
+        {
+            if (blockNode == null)
+            {
+                // blockNode = PrefabLoadMgr.I.LoadSync("popupmask", transform);
+                GameObject go = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/GameAssets/Prefab/UI/PopupMask.prefab",typeof(GameObject));
+                blockNode = GameObject.Instantiate(go);
+                blockNode.transform.SetParent(transform);
+                RectTransform uiRect = blockNode.GetComponent<RectTransform>();
+                uiRect.localScale = Vector3.one;
+                uiRect.localPosition = Vector3.zero;
+                uiRect.sizeDelta = transform.GetComponent<RectTransform>().sizeDelta;
+                blockNode.transform.SetAsFirstSibling();
+            }
+            
+        }
+        else
+        {
+            if (blockNode == null)
+            {
+                return;
+            }
+            MonoBehaviour.DestroyImmediate(blockNode);
+            blockNode = null;
+        }
+        
+#endif
+    
+    }
 
-    #region ????????ß’???????????????????UI???????????
+    #region Â≠êÁ±ªÁªßÊâø
     /// <summary>
     /// ???ui????
     /// </summary>
     public virtual void ShowUI()
     {
-        transform.localScale = new Vector3(0,0,0);
-        transform.DOScale(1, 0.5f);
+        content.transform.localScale = new Vector3(0,0,0);
+        content.transform.DOScale(1, 0.5f);
     }
 
     /// <summary>
@@ -88,8 +152,10 @@ public class PanelBase : MonoBehaviour
     /// </summary>
     public virtual void HideUI()
     {
-        transform.DOScale(0, 0.5f);
+        content.transform.DOScale(0, 0.5f);
     }
     #endregion
+    
+    
 
 }

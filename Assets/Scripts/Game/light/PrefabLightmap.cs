@@ -12,7 +12,7 @@ public class PrefabLightmap : MonoBehaviour
 
     private void Awake()
     {
-        //prefab ÊµÀý»¯ºó¸³Öµ
+        //prefab Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
         Renderer renderer = GetComponent<Renderer>();
         if (renderer)
         {
@@ -25,11 +25,11 @@ public class PrefabLightmap : MonoBehaviour
     [MenuItem("GameObject/Light/ToPrefab")]
     static void ToPrefab()
     {
-        //È·±£Ñ¡ÔñHierarchyÊÓÍ¼ÏÂµÄÒ»¸öÓÎÏ·¶ÔÏó
+        //È·ï¿½ï¿½Ñ¡ï¿½ï¿½Hierarchyï¿½ï¿½Í¼ï¿½Âµï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½
         if (Selection.activeTransform)
         {
             Renderer renderer = Selection.activeTransform.GetComponent<Renderer>();
-            //È·±£ÓÐrenderer×é¼þ
+            //È·ï¿½ï¿½ï¿½ï¿½rendererï¿½ï¿½ï¿½
             if (renderer)
             {
                 PrefabLightmap prefabLightmap = Selection.activeTransform.GetComponent<PrefabLightmap>();
@@ -41,14 +41,14 @@ public class PrefabLightmap : MonoBehaviour
                 prefabLightmap.lightmapScaleOffset = renderer.lightmapScaleOffset;
 
                 Object prefab = PrefabUtility.GetCorrespondingObjectFromOriginalSource<Object>(renderer.gameObject);
-                //Èç¹ûÓÐprefabÎÄ¼þÔò¸üÐÂ£¬·ñÕß´´½¨ÐÂµÄ
+                //ï¿½ï¿½ï¿½ï¿½ï¿½prefabï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½ï¿½ß´ï¿½ï¿½ï¿½ï¿½Âµï¿½
                 if (prefab)
                 {
                     PrefabUtility.SaveAsPrefabAsset(Selection.activeTransform.gameObject, AssetDatabase.GetAssetPath(prefab));
                 }
                 else
                 {
-                    string localPath = "Assets/GameAssets/Prefabs/" + Selection.activeTransform.name + ".prefab";
+                    string localPath = "Assets/GameAssets/Prefab/" + Selection.activeTransform.name + ".prefab";
                     localPath = AssetDatabase.GenerateUniqueAssetPath(localPath);
                     PrefabUtility.SaveAsPrefabAsset( Selection.activeTransform.gameObject, localPath);
                     //PrefabUtility.ReplacePrefab(Selection.activeGameObject,prefab);

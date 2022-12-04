@@ -25,6 +25,8 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMPro_UGUI_Private.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TextMeshProUGUI.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualscripting@1.7.6/Runtime/VisualScripting.Core/Unity/Singleton.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e6dbc950ab074c92a152e33083211983811200/33/2dac6a8d/AssetDatabase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://D:/C_backups/u3d/ui_creator/Popup/Popuper.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -43,7 +45,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.45884147&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -66,10 +68,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="11552">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="14664">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="11552" />
+      <option name="pid" value="14664" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -122,6 +124,8 @@
       <workItem from="1669430795579" duration="7558000" />
       <workItem from="1669515503004" duration="5188000" />
       <workItem from="1669639700184" duration="6120000" />
+      <workItem from="1669813263638" duration="4732000" />
+      <workItem from="1670119840366" duration="8433000" />
     </task>
     <servers />
   </component>
@@ -146,6 +150,36 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Core/ResManager/AssetsLoadMgr.cs</url>
+          <line>192</line>
+          <properties documentPath="C:\U3D\U3D_proj\independent_game\Assets\Scripts\Core\ResManager\AssetsLoadMgr.cs" initialLine="198" containingFunctionPresentation="method 'LoadSync'">
+            <startOffsets>
+              <option value="6472" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6548" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Core/Function-UI/PanelBase.cs</url>
+          <line>40</line>
+          <properties documentPath="C:\U3D\U3D_proj\independent_game\Assets\Scripts\Core\Function-UI\PanelBase.cs" initialLine="40" containingFunctionPresentation="method 'Reset'">
+            <startOffsets>
+              <option value="845" />
+            </startOffsets>
+            <endOffsets>
+              <option value="881" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="Type#UnityEngine.AnimatorStateInfo" memberName="length" />
