@@ -12,6 +12,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/ChainPack/Chain2D/Editor/ChainEditor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/Function-UI/UIBlockWaitMgr.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/FragGameRecord.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/LightChain.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/player/PelicanAnimController.cs" root0="FORCE_HIGHLIGHTING" />
@@ -68,10 +69,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="14664">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="14664" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -126,6 +127,7 @@
       <workItem from="1669639700184" duration="6120000" />
       <workItem from="1669813263638" duration="4732000" />
       <workItem from="1670119840366" duration="8433000" />
+      <workItem from="1670245316718" duration="2728000" />
     </task>
     <servers />
   </component>
@@ -164,19 +166,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Core/Function-UI/PanelBase.cs</url>
-          <line>40</line>
-          <properties documentPath="C:\U3D\U3D_proj\independent_game\Assets\Scripts\Core\Function-UI\PanelBase.cs" initialLine="40" containingFunctionPresentation="method 'Reset'">
-            <startOffsets>
-              <option value="845" />
-            </startOffsets>
-            <endOffsets>
-              <option value="881" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

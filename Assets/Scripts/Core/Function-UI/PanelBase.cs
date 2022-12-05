@@ -20,22 +20,22 @@ public class PanelBase : MonoBehaviour
             EditorGenBlock();
         }
     }
-
-    private GameObject content;
     
-
-    [HideInInspector] public GameObject blockNode;
     
     private Dictionary<string, List<UIBehaviour>> dict_allUI = new Dictionary<string, List<UIBehaviour>>();
 
     protected virtual void Awake()
     {
-
+        
         FindAllControl();
     }
     
     void Reset()
     {
+#if !UNITY_EDITOR
+        return;
+#endif
+        GameObject content = transform.Find("content").gameObject;
         if (content == null)
         {
             content = new GameObject("content"); 
@@ -106,9 +106,10 @@ public class PanelBase : MonoBehaviour
     private void EditorGenBlock()
     {
 #if UNITY_EDITOR
-        
+        GameObject blockNode = transform.Find("PopupMask(Clone)").gameObject;
         if (isBlock)
         {
+           
             if (blockNode == null)
             {
                 // blockNode = PrefabLoadMgr.I.LoadSync("popupmask", transform);
@@ -143,6 +144,7 @@ public class PanelBase : MonoBehaviour
     /// </summary>
     public virtual void ShowUI()
     {
+        GameObject content = transform.Find("content").gameObject == null ?  gameObject : transform.Find("content").gameObject;
         content.transform.localScale = new Vector3(0,0,0);
         content.transform.DOScale(1, 0.5f);
     }
@@ -152,6 +154,7 @@ public class PanelBase : MonoBehaviour
     /// </summary>
     public virtual void HideUI()
     {
+        GameObject content = transform.Find("content").gameObject == null ?  gameObject : transform.Find("content").gameObject;
         content.transform.DOScale(0, 0.5f);
     }
     #endregion
