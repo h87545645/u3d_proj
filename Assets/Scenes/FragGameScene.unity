@@ -7943,6 +7943,42 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5384548789520031525, guid: 6ca81169da8fc8b4c969b1a9ae74e4cc, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8650153918176496022, guid: 6ca81169da8fc8b4c969b1a9ae74e4cc, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8650153918176496022, guid: 6ca81169da8fc8b4c969b1a9ae74e4cc, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8650153918176496022, guid: 6ca81169da8fc8b4c969b1a9ae74e4cc, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8650153918176496022, guid: 6ca81169da8fc8b4c969b1a9ae74e4cc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8650153918176496022, guid: 6ca81169da8fc8b4c969b1a9ae74e4cc, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8650153918176496022, guid: 6ca81169da8fc8b4c969b1a9ae74e4cc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8650153918176496022, guid: 6ca81169da8fc8b4c969b1a9ae74e4cc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8650153918176496022, guid: 6ca81169da8fc8b4c969b1a9ae74e4cc, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ca81169da8fc8b4c969b1a9ae74e4cc, type: 3}
 --- !u!224 &201989902 stripped
@@ -22528,7 +22564,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBlock: 0
-  blockNode: {fileID: 0}
   root: {fileID: 435809531}
 --- !u!114 &1708247069
 MonoBehaviour:
@@ -29244,7 +29279,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBlock: 0
-  blockNode: {fileID: 0}
   root: {fileID: 157001211}
   continueText: {fileID: 778807713}
   recordText: {fileID: 178690548}

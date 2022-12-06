@@ -1,13 +1,18 @@
 ManifestFileVersion: 0
-CRC: 1529666522
+CRC: 2783635893
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: dialogprefab
-      Dependencies: {}
+      Dependencies:
+        Dependency_0: font
     Info_1:
       Name: fragsettingpanel
-      Dependencies: {}
+      Dependencies:
+        Dependency_0: font
     Info_2:
       Name: popupmask
+      Dependencies: {}
+    Info_3:
+      Name: font
       Dependencies: {}

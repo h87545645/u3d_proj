@@ -54,7 +54,8 @@ public class UIManager : SingletonBase<UIManager>
                 callback(dict_allPanel[sPanelName] as T);
             return;
         }
-
+        //start wait rotate
+        UIBlockWaitMgr.GetInstance().StartWait(sPanelName);
         PrefabLoadMgr.I.LoadAsync(sPanelName, (string path  ,GameObject uObj_temp) => {
             //������ΪCanvas���Ӷ���
             //���������������λ��
@@ -92,6 +93,9 @@ public class UIManager : SingletonBase<UIManager>
 
             //���ֵ�����Ӵ����
             dict_allPanel.Add(sPanelName, panel_temp);
+            
+            //finish wait
+            UIBlockWaitMgr.GetInstance().FinishWait(sPanelName);
         });
     }
 

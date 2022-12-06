@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2463836566
+CRC: 3595676704
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 352887ff86485f36c2574cce69e4489a
+    Hash: cd51ed000915f439f974fec11fa44574
   TypeTreeHash:
     serializedVersion: 2
     Hash: 7a45aaee0d8fa0c3d30eea18d7e57d3d
@@ -38,5 +38,4 @@ SerializeReferenceClassIdentifiers:
   ClassName: UnityEngine.UI.SpriteState
 Assets:
 - Assets/GameAssets/Prefab/UI/PopupMask.prefab
-- Assets/Resources/prefab/UI/PopupMask.prefab
 Dependencies: []

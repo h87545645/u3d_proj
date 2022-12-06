@@ -19,7 +19,7 @@ public class UIBlockWaitMgr : MonoSingletonBase<UIBlockWaitMgr>
     protected override void Awake()
     {
         base.Awake();
-        DontDestroyOnLoad(gameObject);
+        GameObject.DontDestroyOnLoad(gameObject);
         waitDict = new Dictionary<string , int>();
     }
 
@@ -28,14 +28,19 @@ public class UIBlockWaitMgr : MonoSingletonBase<UIBlockWaitMgr>
         if (waitDict.Count > 0)
         {
             waitTime += Time.deltaTime;
-            if (waitTime >= 2)
+            if (waitTime >= 0.01)
             {
                 if (!canvasGroup.blocksRaycasts)
                 {
                     canvasGroup.blocksRaycasts = true;
                     canvasGroup.alpha = 0.7f;
                     rotate.gameObject.SetActive(true);
-                    rotate.rotation = new Quaternion(0f,0f,Time.deltaTime * 10f,0f) ;
+                    // rotate.eulerAngles = new Vector3(0f,0f,rotate.eulerAngles.z += Time.deltaTime * 10f) ;
+                    
+                }
+                else
+                {
+                    rotate.Rotate(0f,0f, -100f*Time.deltaTime,Space.Self);
                 }
             }
         }
@@ -68,7 +73,7 @@ public class UIBlockWaitMgr : MonoSingletonBase<UIBlockWaitMgr>
             canvasGroup.blocksRaycasts = false;
             canvasGroup.alpha = 0f;
             rotate.gameObject.SetActive(false);
-            rotate.rotation = new Quaternion(0f,0f,0f,0f) ;
+            rotate.eulerAngles = new Vector3(0f,0f,0f) ;
             waitTime = 0f;
         }
     }

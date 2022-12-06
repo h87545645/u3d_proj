@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2658285361
+CRC: 865637664
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: b13e3a497b7034d74f14f55bacd6f805
+    Hash: 2c88f1f6ece063274037085cbcf7b64d
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 94a18115941f4e77c0a89a195b1a1303
+    Hash: 4a0491d7ab0a64606faf8809f56b01d2
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -16,8 +16,6 @@ ClassTypes:
 - Class: 21
   Script: {instanceID: 0}
 - Class: 28
-  Script: {instanceID: 0}
-- Class: 48
   Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
@@ -34,8 +32,6 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
 - Class: 115
-  Script: {instanceID: 0}
-- Class: 128
   Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
@@ -82,4 +78,5 @@ SerializeReferenceClassIdentifiers:
   ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
 Assets:
 - Assets/GameAssets/Prefab/Game/DialogPrefab.prefab
-Dependencies: []
+Dependencies:
+- C:/U3D/U3D_proj/independent_game/AssetBundles/StandaloneWindows/font
