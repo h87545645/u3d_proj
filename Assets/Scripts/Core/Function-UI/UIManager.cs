@@ -45,10 +45,10 @@ public class UIManager : SingletonBase<UIManager>
 
     public void ShowPanel<T>(string sPanelName, E_UI_Layer eLayerType = E_UI_Layer.Top, UnityAction<T> callback = null) where T : PanelBase
     {
-        //�Ѿ���ʾ�˴����
+
         if (dict_allPanel.ContainsKey(sPanelName))
         {
-            //������д���������������Լ����
+  
             dict_allPanel[sPanelName].ShowUI();
             if (callback != null)
                 callback(dict_allPanel[sPanelName] as T);
@@ -57,9 +57,7 @@ public class UIManager : SingletonBase<UIManager>
         //start wait rotate
         UIBlockWaitMgr.GetInstance().StartWait(sPanelName);
         PrefabLoadMgr.I.LoadAsync(sPanelName, (string path  ,GameObject uObj_temp) => {
-            //������ΪCanvas���Ӷ���
-            //���������������λ��
-            //�ҵ�������
+  
             Transform uObj_father = uObj_BotLayer;
             switch (eLayerType)
             {
@@ -70,10 +68,9 @@ public class UIManager : SingletonBase<UIManager>
                     uObj_father = uObj_TopLayer;
                     break;
             }
-            //���ø�����
+
             uObj_temp.transform.SetParent(uObj_father);
 
-            //�������λ�úʹ�С
             uObj_temp.transform.localPosition = Vector3.zero;
             uObj_temp.transform.localScale = Vector3.one;
 
@@ -82,16 +79,16 @@ public class UIManager : SingletonBase<UIManager>
 
             uObj_temp.GetComponent<PanelBase>().ShowUI();
 
-            //�õ�Ԥ�������ϵĽű����̳���BasePanel��
+
             T panel_temp = uObj_temp.GetComponent<T>();
 
-            //ִ��������Ҫ��������
+ 
             if (callback != null)
             {
                 callback(panel_temp);
             }
 
-            //���ֵ�����Ӵ����
+
             dict_allPanel.Add(sPanelName, panel_temp);
             
             //finish wait
@@ -104,16 +101,14 @@ public class UIManager : SingletonBase<UIManager>
     {
         if (dict_allPanel.ContainsKey(sPanelName))
         {
-            //������д���������������Լ����
+  
             dict_allPanel[sPanelName].HideUI();
             GameObject.Destroy(dict_allPanel[sPanelName].gameObject);
             dict_allPanel.Remove(sPanelName);
         }
     }
 
-    /// <summary>
-    /// �õ�ĳһ���Ѿ���ʾ����� �����ⲿʹ��
-    /// </summary>
+
     public T GetPanel<T>(string sName) where T : PanelBase
     {
         if (dict_allPanel.ContainsKey(sName))
@@ -123,12 +118,7 @@ public class UIManager : SingletonBase<UIManager>
         return null;
     }
 
-    /// <summary>
-    /// ���ؼ�����Զ����¼�����
-    /// </summary>
-    /// <param name="uObj_control">�ؼ�����</param>
-    /// <param name="eTriggerType">�¼�����</param>
-    /// <param name="fun_callback">�¼�����Ӧ����</param>
+
     public static void AddCustomEventListener(UIBehaviour uObj_control, EventTriggerType eTriggerType, UnityAction<BaseEventData> fun_callback)
     {
         EventTrigger uObj_trigger = uObj_control.GetComponent<EventTrigger>();

@@ -35,6 +35,10 @@ public class PanelBase : MonoBehaviour
 #if !UNITY_EDITOR
         return;
 #endif
+        // if (EditorApplication.isPlaying)
+        // {
+        //     return;
+        // }
         GameObject content = transform.Find("content").gameObject;
         if (content == null)
         {
@@ -106,7 +110,11 @@ public class PanelBase : MonoBehaviour
     private void EditorGenBlock()
     {
 #if UNITY_EDITOR
-        GameObject blockNode = transform.Find("PopupMask(Clone)").gameObject;
+        // if (EditorApplication.isPlaying)
+        // {
+        //     return;
+        // }
+        GameObject blockNode = transform.Find("PopupMask(Clone)") == null ? null : transform.Find("PopupMask(Clone)").gameObject;
         if (isBlock)
         {
            

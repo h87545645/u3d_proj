@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 595058397
+CRC: 2094180744
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 887f6d39fd6e70dfbc13953da7d07593
+    Hash: ef6cb8fbb1c9492ff08aa4c4df3a01de
   TypeTreeHash:
     serializedVersion: 2
     Hash: e13787671dc5479918d412382ef15893
@@ -53,4 +53,5 @@ Assets:
 - Assets/GameAssets/Font/msyhl.ttc
 - Assets/GameAssets/Font/msyhbd.ttc
 - Assets/GameAssets/Font/msyh.ttc
-Dependencies: []
+Dependencies:
+- C:/U3D/U3D_proj/independent_game/AssetBundles/StandaloneWindows/fonsdf

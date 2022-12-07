@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 2783635893
+CRC: 663680606
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -15,4 +15,8 @@ AssetBundleManifest:
       Dependencies: {}
     Info_3:
       Name: font
+      Dependencies:
+        Dependency_0: fonsdf
+    Info_4:
+      Name: fonsdf
       Dependencies: {}

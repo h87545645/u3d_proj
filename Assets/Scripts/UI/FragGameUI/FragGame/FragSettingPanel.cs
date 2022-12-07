@@ -18,6 +18,11 @@ public class FragSettingPanel : PanelBase
         {
             Application.Quit();
         });
+        
+        GetControl<Button>("CloseButton").onClick.AddListener(() =>
+        {
+            UIManager.GetInstance().HidePanel(gameObject.name);
+        });
     }
 
     // Update is called once per frame
