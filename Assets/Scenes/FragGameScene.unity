@@ -9518,6 +9518,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 221894162, guid: 2a873c98a18cafc4688889afffe3077d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1222242666290094711, guid: 2a873c98a18cafc4688889afffe3077d, type: 3}
       propertyPath: m_Name
       value: frag
