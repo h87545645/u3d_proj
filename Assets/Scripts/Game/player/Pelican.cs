@@ -127,7 +127,7 @@ public class Pelican : DialogBase
         float dis = Vector3.Distance(pos.position,transform.position);
         float time = dis / flySpeed;
         animController.Fly();
-        transform.DOMove(pos.position,time,true);
+        transform.DOMove(pos.position,time);
         yield return new WaitForSeconds(time);
         animController.FlyEnd();
         isFlying = false;
