@@ -70,10 +70,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="16952">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="2292">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="16952" />
+      <option name="pid" value="2292" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -132,6 +132,7 @@
       <workItem from="1670330037734" duration="4327000" />
       <workItem from="1670417875526" duration="3623000" />
       <workItem from="1670853836652" duration="1332000" />
+      <workItem from="1671539304284" duration="3276000" />
     </task>
     <servers />
   </component>
@@ -170,6 +171,45 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Game/FragGameController.cs</url>
+          <line>160</line>
+          <properties documentPath="C:\U3D\U3D_proj\independent_game\Assets\Scripts\Game\FragGameController.cs" initialLine="160" containingFunctionPresentation="method 'OnPlayerCompleted'">
+            <startOffsets>
+              <option value="3903" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3994" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/UI/FragGameUI/FragGame/FragGameCompleted.cs</url>
+          <line>65</line>
+          <properties documentPath="C:\U3D\U3D_proj\independent_game\Assets\Scripts\UI\FragGameUI\FragGame\FragGameCompleted.cs" initialLine="64" containingFunctionPresentation="method 'InitRecord'">
+            <startOffsets>
+              <option value="1705" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1733" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/UI/FragGameUI/FragGame/FragGameCompleted.cs</url>
+          <line>41</line>
+          <properties documentPath="C:\U3D\U3D_proj\independent_game\Assets\Scripts\UI\FragGameUI\FragGame\FragGameCompleted.cs" initialLine="41" containingFunctionPresentation="method 'OnFadeIn'">
+            <startOffsets>
+              <option value="827" />
+            </startOffsets>
+            <endOffsets>
+              <option value="855" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

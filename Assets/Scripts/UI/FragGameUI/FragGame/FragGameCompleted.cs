@@ -14,6 +14,8 @@ public class FragGameCompleted : PanelBase
 
     public I18NTextMesh recordText;
 
+    public GameObject continueBTN;
+
     private bool _showReady = false;
     // Start is called before the first frame update
     void Start()
@@ -37,8 +39,11 @@ public class FragGameCompleted : PanelBase
     public void OnFadeIn()
     {
         InitRecord();
+        continueBTN.SetActive(true);
+        continueBTN.GetComponent<Button>().interactable = true;
         root.gameObject.SetActive(true);
-        root.DOFade(1,0.5f);
+        root.blocksRaycasts = true;
+        root.DOFade(1,0.25f);
         StartCoroutine(UnityUtils.DelayFuc(() =>
         {
             Sequence sq = DOTween.Sequence();
@@ -56,6 +61,7 @@ public class FragGameCompleted : PanelBase
         {
             UnityUtils.TimeToStringHMS(FragGameRecord.GetInstance().history.playerTotalTime),
             FragGameRecord.GetInstance().history.jumpCnt.ToString(),
+            GameMgr.GetInstance().langMgr.getValue("^game_completed")
         };
         recordText._params = record;
         recordText.updateTranslation();

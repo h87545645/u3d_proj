@@ -154,7 +154,7 @@ public class PanelBase : MonoBehaviour
     {
         GameObject content = transform.Find("content") == null ?  gameObject : transform.Find("content").gameObject;
         content.transform.localScale = new Vector3(0,0,0);
-        content.transform.DOScale(1, 0.5f);
+        content.transform.DOScale(1, 0.25f);
     }
 
     /// <summary>
@@ -163,7 +163,7 @@ public class PanelBase : MonoBehaviour
     public virtual void HideUI()
     {
         GameObject content = transform.Find("content") == null ?  gameObject : transform.Find("content").gameObject;
-        content.transform.DOScale(0, 0.5f);
+        content.transform.DOScale(0, 0.25f);
     }
     #endregion
     
