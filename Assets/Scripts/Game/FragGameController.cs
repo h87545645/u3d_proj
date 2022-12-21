@@ -88,7 +88,7 @@ public class FragGameController : MonoBehaviour
         fragHero.OnGuide();
         StartCoroutine(UnityUtils.DelayFuc(() =>
         {
-            pelican.LookAt(fragHero.heroRigidbody2D.transform);
+            pelican.LookAt(fragHero.heroRigidbody2D.transform.position);
             pelican.GuideSpeak(() =>
             {
                 fragHero.guideAnim.gameObject.SetActive(false);
@@ -119,9 +119,13 @@ public class FragGameController : MonoBehaviour
     {
         // _curLevelTime = 0;
         // _levelLongStay = false;
+        if (_isCompleted)
+        {
+            return;
+        }
         StartCoroutine(UnityUtils.DelayFuc(() =>
         {
-            if (!pelican.isVisible)
+            if (!pelican.isVisible && !_isCompleted)
             {
                 pelican.FlyToPlayer(fragHero.heroRigidbody2D.transform);
             }

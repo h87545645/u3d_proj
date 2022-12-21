@@ -50,7 +50,7 @@ public class Pelican : DialogBase
         isVisible = false;
     }
 
-    private Transform GetNearestPos(Transform target)
+    private Vector3 GetNearestPos(Transform target)
     {
         float minDis = int.MaxValue;
         int idx = 0;
@@ -76,7 +76,8 @@ public class Pelican : DialogBase
         {
             finalPos = area.GetChild(0);
         }
-        return finalPos;
+        // UnityUtils.GetRelativePosition(target,finalPos.position);
+        return finalPos.position;
     }
 
     public override void Speak(string sentence)
@@ -115,19 +116,19 @@ public class Pelican : DialogBase
     }
 
 
-    public void LookAt(Transform pos)
+    public void LookAt(Vector3 pos)
     {
-        pelicanRenderer.flipX = pos.position.x < transform.position.x ? true : false;
+        pelicanRenderer.flipX = pos.x < transform.position.x ? true : false;
     }
     
-    public IEnumerator FlyTo(Transform pos , Action action = null)
+    public IEnumerator FlyTo(Vector3 pos , Action action = null)
     {
         isFlying = true;
         LookAt(pos);
-        float dis = Vector3.Distance(pos.position,transform.position);
+        float dis = Vector3.Distance(pos,transform.position);
         float time = dis / flySpeed;
         animController.Fly();
-        transform.DOMove(pos.position,time);
+        transform.DOMove(pos,time);
         yield return new WaitForSeconds(time);
         animController.FlyEnd();
         isFlying = false;
@@ -139,7 +140,7 @@ public class Pelican : DialogBase
 
     public void FlyToPlayer(Transform target, Action action = null)
     {
-        Transform nearPos = GetNearestPos(target);
+        Vector3 nearPos = GetNearestPos(target);
         if (isFlying)
         {
             transform.DOKill();
