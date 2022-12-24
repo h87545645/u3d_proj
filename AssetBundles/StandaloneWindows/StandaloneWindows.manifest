@@ -1,22 +1,26 @@
 ManifestFileVersion: 0
-CRC: 663680606
+CRC: 2511974326
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: dialogprefab
+      Name: dialogprefab_f4044d2e8d2f55e6974f7904da03d083
       Dependencies:
-        Dependency_0: font
+        Dependency_0: font_ab413d9efee2b05a4e7e746bee5489e5
     Info_1:
-      Name: fragsettingpanel
+      Name: fragsettingpanel_7acb7b1fb2d9242fa59a5253dd09b814
       Dependencies:
-        Dependency_0: font
+        Dependency_0: font_ab413d9efee2b05a4e7e746bee5489e5
     Info_2:
-      Name: popupmask
+      Name: popupmask_c845c05bd291e8f4176d807b98eb35af
       Dependencies: {}
     Info_3:
-      Name: font
+      Name: font_ab413d9efee2b05a4e7e746bee5489e5
       Dependencies:
-        Dependency_0: fonsdf
+        Dependency_0: fonsdf_fa7d1f89f2054f53f793d9b2baf267a0
     Info_4:
-      Name: fonsdf
+      Name: fonsdf_fa7d1f89f2054f53f793d9b2baf267a0
       Dependencies: {}
+    Info_5:
+      Name: fraggamescene_f67c68d0f90c6000a3d08088d184018c
+      Dependencies:
+        Dependency_0: font_ab413d9efee2b05a4e7e746bee5489e5

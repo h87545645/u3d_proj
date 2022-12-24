@@ -15,7 +15,7 @@ public class RecordUtil
 #if (UNITY_EDITOR || UNITY_STANDALONE)
         return Application.dataPath + "/../Record/";
 #else
-    `   return Application.persistentDataPath + "/Record/";
+       return Application.persistentDataPath + "/Record/";
 #endif
         }
     }

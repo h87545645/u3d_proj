@@ -3,11 +3,11 @@ CRC: 729645676
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 8ccbc556497f9b6ade8b9d4eb7170b1c
+    Hash: fa7d1f89f2054f53f793d9b2baf267a0
   TypeTreeHash:
     serializedVersion: 2
     Hash: 1848cfd019ebe6ef89967c6f90f2a3d4
-HashAppended: 0
+HashAppended: 1
 ClassTypes:
 - Class: 48
   Script: {instanceID: 0}

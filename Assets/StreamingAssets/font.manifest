@@ -1,13 +1,13 @@
 ManifestFileVersion: 0
-CRC: 2094180744
+CRC: 1603319562
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: ef6cb8fbb1c9492ff08aa4c4df3a01de
+    Hash: ab413d9efee2b05a4e7e746bee5489e5
   TypeTreeHash:
     serializedVersion: 2
     Hash: e13787671dc5479918d412382ef15893
-HashAppended: 0
+HashAppended: 1
 ClassTypes:
 - Class: 21
   Script: {instanceID: 0}
@@ -52,6 +52,5 @@ Assets:
 - Assets/GameAssets/Font/msyhbd SDF.asset
 - Assets/GameAssets/Font/msyhl.ttc
 - Assets/GameAssets/Font/msyhbd.ttc
-- Assets/GameAssets/Font/msyh.ttc
 Dependencies:
-- C:/U3D/U3D_proj/independent_game/AssetBundles/StandaloneWindows/fonsdf
+- C:/U3D/U3D_proj/independent_game/AssetBundles/StandaloneWindows/fonsdf_fa7d1f89f2054f53f793d9b2baf267a0

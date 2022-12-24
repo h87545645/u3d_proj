@@ -3,11 +3,11 @@ CRC: 865637664
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 2c88f1f6ece063274037085cbcf7b64d
+    Hash: f4044d2e8d2f55e6974f7904da03d083
   TypeTreeHash:
     serializedVersion: 2
     Hash: 4a0491d7ab0a64606faf8809f56b01d2
-HashAppended: 0
+HashAppended: 1
 ClassTypes:
 - Class: 1
   Script: {instanceID: 0}
@@ -79,4 +79,4 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/GameAssets/Prefab/Game/DialogPrefab.prefab
 Dependencies:
-- C:/U3D/U3D_proj/independent_game/AssetBundles/StandaloneWindows/font
+- C:/U3D/U3D_proj/independent_game/AssetBundles/StandaloneWindows/font_85b054c5716947fa19f1895fff0abe2d
