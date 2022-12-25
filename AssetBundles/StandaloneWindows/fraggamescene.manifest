@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3781316346
+CRC: 3960759222
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f67c68d0f90c6000a3d08088d184018c
+    Hash: 160b1c2e87bf7625b192d1516c1be998
   TypeTreeHash:
     serializedVersion: 2
-    Hash: fa2d771d3bbfd13f7d4888d7440dc786
+    Hash: 5a2def9cae48ee37ba690030485d37ca
 HashAppended: 1
 ClassTypes:
 - Class: 1
@@ -109,8 +109,6 @@ ClassTypes:
   Script: {fileID: 11500000, guid: 17bce4ebf3bb8484f91d4b4d78663f57, type: 3}
 - Class: 115
   Script: {instanceID: 0}
-- Class: 128
-  Script: {instanceID: 0}
 - Class: 157
   Script: {instanceID: 0}
 - Class: 196
@@ -135,12 +133,10 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 483693784
   Script: {instanceID: 0}
-- Class: 687078895
-  Script: {instanceID: 0}
 - Class: 1839735485
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Scenes/FragGameScene.unity
 Dependencies:
-- C:/U3D/U3D_proj/independent_game/AssetBundles/StandaloneWindows/font_ab413d9efee2b05a4e7e746bee5489e5
+- C:/U3D/U3D_proj/independent_game/AssetBundles/StandaloneWindows/font_815504f5b18c895eba222fdf8442b093

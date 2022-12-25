@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1603319562
+CRC: 813912517
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: ab413d9efee2b05a4e7e746bee5489e5
+    Hash: 815504f5b18c895eba222fdf8442b093
   TypeTreeHash:
     serializedVersion: 2
-    Hash: e13787671dc5479918d412382ef15893
+    Hash: 8acecc61fa1ea02fa7aba22de71088f3
 HashAppended: 1
 ClassTypes:
 - Class: 21
@@ -18,8 +18,6 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
 - Class: 115
-  Script: {instanceID: 0}
-- Class: 128
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers:
 - AssemblyName: Unity.TextMeshPro
@@ -50,7 +48,5 @@ SerializeReferenceClassIdentifiers:
   ClassName: UnityEngine.TextCore.GlyphRect
 Assets:
 - Assets/GameAssets/Font/msyhbd SDF.asset
-- Assets/GameAssets/Font/msyhl.ttc
-- Assets/GameAssets/Font/msyhbd.ttc
 Dependencies:
 - C:/U3D/U3D_proj/independent_game/AssetBundles/StandaloneWindows/fonsdf_fa7d1f89f2054f53f793d9b2baf267a0

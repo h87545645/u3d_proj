@@ -3,7 +3,7 @@ CRC: 797581764
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 7acb7b1fb2d9242fa59a5253dd09b814
+    Hash: f2d5000a256be22930fd7dc2a91858b1
   TypeTreeHash:
     serializedVersion: 2
     Hash: 50190d9c417f2ade732ffd91c60a0435
@@ -61,4 +61,4 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/GameAssets/Prefab/UI/FragSettingPanel.prefab
 Dependencies:
-- C:/U3D/U3D_proj/independent_game/AssetBundles/StandaloneWindows/font_85b054c5716947fa19f1895fff0abe2d
+- C:/U3D/U3D_proj/independent_game/AssetBundles/StandaloneWindows/font_815504f5b18c895eba222fdf8442b093
