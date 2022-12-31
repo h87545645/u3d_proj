@@ -7,12 +7,8 @@ New Scriptable Object Test
 New Sprite Atlas
 NewShaderVariants
 Particle System
-animation/jump
-animation/New Animation
-animation/player
 LangData/LangPad
 UI/Canvas
 UI/EventSystem
 UI/UIGray
-SoundRes/Bgm/Hans Zimmer - No Time for Caution
 UI/CommonPanel/WatchADPanel

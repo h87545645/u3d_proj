@@ -31,7 +31,8 @@ public class FragMenuMainUI : PanelBase
         
         GetControl<Button>("ContinueButton").onClick.AddListener(() =>
         {
-            SceneMgr.GetInstance().LoadScene("FragGameScene",null);
+            // SceneMgr.GetInstance().LoadScene("FragGameScene",null);
+            LoadGameScene();
         });
         
         
@@ -49,6 +50,18 @@ public class FragMenuMainUI : PanelBase
 
 
         InitPlayerRecordUI();
+    }
+
+    private void LoadGameScene()
+    {
+        // AssetsLoadMgr.I.LoadAsync("FragGameScene", (string name, UnityEngine.Object obj) =>
+        // {
+        //     SceneMgr.GetInstance().LoadScene("FragGameScene",null);
+        // });
+        AssetBundleLoadMgr.I.LoadAsync("FragGameScene",(AssetBundle _ab) =>
+        {
+            SceneMgr.GetInstance().LoadScene("FragGameScene",null);
+        });
     }
 
     private void InitPlayerRecordUI()

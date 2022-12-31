@@ -36,6 +36,8 @@ public class AssetBundleLoadMgr
     private List<AssetBundleObject> tempLoadeds = new List<AssetBundleObject>(); //创建临时存储变量，用于提升性能
 
     private Dictionary<string, string[]> _dependsDataList;
+    
+    private Dictionary<string, string> _abHashNameList;
 
     private Dictionary<string, AssetBundleObject> _readyABList; //预备加载的列表
     private Dictionary<string, AssetBundleObject> _loadingABList; //正在加载的列表
@@ -45,7 +47,7 @@ public class AssetBundleLoadMgr
     private AssetBundleLoadMgr()
     {
         _dependsDataList = new Dictionary<string, string[]>();
-
+        _abHashNameList = new Dictionary<string, string>(); 
         _readyABList = new Dictionary<string, AssetBundleObject>();
         _loadingABList = new Dictionary<string, AssetBundleObject>();
         _loadedABList = new Dictionary<string, AssetBundleObject>();
@@ -94,10 +96,12 @@ public class AssetBundleLoadMgr
         foreach(string assetName in mainfest.GetAllAssetBundles())
         {
             string hashName = assetName ; /* + ".ab"; */
+            string shortName = hashName.Split('_')[0];
             string[] dps = mainfest.GetAllDependencies(assetName);
             for (int i = 0; i < dps.Length; i++)
                 dps[i] = dps[i].Replace(".ab", "");
-            _dependsDataList.Add(hashName, dps);
+            _dependsDataList.Add(shortName, dps);
+            _abHashNameList.Add(shortName,hashName);
         }
 
         ab.Unload(true);
@@ -205,11 +209,18 @@ public class AssetBundleLoadMgr
 
         //创建一个加载
         abObj = new AssetBundleObject();
-        abObj._hashName = _hashName;
+        if (_abHashNameList.ContainsKey(_hashName))
+        {
+            abObj._hashName = _abHashNameList[_hashName];
+        }
+        else
+        {
+            abObj._hashName = _hashName;
+        }
 
         abObj._refCount = 1;
 
-        string path = GetAssetBundlePath(_hashName);
+        string path = GetAssetBundlePath(abObj._hashName);
         abObj._ab = AssetBundle.LoadFromFile(path);
 
         if(abObj._ab == null)
@@ -317,7 +328,14 @@ public class AssetBundleLoadMgr
 
         //创建一个加载
         abObj = new AssetBundleObject();
-        abObj._hashName = _hashName;
+        if (_abHashNameList.ContainsKey(_hashName))
+        {
+            abObj._hashName = _abHashNameList[_hashName];
+        }
+        else
+        {
+            abObj._hashName = _hashName;
+        }
 
         abObj._refCount = 1;
         abObj._callFunList.Add(_callFun);

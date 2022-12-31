@@ -329,7 +329,11 @@ public class AssetsLoadMgr
 
                     if (_loadingList.ContainsKey(_assetName) && assetObj._request == null && assetObj._asset == null)
                     {
-                        assetObj._request = _ab.LoadAssetAsync(_ab.GetAllAssetNames()[0]);
+                        if (!_ab.isStreamedSceneAssetBundle)
+                        {
+                           assetObj._request = _ab.LoadAssetAsync(_ab.GetAllAssetNames()[0]);
+                        }
+
                     }
 
                 }
