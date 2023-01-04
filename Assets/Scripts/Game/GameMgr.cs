@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Honeti;
+using UnityEngine.Networking;
 
 public class GameMgr : MonoSingletonBase<GameMgr>
 {
@@ -11,7 +12,17 @@ public class GameMgr : MonoSingletonBase<GameMgr>
     {
         base.Awake();
         GameObject.DontDestroyOnLoad(gameObject);
-        AssetBundleLoadMgr.I.LoadMainfest();
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            string path = Application.streamingAssetsPath + "/WebGL";
+            StartCoroutine(this.LoadAB4WEBGL(path));
+        }
+        else
+        {
+            AssetBundleLoadMgr.I.LoadMainfest();
+        }
+     
+        
         DOTween.Init(true,true, LogBehaviour.Verbose);
         if (langMgr == null)
         {
@@ -34,4 +45,25 @@ public class GameMgr : MonoSingletonBase<GameMgr>
         DownloadMgr.I.Update();
         PrefabLoadMgr.I.Update();
     }
+    
+    
+    public IEnumerator LoadAB4WEBGL(string uriPath)
+    {
+        Debug.Log("===>>> LoadAB4WEBGL : " + uriPath);
+        UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(uriPath);
+        yield return request.SendWebRequest();
+        if (request.isHttpError)
+        {
+            Debug.LogError(GetType() + "/ERROR/" + request.error);
+        }
+        else
+        {
+            AssetBundle ab = (request.downloadHandler as DownloadHandlerAssetBundle).assetBundle;
+            
+            // ab.LoadAsset
+            ab.Unload(false);
+        }
+        request.Dispose();
+    }
+
 }

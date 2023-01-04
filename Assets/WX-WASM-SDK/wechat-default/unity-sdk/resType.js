@@ -17,6 +17,7 @@ export default {
     level: 'int',
   },
   EnterOptionsGame: {
+    apiCategory: 'string',
     query: 'object',
     referrerInfo: 'EnterOptionsGameReferrerInfo',
     scene: 'int',
@@ -140,6 +141,31 @@ export default {
     path: 'string',
     size: 'int',
   },
+  ChooseMediaSuccessCallbackResult: {
+    tempFiles: 'array',
+    type: 'string',
+    errMsg: 'string',
+  },
+  MediaFile: {
+    duration: 'int',
+    fileType: 'string',
+    height: 'int',
+    size: 'int',
+    tempFilePath: 'string',
+    thumbTempFilePath: 'string',
+    width: 'int',
+  },
+  ChooseMessageFileSuccessCallbackResult: {
+    tempFiles: 'array',
+    errMsg: 'string',
+  },
+  ChooseFile: {
+    name: 'string',
+    path: 'string',
+    size: 'int',
+    time: 'int',
+    type: 'string',
+  },
   BluetoothError: {
     errMsg: 'string',
     errCode: 'int',
@@ -251,6 +277,8 @@ export default {
     notify: 'bool',
     read: 'bool',
     write: 'bool',
+    writeDefault: 'bool',
+    writeNoResponse: 'bool',
   },
   GetBLEDeviceRSSISuccessCallbackResult: {
     RSSI: 'int',
@@ -302,6 +330,7 @@ export default {
     RSSI: 'int',
     advertisData: 'array',
     advertisServiceUUIDs: 'array',
+    connectable: 'bool',
     deviceId: 'string',
     localName: 'string',
     name: 'string',
@@ -354,6 +383,7 @@ export default {
   GetLocalIPAddressSuccessCallbackResult: {
     errMsg: 'string',
     localip: 'string',
+    netmask: 'string',
   },
   GetLocationSuccessCallbackResult: {
     accuracy: 'int',
@@ -366,6 +396,7 @@ export default {
     errMsg: 'string',
   },
   GetNetworkTypeSuccessCallbackResult: {
+    hasSystemProxy: 'bool',
     networkType: 'string',
     signalStrength: 'int',
     errMsg: 'string',
@@ -416,8 +447,8 @@ export default {
   GetUserInteractiveStorageSuccessCallbackResult: {
     cloudID: 'string',
     encryptedData: 'string',
-    errMsg: 'string',
     iv: 'string',
+    errMsg: 'string',
   },
   GetWeRunDataSuccessCallbackResult: {
     cloudID: 'string',
@@ -609,6 +640,11 @@ export default {
     cardId: 'string',
     code: 'string',
   },
+  OpenCustomerServiceConversationSuccessCallbackResult: {
+    path: 'string',
+    query: 'object',
+    errMsg: 'string',
+  },
   OpenSettingSuccessCallbackResult: {
     authSetting: 'AuthSetting',
     subscriptionsSetting: 'SubscriptionsSetting',
@@ -694,6 +730,9 @@ export default {
   UpdatableMessageFrontEndParameter: {
     name: 'string',
     value: 'string',
+  },
+  VibrateShortFailCallbackResult: {
+    errMsg: 'string',
   },
   CheckGameLiveEnabledSuccessCallbackOption: {
     errMsg: 'string',

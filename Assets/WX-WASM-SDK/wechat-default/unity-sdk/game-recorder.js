@@ -15,6 +15,7 @@ export default {
     if (!obj || typeof obj.onList === 'undefined' || typeof obj.onList[eventType] === 'undefined') {
       return;
     }
+    // eslint-disable-next-line no-restricted-syntax
     for (const key in Object.keys(obj.onList[eventType])) {
       const callback = obj.onList[eventType][key];
       if (callback) {

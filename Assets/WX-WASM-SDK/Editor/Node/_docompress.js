@@ -1,3 +1,6 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable prefer-const */
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-plusplus */
 const fs = require('fs');
@@ -47,14 +50,14 @@ const Mod = {
 
   async startTextureTask() {
     console.log('total textureList:', Conf.textureList.length);
-    for (let i = 0;i < Conf.textureList.length;i++) {
+    for (let i = 0; i < Conf.textureList.length; i++) {
       let { path, width, height, astc, limittype } = Conf.textureList[i];
       path = decodeURIComponent(path);
       const src = `${Conf.dst}/Assets/Textures/png/${width}/${path}.png`;
       if (!fs.existsSync(`${Conf.dst}/Assets/Textures/astc/${width}/`)) {
         fs.mkdirSync(`${Conf.dst}/Assets/Textures/astc/${width}/`, { recursive: true });
       }
-      if (i % 20 == 0) {
+      if (i % 20 === 0) {
         console.log('-----current progress-----', i, Conf.textureList.length);
       }
       await this.astc({
@@ -89,7 +92,7 @@ const Mod = {
           src,
           dstPath: `${Conf.dst}/Assets/Textures/etc2/${width}/${path}`,
           callback: async (isExist) => {
-            !isExist && await this.minPng({ src });
+            !isExist && (await this.minPng({ src }));
           },
         });
       }
@@ -143,7 +146,14 @@ const Mod = {
 
     await Semaphore.waitOne();
     const startTime = new Date();
-    const cm = spawn(`${Conf.dataPath}/WX-WASM-SDK/Editor/PVRTexToolCLI${os.type() === 'Darwin' ? '' : '.exe'}`, ['-i', src, '-o', dstPath, '-f', 'ETC2_RGBA,UBN,sRGB']);
+    const cm = spawn(`${Conf.dataPath}/WX-WASM-SDK/Editor/PVRTexToolCLI${os.type() === 'Darwin' ? '' : '.exe'}`, [
+      '-i',
+      src,
+      '-o',
+      dstPath,
+      '-f',
+      'ETC2_RGBA,UBN,sRGB',
+    ]);
 
     cm.stdout.on('data', (data) => {
       //  console.log(`${src} etc2 stdout: ${data}`);
@@ -184,7 +194,14 @@ const Mod = {
 
     await Semaphore.waitOne();
     const startTime = new Date();
-    const cm = spawn(`${Conf.dataPath}/WX-WASM-SDK/Editor/PVRTexToolCLI${os.type() === 'Darwin' ? '' : '.exe'}`, ['-i', src, '-o', `${dstPath}.dds`, '-f', 'BC3,UBN,sRGB']);
+    const cm = spawn(`${Conf.dataPath}/WX-WASM-SDK/Editor/PVRTexToolCLI${os.type() === 'Darwin' ? '' : '.exe'}`, [
+      '-i',
+      src,
+      '-o',
+      `${dstPath}.dds`,
+      '-f',
+      'BC3,UBN,sRGB',
+    ]);
 
     cm.stdout.on('data', (data) => {
       //   console.log(`${src} pvrtc stdout: ${data}`);
@@ -216,7 +233,14 @@ const Mod = {
 
     await Semaphore.waitOne();
     const startTime = new Date();
-    const cm = spawn(`${Conf.dataPath}/WX-WASM-SDK/Editor/PVRTexToolCLI${os.type() === 'Darwin' ? '' : '.exe'}`, ['-i', src, '-o', `${dstPath}.pvr`, '-f', 'PVRTC1_4,UBN,sRGB']);
+    const cm = spawn(`${Conf.dataPath}/WX-WASM-SDK/Editor/PVRTexToolCLI${os.type() === 'Darwin' ? '' : '.exe'}`, [
+      '-i',
+      src,
+      '-o',
+      `${dstPath}.pvr`,
+      '-f',
+      'PVRTC1_4,UBN,sRGB',
+    ]);
 
     cm.stdout.on('data', (data) => {
       //   console.log(`${src} pvrtc stdout: ${data}`);
@@ -243,7 +267,12 @@ const Mod = {
     await Semaphore.waitOne();
     const startTime = new Date();
 
-    const cm = spawn(`${Conf.dataPath}/WX-WASM-SDK/Editor/pngquant${os.type() === 'Darwin' ? '' : '.exe'}`, [src, '-o', src, '-f']);
+    const cm = spawn(`${Conf.dataPath}/WX-WASM-SDK/Editor/pngquant${os.type() === 'Darwin' ? '' : '.exe'}`, [
+      src,
+      '-o',
+      src,
+      '-f',
+    ]);
 
     cm.stdout.on('data', (data) => {
       //     console.log(`${src} minPng stdout: ${data}`);
@@ -261,11 +290,12 @@ const Mod = {
   },
 };
 
-
 process.on('exit', () => {
-  console.warn(new Date().toLocaleString(), `格式转换结束！！！总耗时：${(new Date() - Mod.startTime) / 1000}秒。如果有提示转换失败的可以再次执行本条命令。`);
+  console.warn(
+    new Date().toLocaleString(),
+    `格式转换结束！！！总耗时：${(new Date() - Mod.startTime) / 1000}秒。如果有提示转换失败的可以再次执行本条命令。`,
+  );
 });
-
 
 module.exports = {
   start(isFull) {

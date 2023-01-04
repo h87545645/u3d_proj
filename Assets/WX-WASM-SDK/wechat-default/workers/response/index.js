@@ -70,4 +70,3 @@ worker.onMessage((res) => {
     });
   }
 });
-

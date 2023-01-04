@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import response from './response';
 import moduleHelper from './module-helper';
 
@@ -124,11 +125,7 @@ export default {
   WXWriteBinFileSync(filePath, data, encoding) {
     const fs = wx.getFileSystemManager();
     try {
-      fs.writeFileSync(
-        filePath,
-        data.buffer,
-        encoding,
-      );
+      fs.writeFileSync(filePath, data.buffer, encoding);
     } catch (e) {
       console.error(e);
       return e.message;
@@ -144,20 +141,26 @@ export default {
         if (!encoding) {
           tempCacheObj[callbackId] = res.data;
         }
-        moduleHelper.send('ReadFileCallback', JSON.stringify({
-          callbackId,
-          errMsg: res.errMsg,
-          errCode: 0,
-          byteLength: res.data.byteLength || 0,
-          data: encoding ? res.data : '',
-        }));
+        moduleHelper.send(
+          'ReadFileCallback',
+          JSON.stringify({
+            callbackId,
+            errMsg: res.errMsg,
+            errCode: 0,
+            byteLength: res.data.byteLength || 0,
+            data: encoding ? res.data : '',
+          }),
+        );
       },
       fail(res) {
-        moduleHelper.send('ReadFileCallback', JSON.stringify({
-          callbackId,
-          errMsg: res.errMsg,
-          errCode: 1,
-        }));
+        moduleHelper.send(
+          'ReadFileCallback',
+          JSON.stringify({
+            callbackId,
+            errMsg: res.errMsg,
+            errCode: 1,
+          }),
+        );
       },
     });
   },
@@ -196,6 +199,23 @@ export default {
       return e.message;
     }
   },
+  WXRmdir(dirPath, recursive, s, f, c) {
+    const fs = wx.getFileSystemManager();
+    fs.rmdir({
+      dirPath,
+      recursive: Boolean(recursive),
+      ...response.handleText(s, f, c),
+    });
+  },
+  WXRmdirSync(dirPath, recursive) {
+    try {
+      const fs = wx.getFileSystemManager();
+      fs.rmdirSync(dirPath, Boolean(recursive));
+      return 'rmdirSync:ok';
+    } catch (e) {
+      return e.message;
+    }
+  },
   WXStat(conf, callbackId) {
     conf = formatJsonStr(conf);
     wx.getFileSystemManager().stat({
@@ -206,23 +226,38 @@ export default {
           res.one_stat = res.stats;
           res.stats = null;
         }
-        moduleHelper.send('StatCallback', JSON.stringify({
-          callbackId, type: 'success', res: JSON.stringify(res),
-        }));
+        moduleHelper.send(
+          'StatCallback',
+          JSON.stringify({
+            callbackId,
+            type: 'success',
+            res: JSON.stringify(res),
+          }),
+        );
       },
       fail(res) {
-        moduleHelper.send('StatCallback', JSON.stringify({
-          callbackId, type: 'fail', res: JSON.stringify(res),
-        }));
+        moduleHelper.send(
+          'StatCallback',
+          JSON.stringify({
+            callbackId,
+            type: 'fail',
+            res: JSON.stringify(res),
+          }),
+        );
       },
       complete(res) {
         if (!Array.isArray(res.stats)) {
           res.one_stat = res.stats;
           res.stats = null;
         }
-        moduleHelper.send('StatCallback', JSON.stringify({
-          callbackId, type: 'complete', res: JSON.stringify(res),
-        }));
+        moduleHelper.send(
+          'StatCallback',
+          JSON.stringify({
+            callbackId,
+            type: 'complete',
+            res: JSON.stringify(res),
+          }),
+        );
       },
     });
   },

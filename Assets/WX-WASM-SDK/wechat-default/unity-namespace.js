@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 const unityNamespace = {
   canvas: GameGlobal.canvas,
@@ -14,14 +15,18 @@ const unityNamespace = {
   maxStorage: $MAX_STORAGE_SIZE, // 当前appid扩容后，通过本字段告知插件本地存储最大容量，单位MB
   texturesHashLength: $TEXTURE_HASH_LENGTH, // 纹理中的hash长度
   texturesPath: '$TEXTURES_PATH', // 纹理存放路径
-  needCacheTextures: $NEED_CACHE_TEXTURES, // 是否需要缓存纹理
+  needCacheTextures: $NEED_CACHE_TEXTURES, // 是否需要缓存纹理,
+  enableProfileStats: false, // 是否显示性能面板
 };
 
 // 判断是否需要自动缓存的文件，返回true自动缓存；false不自动缓存
 unityNamespace.isCacheableFile = function (path) {
   const cacheableFileIdentifier = [$BUNDLE_PATH_IDENTIFIER]; // 判定为下载bundle的路径标识符，此路径下的下载，会自动缓存
   const excludeFileIdentifier = [$EXCLUDE_FILE_EXTENSIONS]; // 命中路径标识符的情况下，并不是所有文件都有必要缓存，过滤下不需要缓存的文件
-  if (cacheableFileIdentifier.some(identifier => path.includes(identifier) && excludeFileIdentifier.every(excludeIdentifier => !path.includes(excludeIdentifier)))) {
+  if (
+    cacheableFileIdentifier.some(identifier => path.includes(identifier)
+        && excludeFileIdentifier.every(excludeIdentifier => !path.includes(excludeIdentifier)))
+  ) {
     return true;
   }
   return false;

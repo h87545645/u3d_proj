@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 
 namespace WeChatWASM
@@ -62,33 +62,15 @@ namespace WeChatWASM
         }
 
         /// <summary>
-        /// 设置游戏当前阶段，通知插件侧游戏当前所处阶段，便于用户退出或异常发生时，独立域插件能上报游戏当前阶段
+        /// 上报游戏自定义场景的错误信息
         /// </summary>
-        /// <param name="stageType">自定义的阶段id，id>=200, id<=10000</param>
-        public static void SetGameStage(int stageType)
-        {
-            WXSDKManagerHandler.Instance.SetGameStage(stageType);
-        }
-
-        /// <summary>
-        /// 上报当前自定义阶段耗时
-        /// </summary>
-        /// <param name="costTime">自定义阶段耗时，没有就传0</param>
-        /// <param name="extJsonStr">上报的额外信息，json序列化字符串</param>
-        public static void ReportGameStageCostTime(int costTime, string extJsonStr)
-        {
-            WXSDKManagerHandler.Instance.ReportGameStageCostTime(costTime, extJsonStr);
-        }
-
-        /// <summary>
-        /// 上报当前自定义阶段错误信息
-        /// </summary>
+        /// <param name="sceneId"></param>
         /// <param name="errorType">错误类型, 取值范围0-10000</param>
         /// <param name="errStr">错误信息</param>
         /// <param name="extJsonStr">上报的额外信息，json序列化字符串</param>
-        public static void ReportGameStageError(int errorType, string errStr, string extJsonStr)
+        public static void ReportGameSceneError(int sceneId, int errorType = 0, string errStr = "", string extJsonStr = "")
         {
-            WXSDKManagerHandler.Instance.ReportGameStageError(errorType, errStr, extJsonStr);
+            WXSDKManagerHandler.Instance.ReportGameSceneError(sceneId, errorType, errStr, extJsonStr);
         }
 
         /// <summary>
@@ -631,6 +613,14 @@ namespace WeChatWASM
         {
             WXSDKManagerHandler.Instance.OpenProfileStats();
         }
+
+        /// <summary>
+        /// ProfilingMemory内存Dump
+        /// </summary>
+        public static void ProfilingMemoryDump()
+        {
+            WXSDKManagerHandler.Instance.ProfilingMemoryDump();
+        }
         #endregion
 
 
@@ -711,6 +701,28 @@ namespace WeChatWASM
             WXSDKManagerHandler.Instance.RemoveFile(path, action);
         }
 
+        /// <summary>
+        /// bundle、纹理等自动缓存的目录
+        /// </summary>
+        /// <value></value>
+        public static string PluginCachePath
+        {
+            get
+            {
+                return WXSDKManagerHandler.PluginCachePath;
+            }
+        }
+
+        /// <summary>
+        /// 获取文件的本地缓存路径，若无缓存，可进行预下载
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string GetCachePath(string url)
+        {
+            return WXSDKManagerHandler.Instance.GetCachePath(url);
+        }
+
         #endregion
 
         /// <summary>
@@ -776,6 +788,15 @@ namespace WeChatWASM
         public static void OperateGameRecorderVideo(operateGameRecorderOption option)
         {
             WXSDKManagerHandler.Instance.OperateGameRecorderVideo(option);
+        }
+
+        /// <summary>
+        /// 用于游戏启动阶段自定义场景耗时的上报，如进入游戏大厅的场景上报
+        /// </summary>
+        /// <param name="conf"></param>
+        public static void ReportScene(ReportSceneParams conf)
+        {
+            WXSDKManagerHandler.Instance.ReportScene(conf);
         }
     }
 }

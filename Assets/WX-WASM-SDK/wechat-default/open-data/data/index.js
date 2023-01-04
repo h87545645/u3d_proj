@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable camelcase */
 import { getCurrTime, promisify } from './utils';
 
 const getFriendCloudStorage = promisify(wx.getFriendCloudStorage);
@@ -12,9 +14,7 @@ const getUserInfo = promisify(wx.getUserInfo);
 export function getSelfData() {
   return getUserInfo({
     openIdList: ['selfOpenId'],
-  }).then(res => {
-    return res.data[0] || {};
-  });
+  }).then(res => res.data[0] || {});
 }
 
 let getSelfPromise;
@@ -44,28 +44,26 @@ function getWxGameData(item) {
  * 处理 getFriendCloudStorage 和 getGroupCloudStorage 返回的在玩好友数据
  */
 function rankDataFilter(res, selfUserInfo = false) {
-  const data = (res.data || []).filter(
-    (item) => item.KVDataList && item.KVDataList.length
-  );
+  const data = (res.data || []).filter(item => item.KVDataList && item.KVDataList.length);
 
-  return data.map((item) => {
-    const { score, update_time } = getWxGameData(item);
-    item.score = score;
-    item.update_time = update_time;
+  return data
+    .map((item) => {
+      const { score, update_time } = getWxGameData(item);
+      item.score = score;
+      item.update_time = update_time;
 
-    /**
-     * 请注意，这里判断是否为自己并不算特别严谨的做法
-     * 比较严谨的做法是从游戏域将openid传进来，示例为了简化，简单通过 avatarUrl 来判断
-     */
-    if (selfUserInfo && selfUserInfo.avatarUrl === item.avatarUrl) {
-      item.isSelf = true;
-    }
+      /**
+       * 请注意，这里判断是否为自己并不算特别严谨的做法
+       * 比较严谨的做法是从游戏域将openid传进来，示例为了简化，简单通过 avatarUrl 来判断
+       */
+      if (selfUserInfo && selfUserInfo.avatarUrl === item.avatarUrl) {
+        item.isSelf = true;
+      }
 
-    return item;
-  }).sort((a, b) => {
+      return item;
+    })
     // 升序排序
-		return b.score - a.score;
-	});
+    .sort((a, b) => b.score - a.score);
 }
 
 /**
@@ -73,17 +71,15 @@ function rankDataFilter(res, selfUserInfo = false) {
  * API文档可见：https://developers.weixin.qq.com/minigame/dev/api/open-api/data/wx.getFriendCloudStorage.html
  */
 export function getFriendRankData(key, needMarkSelf = true) {
-  console.log("[WX OpenData] getFriendRankData with key: ", key);
+  console.log('[WX OpenData] getFriendRankData with key: ', key);
   return getFriendCloudStorage({
     keyList: [key],
-  }).then(res => {
-    console.log("[WX OpenData] getFriendRankData success: ", res);
+  }).then((res) => {
+    console.log('[WX OpenData] getFriendRankData success: ', res);
 
     if (needMarkSelf) {
       getSelfPromise = getSelfPromise || getSelfData();
-      return getSelfPromise.then((userInfo) => {
-        return rankDataFilter(res, userInfo);
-      });
+      return getSelfPromise.then(userInfo => rankDataFilter(res, userInfo));
     }
 
     return rankDataFilter(res);
@@ -95,19 +91,17 @@ export function getFriendRankData(key, needMarkSelf = true) {
  * API文档可见: https://developers.weixin.qq.com/minigame/dev/api/open-api/data/wx.getGroupCloudStorage.html
  */
 export function getGroupFriendsRankData(shareTicket, key, needMarkSelf = true) {
-  console.log("[WX OpenData] getGroupFriendsRankData with shareTicket and key: ", shareTicket, key);
+  console.log('[WX OpenData] getGroupFriendsRankData with shareTicket and key: ', shareTicket, key);
 
   return getGroupCloudStorage({
     shareTicket,
     keyList: [key],
-  }).then(res => {
-    console.log("[WX OpenData] getGroupFriendsRankData success: ", res);
+  }).then((res) => {
+    console.log('[WX OpenData] getGroupFriendsRankData success: ', res);
 
     if (needMarkSelf) {
       getSelfPromise = getSelfPromise || getSelfData();
-      return getSelfPromise.then((userInfo) => {
-        return rankDataFilter(res, userInfo);
-      });
+      return getSelfPromise.then(userInfo => rankDataFilter(res, userInfo));
     }
 
     return rankDataFilter(res);
@@ -125,11 +119,11 @@ export function getGroupFriendsRankData(shareTicket, key, needMarkSelf = true) {
  * setUserRecord('user_rank', 100, { type: 'coin' })
  */
 export function setUserRecord(key, score = 0, extra = {}) {
-  console.log("[WX OpenData] setUserRecord: ", score);
+  console.log('[WX OpenData] setUserRecord: ', score);
   return setUserCloudStorage({
     KVDataList: [
       {
-        key: key,
+        key,
         value: JSON.stringify({
           wxgame: {
             score,
@@ -142,6 +136,6 @@ export function setUserRecord(key, score = 0, extra = {}) {
       },
     ],
   }).then((res) => {
-    console.log("[WX OpenData] setUserRecord success: ", res);
+    console.log('[WX OpenData] setUserRecord success: ', res);
   });
 }

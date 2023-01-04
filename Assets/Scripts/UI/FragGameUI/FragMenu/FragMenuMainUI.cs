@@ -50,6 +50,7 @@ public class FragMenuMainUI : PanelBase
 
 
         InitPlayerRecordUI();
+        InitButton();
     }
 
     private void LoadGameScene()
@@ -74,5 +75,13 @@ public class FragMenuMainUI : PanelBase
         };
         playerRecordText._params = record;
         playerRecordText.updateTranslation();
+    }
+
+    private void InitButton()
+    {
+        if (!FragGameRecord.GetInstance().reocrd.playerAlreadyGuide)
+        {
+            GetControl<Button>("ContinueButton").gameObject.SetActive(false);
+        }
     }
 }

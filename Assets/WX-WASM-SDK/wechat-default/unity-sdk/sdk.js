@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import ResType from './resType';
 import moduleHelper from './module-helper';
 
@@ -7,14 +8,16 @@ function formatIdentifier(identifier) {
   if (Math.abs(identifier) < 2147483648) {
     return Math.round(identifier);
   }
+  // eslint-disable-next-line no-restricted-syntax
   for (const key in identifierCache) {
     if (identifierCache[key] && identifierCache[key].key === identifier) {
       return identifierCache[key].value;
     }
   }
-  let value = parseInt(Math.random() * 2147483648);
+  let value = parseInt(Math.random() * 2147483648, 10);
+  // eslint-disable-next-line no-loop-func
   while (identifierCache.some(v => v.value === value)) {
-    value++;
+    value += 1;
   }
   identifierCache.push({
     key: identifier,
@@ -37,7 +40,7 @@ function formatTouchEvent(v) {
   };
 }
 
-function formatResponse(type, data) {
+export function formatResponse(type, data) {
   const conf = ResType[type];
   const typeMap = { array: [], string: '', int: 0, bool: false, object: {} };
   if (!conf) {
@@ -46,8 +49,8 @@ function formatResponse(type, data) {
   if (conf && !data) {
     data = {};
   }
-  for (var key in conf) {
-    if (data[key] == null) {
+  Object.keys(conf).forEach((key) => {
+    if (data[key] === null) {
       if (typeof typeMap[conf[key]] === 'undefined') {
         data[key] = {};
         if (ResType[conf[key]]) {
@@ -63,7 +66,7 @@ function formatResponse(type, data) {
         data[key][v] += '';
       });
     }
-  }
+  });
 }
 
 export function formatJsonStr(str) {
@@ -220,6 +223,54 @@ export default {
       complete(res) {
         formatResponse('GeneralCallbackResult', res);
         moduleHelper.send('ChooseImageCallback', JSON.stringify({
+          callbackId, type: 'complete', res: JSON.stringify(res),
+        }));
+      },
+    });
+  },
+  WX_ChooseMedia(conf, callbackId) {
+    conf = formatJsonStr(conf);
+    wx.chooseMedia({
+      ...conf,
+      success(res) {
+        formatResponse('ChooseMediaSuccessCallbackResult', res);
+        moduleHelper.send('ChooseMediaCallback', JSON.stringify({
+          callbackId, type: 'success', res: JSON.stringify(res),
+        }));
+      },
+      fail(res) {
+        formatResponse('GeneralCallbackResult', res);
+        moduleHelper.send('ChooseMediaCallback', JSON.stringify({
+          callbackId, type: 'fail', res: JSON.stringify(res),
+        }));
+      },
+      complete(res) {
+        formatResponse('GeneralCallbackResult', res);
+        moduleHelper.send('ChooseMediaCallback', JSON.stringify({
+          callbackId, type: 'complete', res: JSON.stringify(res),
+        }));
+      },
+    });
+  },
+  WX_ChooseMessageFile(conf, callbackId) {
+    conf = formatJsonStr(conf);
+    wx.chooseMessageFile({
+      ...conf,
+      success(res) {
+        formatResponse('ChooseMessageFileSuccessCallbackResult', res);
+        moduleHelper.send('ChooseMessageFileCallback', JSON.stringify({
+          callbackId, type: 'success', res: JSON.stringify(res),
+        }));
+      },
+      fail(res) {
+        formatResponse('GeneralCallbackResult', res);
+        moduleHelper.send('ChooseMessageFileCallback', JSON.stringify({
+          callbackId, type: 'fail', res: JSON.stringify(res),
+        }));
+      },
+      complete(res) {
+        formatResponse('GeneralCallbackResult', res);
+        moduleHelper.send('ChooseMessageFileCallback', JSON.stringify({
           callbackId, type: 'complete', res: JSON.stringify(res),
         }));
       },
@@ -1505,7 +1556,7 @@ export default {
     wx.openCustomerServiceConversation({
       ...conf,
       success(res) {
-        formatResponse('GeneralCallbackResult', res);
+        formatResponse('OpenCustomerServiceConversationSuccessCallbackResult', res);
         moduleHelper.send('OpenCustomerServiceConversationCallback', JSON.stringify({
           callbackId, type: 'success', res: JSON.stringify(res),
         }));
@@ -2687,7 +2738,7 @@ export default {
         }));
       },
       fail(res) {
-        formatResponse('GeneralCallbackResult', res);
+        formatResponse('VibrateShortFailCallbackResult', res);
         moduleHelper.send('VibrateShortCallback', JSON.stringify({
           callbackId, type: 'fail', res: JSON.stringify(res),
         }));
@@ -2917,9 +2968,6 @@ export default {
     });
   },
 
-  WX_RestartMiniProgram() {
-    wx.restartMiniProgram();
-  },
   WX_RemoveStorageSync(key) {
     wx.removeStorageSync(key);
   },
@@ -2938,14 +2986,17 @@ export default {
   WX_ReserveChannelsLive(option) {
     wx.reserveChannelsLive(formatJsonStr(option));
   },
+  WX_RestartMiniProgram() {
+    wx.restartMiniProgram();
+  },
   WX_RevokeBufferURL(url) {
     wx.revokeBufferURL(url);
   },
   WX_SetPreferredFramesPerSecond(fps) {
     wx.setPreferredFramesPerSecond(fps);
   },
-  WX_SetStorageSync(key, data, encrypt) {
-    wx.setStorageSync(key, formatJsonStr(data), encrypt);
+  WX_SetStorageSync(key, data) {
+    wx.setStorageSync(key, formatJsonStr(data));
   },
   WX_ShareAppMessage(option) {
     wx.shareAppMessage(formatJsonStr(option));
@@ -3476,7 +3527,7 @@ export default {
       const touches = res.touches.map(v => formatTouchEvent(v));
       const resStr = JSON.stringify({
         touches,
-        timeStamp: parseInt(res.timeStamp),
+        timeStamp: parseInt(res.timeStamp, 10),
         changedTouches: res.changedTouches.map(v => formatTouchEvent(v)),
       });
       moduleHelper.send('_OnTouchCancelCallback', resStr);
@@ -3495,7 +3546,7 @@ export default {
       const touches = res.touches.map(v => formatTouchEvent(v));
       const resStr = JSON.stringify({
         touches,
-        timeStamp: parseInt(res.timeStamp),
+        timeStamp: parseInt(res.timeStamp, 10),
         changedTouches: res.changedTouches.map(v => formatTouchEvent(v)),
       });
       moduleHelper.send('_OnTouchEndCallback', resStr);
@@ -3514,7 +3565,7 @@ export default {
       const touches = res.touches.map(v => formatTouchEvent(v));
       const resStr = JSON.stringify({
         touches,
-        timeStamp: parseInt(res.timeStamp),
+        timeStamp: parseInt(res.timeStamp, 10),
         changedTouches: res.changedTouches.map(v => formatTouchEvent(v)),
       });
       moduleHelper.send('_OnTouchMoveCallback', resStr);
@@ -3533,7 +3584,7 @@ export default {
       const touches = res.touches.map(v => formatTouchEvent(v));
       const resStr = JSON.stringify({
         touches,
-        timeStamp: parseInt(res.timeStamp),
+        timeStamp: parseInt(res.timeStamp, 10),
         changedTouches: res.changedTouches.map(v => formatTouchEvent(v)),
       });
       moduleHelper.send('_OnTouchStartCallback', resStr);

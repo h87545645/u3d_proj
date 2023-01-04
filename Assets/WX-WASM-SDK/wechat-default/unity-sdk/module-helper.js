@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { moduleName } from './conf';
 
 export default {

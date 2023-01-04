@@ -227,6 +227,10 @@ public class WXProfileStatsScript : MonoBehaviour
         if (GUILayout.Button("Performence Stats", GUILayout.ExpandWidth(false))){
             m_isShow = !m_isShow;
         }
+        if (GUILayout.Button("ProfilingMemory Dump", GUILayout.ExpandWidth(false)))
+        {
+            WeChatWASM.WX.ProfilingMemoryDump();
+        }
         GUILayout.BeginVertical(m_bgStyle);
         if (m_isShow){
             GUILayout.Label(statsText);

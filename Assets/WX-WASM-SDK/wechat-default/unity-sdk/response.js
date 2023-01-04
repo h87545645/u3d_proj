@@ -33,21 +33,27 @@ export default {
     if (!id) {
       return false;
     }
-    moduleHelper.send('TextResponseCallback', JSON.stringify({
-      callbackId: id,
-      errMsg: res.errMsg,
-      errCode: res.errCode,
-    }));
+    moduleHelper.send(
+      'TextResponseCallback',
+      JSON.stringify({
+        callbackId: id,
+        errMsg: res.errMsg,
+        errCode: res.errCode,
+      }),
+    );
   },
   textFormatLongBack(id, res) {
     if (!id) {
       return false;
     }
-    moduleHelper.send('TextResponseLongCallback', JSON.stringify({
-      callbackId: id,
-      errMsg: res.errMsg,
-      errCode: res.errCode,
-    }));
+    moduleHelper.send(
+      'TextResponseLongCallback',
+      JSON.stringify({
+        callbackId: id,
+        errMsg: res.errMsg,
+        errCode: res.errCode,
+      }),
+    );
   },
   handlecloudCallFunction(s, f, c) {
     const self = this;
@@ -67,12 +73,15 @@ export default {
     if (!id) {
       return false;
     }
-    moduleHelper.send('CloudCallFunctionResponseCallback', JSON.stringify({
-      callbackId: id,
-      errMsg: res.errMsg,
-      result: typeof res.result === 'object' ? JSON.stringify(res.result) : res.result,
-      requestID: res.requestID,
-    }));
+    moduleHelper.send(
+      'CloudCallFunctionResponseCallback',
+      JSON.stringify({
+        callbackId: id,
+        errMsg: res.errMsg,
+        result: typeof res.result === 'object' ? JSON.stringify(res.result) : res.result,
+        requestID: res.requestID,
+      }),
+    );
   },
   handle(formatFunc, s, f, c) {
     return {

@@ -34,12 +34,15 @@ export default {
         ...getDefaultData(canvas, conf),
         ...response.handleText(s, f, c),
         success: (res) => {
-          moduleHelper.send('ToTempFilePathCallback', JSON.stringify({
-            callbackId: s,
-            errMsg: res.errMsg,
-            errCode: res.errCode,
-            tempFilePath: res.tempFilePath,
-          }));
+          moduleHelper.send(
+            'ToTempFilePathCallback',
+            JSON.stringify({
+              callbackId: s,
+              errMsg: res.errMsg,
+              errCode: res.errCode,
+              tempFilePath: res.tempFilePath,
+            }),
+          );
         },
       });
     }

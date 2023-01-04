@@ -1,3 +1,5 @@
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import './weapp-adapter';
 import unityNamespace from './unity-namespace';
@@ -54,7 +56,7 @@ let managerConfig = {
     '$PRELOAD_LIST',
   ],
   contextConfig: {
-    contextType: $WEBGL_VERSION,  // 1=>webgl1  2=>webgl2 3=>auto
+    contextType: $WEBGL_VERSION, // 1=>webgl1  2=>webgl2 3=>auto
   },
 };
 
@@ -92,8 +94,8 @@ checkVersion().then((enable) => {
         // 以下是默认值
         totalLaunchTime: 15000, // 默认总启动耗时，即加载动画默认播放时间，可根据游戏实际情况进行调整
         /**
-				 * !!注意：修改设计宽高和缩放模式后，需要修改文字和进度条样式。默认设计尺寸为667*375
-				 */
+         * !!注意：修改设计宽高和缩放模式后，需要修改文字和进度条样式。默认设计尺寸为667*375
+         */
         designWidth: 0, // 设计宽度，单位px
         designHeight: 0, // 设计高度，单位px
         scaleMode: '', // 缩放模式, 取值和效果参考，https://docs.egret.com/engine/docs/screenAdaptation/zoomMode
@@ -162,26 +164,21 @@ checkVersion().then((enable) => {
       //   };
       // }
       if (e.type === launchEventType.launchPlugin) {
-
       }
       if (e.type === launchEventType.loadWasm) {
-
       }
       if (e.type === launchEventType.compileWasm) {
-
       }
       if (e.type === launchEventType.loadAssets) {
-
       }
       if (e.type === launchEventType.readAssets) {
-
       }
       if (e.type === launchEventType.prepareGame) {
-
       }
     });
 
     gameManager.onModulePrepared(() => {
+      // eslint-disable-next-line no-restricted-syntax
       for (const key in unityNamespace) {
         // 动态修改DATA_CDN后，同步修改全局对象
         if (!GameGlobal.hasOwnProperty(key) || key === 'DATA_CDN') {
@@ -192,7 +189,6 @@ checkVersion().then((enable) => {
       managerConfig.DATA_CDN = GameGlobal.DATA_CDN;
       gameManager.assetPath = `${(managerConfig.DATA_CDN || '').replace(/\/$/, '')}/Assets`;
     });
-
 
     // 上报初始化信息
     const systeminfo = wx.getSystemInfoSync();

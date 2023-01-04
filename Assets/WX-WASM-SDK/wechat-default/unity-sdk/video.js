@@ -23,13 +23,16 @@ export default {
   WXVideoAddListener(id, key) {
     if (videos[id]) {
       videos[id][key]((e) => {
-        moduleHelper.send('OnVideoCallback', JSON.stringify({
-          callbackId: id,
-          errMsg: key,
-          position: e && e.position,
-          buffered: e && e.buffered,
-          duration: e && e.duration,
-        }));
+        moduleHelper.send(
+          'OnVideoCallback',
+          JSON.stringify({
+            callbackId: id,
+            errMsg: key,
+            position: e && e.position,
+            buffered: e && e.buffered,
+            duration: e && e.duration,
+          }),
+        );
         if (key === 'onError') {
           GameGlobal.enableTransparentCanvas = false;
           console.error(e);

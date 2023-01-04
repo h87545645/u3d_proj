@@ -299,17 +299,7 @@ namespace WeChatWASM
 #if UNITY_WEBGL
         [DllImport("__Internal")]
 #endif
-        private static extern void WXSetGameStage(int stageType);
-
-#if UNITY_WEBGL
-        [DllImport("__Internal")]
-#endif
-        private static extern void WXReportGameStageCostTime(int costTime, string extJsonStr);
-
-#if UNITY_WEBGL
-        [DllImport("__Internal")]
-#endif
-        private static extern void WXReportGameStageError(int errorType, string errStr, string extJsonStr);
+        private static extern void WXReportGameSceneError(int sceneId, int errorType, string errStr, string extJsonStr);
 
 #if UNITY_WEBGL
         [DllImport("__Internal")]
@@ -432,6 +422,10 @@ namespace WeChatWASM
         [DllImport("__Internal")]
         private static extern void WXPointer_stringify_adaptor();
 
+        [Preserve]
+        [DllImport("__Internal")]
+        private static extern void WXProfilingMemoryDump();
+
 
 #else
         private static uint WXGetTotalMemorySize() { return 0; }
@@ -460,6 +454,8 @@ namespace WeChatWASM
             Debug.LogWarning(str);
         }
 
+        private void WXProfilingMemoryDump() {}
+
 #endif
 
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -468,6 +464,16 @@ namespace WeChatWASM
 #else
         private static bool WXIsCloudTest() { return false; }
 #endif
+
+#if UNITY_WEBGL
+        [DllImport("__Internal")]
+#endif
+        private static extern string WXGetCachePath(string url);
+
+#if UNITY_WEBGL
+        [DllImport("__Internal")]
+#endif
+        private static extern string WXGetPluginCachePath();
 
 #if UNITY_WEBGL && !UNITY_EDITOR
         [DllImport("__Internal")]
@@ -1034,19 +1040,9 @@ namespace WeChatWASM
             WXReportGameStart();
         }
 
-        public void SetGameStage(int stageType)
+        public void ReportGameSceneError(int sceneId, int errorType, string errStr, string extJsonStr)
         {
-            WXSetGameStage(stageType);
-        }
-
-        public void ReportGameStageCostTime(int costTime, string extJsonStr)
-        {
-            WXReportGameStageCostTime(costTime, extJsonStr);
-        }
-
-        public void ReportGameStageError(int errorType, string errStr, string extJsonStr)
-        {
-            WXReportGameStageError(errorType, errStr, extJsonStr);
+            WXReportGameSceneError(sceneId, errorType, errStr, extJsonStr);
         }
 
         public void WriteLog(string str)
@@ -1157,6 +1153,11 @@ namespace WeChatWASM
                 $"MonoUsedSize:{UnityEngine.Profiling.Profiler.GetMonoUsedSizeLong() / sizeInMB}MB," +
                 $"MonoHeapSize:{UnityEngine.Profiling.Profiler.GetMonoHeapSizeLong() / sizeInMB}MB");
 
+        }
+
+        public void ProfilingMemoryDump()
+        {
+            WXProfilingMemoryDump();
         }
 
         public void OpenProfileStats()
@@ -1280,6 +1281,21 @@ namespace WeChatWASM
 				}
 			}
 		}
+        private static string _PluginCachePath = "";
+        public static string PluginCachePath
+        {
+            get
+            {
+                if (_PluginCachePath == "") {
+                    _PluginCachePath = WXGetPluginCachePath();
+                }
+                return _PluginCachePath;
+            }
+        }
+        public string GetCachePath(string url)
+        {
+            return WXGetCachePath(url);
+        }
         #endregion
 
         public void OnLaunchProgress(Action<LaunchEvent> action)
@@ -1647,6 +1663,71 @@ namespace WeChatWASM
         {
     
                 WX_OperateGameRecorderVideo(JsonMapper.ToJson(option));
+        }
+
+        #if UNITY_WEBGL
+            [DllImport("__Internal")]
+            private static extern void WXReportScene(string conf, string callbackId);
+        #else
+        private static void WXReportScene(string conf, string callbackId)
+        {
+            Debug.Log("[reportScene] sceneId: "+conf.sceneId+"; costTime: "+conf.costTime);
+        }
+        #endif
+
+        private Dictionary<string, ReportSceneParams> ReportSceneParamsList;
+        public void ReportScene(ReportSceneParams option)
+        {
+            if (ReportSceneParamsList == null) {
+                ReportSceneParamsList = new Dictionary<string, ReportSceneParams>();
+            }
+            string id = GetCallbackId(ReportSceneParamsList);
+            var callback = new ReportSceneParams(){
+                success = option.success,
+                fail = option.fail,
+                complete = option.complete
+            };
+            ReportSceneParamsList.Add( id, callback );
+            var succ = option.success;
+            var fail = option.fail;
+            var comp = option.complete;
+            option.success = null;
+            option.fail = null;
+            option.complete = null;
+            var conf = JsonMapper.ToJson(option);
+            option.success = succ;
+            option.fail = fail;
+            option.complete = comp;
+            WXReportScene(conf, id);
+        }
+
+        public void ReportSceneCallback(string msg) {
+            if (!string.IsNullOrEmpty(msg) && ReportSceneParamsList != null)
+            {
+                var jsCallback = JsonUtility.FromJson<WXJSCallback>(msg);
+                var id = jsCallback.callbackId;
+                var type = jsCallback.type;
+                var res = jsCallback.res;
+                if(ReportSceneParamsList.ContainsKey(id)) {
+                    var item = ReportSceneParamsList[id];
+                    if(type == "complete") {
+                        item.complete?.Invoke(JsonMapper.ToObject<GeneralCallbackResult>(res));
+                        item.complete = null;
+                    } else {
+                        if(type == "success") {
+                            item.success?.Invoke(JsonMapper.ToObject<GeneralCallbackResult>(res));
+                        }
+                        else if(type == "fail") {
+                            item.fail?.Invoke(JsonMapper.ToObject<GeneralCallbackResult>(res));
+                        }
+                        item.success = null;
+                        item.fail = null;
+                    }
+                    if(item.complete == null && item.success == null && item.fail == null) {
+                        ReportSceneParamsList.Remove(id);
+                    }
+                }
+            }
         }
     
     
@@ -2025,6 +2106,128 @@ namespace WeChatWASM
         option.fail = fail;
         option.complete = comp;
         WX_ChooseImage(conf,id);
+    }
+    public void ChooseMediaCallback(string msg) {
+        if (!string.IsNullOrEmpty(msg) && ChooseMediaOptionList != null)
+        {
+            var jsCallback = JsonUtility.FromJson<WXJSCallback>(msg);
+            var id = jsCallback.callbackId;
+            var type = jsCallback.type;
+            var res = jsCallback.res;
+            if(ChooseMediaOptionList.ContainsKey(id)){
+                var item = ChooseMediaOptionList[id];
+                if(type == "complete"){
+                    item.complete?.Invoke(JsonMapper.ToObject<GeneralCallbackResult>(res));
+                    item.complete = null;
+                }else{
+                    if(type == "success"){
+                        item.success?.Invoke(JsonMapper.ToObject<ChooseMediaSuccessCallbackResult>(res));
+                    }
+                    else if(type == "fail"){
+                        item.fail?.Invoke(JsonMapper.ToObject<GeneralCallbackResult>(res));
+                    }
+                    item.success = null;
+                    item.fail = null;
+                }
+                if(item.complete == null && item.success == null && item.fail == null){
+                    ChooseMediaOptionList.Remove(id);
+                }
+            }
+        }
+    }
+
+    #if UNITY_WEBGL && !UNITY_EDITOR
+    [DllImport("__Internal")]
+    private static extern void WX_ChooseMedia(string conf, string callbackId);
+    #else
+    private void WX_ChooseMedia(string conf, string callbackId){}
+    #endif
+
+    private Dictionary<string, ChooseMediaOption> ChooseMediaOptionList;
+    public void ChooseMedia(ChooseMediaOption option)
+    {
+        if(ChooseMediaOptionList == null){
+            ChooseMediaOptionList = new Dictionary<string, ChooseMediaOption>();
+        }
+        string id = GetCallbackId(ChooseMediaOptionList);
+        var callback = new ChooseMediaOption(){
+            success = option.success,
+            fail = option.fail,
+            complete = option.complete
+        };
+        ChooseMediaOptionList.Add( id, callback );
+        var succ = option.success;
+        var fail = option.fail;
+        var comp = option.complete;
+        option.success = null;
+        option.fail = null;
+        option.complete = null;
+        var conf = JsonMapper.ToJson(option);
+        option.success = succ;
+        option.fail = fail;
+        option.complete = comp;
+        WX_ChooseMedia(conf,id);
+    }
+    public void ChooseMessageFileCallback(string msg) {
+        if (!string.IsNullOrEmpty(msg) && ChooseMessageFileOptionList != null)
+        {
+            var jsCallback = JsonUtility.FromJson<WXJSCallback>(msg);
+            var id = jsCallback.callbackId;
+            var type = jsCallback.type;
+            var res = jsCallback.res;
+            if(ChooseMessageFileOptionList.ContainsKey(id)){
+                var item = ChooseMessageFileOptionList[id];
+                if(type == "complete"){
+                    item.complete?.Invoke(JsonMapper.ToObject<GeneralCallbackResult>(res));
+                    item.complete = null;
+                }else{
+                    if(type == "success"){
+                        item.success?.Invoke(JsonMapper.ToObject<ChooseMessageFileSuccessCallbackResult>(res));
+                    }
+                    else if(type == "fail"){
+                        item.fail?.Invoke(JsonMapper.ToObject<GeneralCallbackResult>(res));
+                    }
+                    item.success = null;
+                    item.fail = null;
+                }
+                if(item.complete == null && item.success == null && item.fail == null){
+                    ChooseMessageFileOptionList.Remove(id);
+                }
+            }
+        }
+    }
+
+    #if UNITY_WEBGL && !UNITY_EDITOR
+    [DllImport("__Internal")]
+    private static extern void WX_ChooseMessageFile(string conf, string callbackId);
+    #else
+    private void WX_ChooseMessageFile(string conf, string callbackId){}
+    #endif
+
+    private Dictionary<string, ChooseMessageFileOption> ChooseMessageFileOptionList;
+    public void ChooseMessageFile(ChooseMessageFileOption option)
+    {
+        if(ChooseMessageFileOptionList == null){
+            ChooseMessageFileOptionList = new Dictionary<string, ChooseMessageFileOption>();
+        }
+        string id = GetCallbackId(ChooseMessageFileOptionList);
+        var callback = new ChooseMessageFileOption(){
+            success = option.success,
+            fail = option.fail,
+            complete = option.complete
+        };
+        ChooseMessageFileOptionList.Add( id, callback );
+        var succ = option.success;
+        var fail = option.fail;
+        var comp = option.complete;
+        option.success = null;
+        option.fail = null;
+        option.complete = null;
+        var conf = JsonMapper.ToJson(option);
+        option.success = succ;
+        option.fail = fail;
+        option.complete = comp;
+        WX_ChooseMessageFile(conf,id);
     }
     public void CloseBLEConnectionCallback(string msg) {
         if (!string.IsNullOrEmpty(msg) && CloseBLEConnectionOptionList != null)
@@ -5273,7 +5476,7 @@ namespace WeChatWASM
                     item.complete = null;
                 }else{
                     if(type == "success"){
-                        item.success?.Invoke(JsonMapper.ToObject<GeneralCallbackResult>(res));
+                        item.success?.Invoke(JsonMapper.ToObject<OpenCustomerServiceConversationSuccessCallbackResult>(res));
                     }
                     else if(type == "fail"){
                         item.fail?.Invoke(JsonMapper.ToObject<GeneralCallbackResult>(res));
@@ -8265,7 +8468,7 @@ namespace WeChatWASM
                         item.success?.Invoke(JsonMapper.ToObject<GeneralCallbackResult>(res));
                     }
                     else if(type == "fail"){
-                        item.fail?.Invoke(JsonMapper.ToObject<GeneralCallbackResult>(res));
+                        item.fail?.Invoke(JsonMapper.ToObject<VibrateShortFailCallbackResult>(res));
                     }
                     item.success = null;
                     item.fail = null;
@@ -8862,15 +9065,6 @@ namespace WeChatWASM
     #if UNITY_WEBGL
     [DllImport("__Internal")]
     #endif
-    private static extern void WX_RestartMiniProgram();
-
-    public void RestartMiniProgram()
-    {
-            WX_RestartMiniProgram();
-    }
-    #if UNITY_WEBGL
-    [DllImport("__Internal")]
-    #endif
     private static extern void WX_RemoveStorageSync(string key);
     
     public void RemoveStorageSync(string key)
@@ -8931,6 +9125,15 @@ namespace WeChatWASM
     #if UNITY_WEBGL
     [DllImport("__Internal")]
     #endif
+    private static extern void WX_RestartMiniProgram();
+
+    public void RestartMiniProgram()
+    {
+            WX_RestartMiniProgram();
+    }
+    #if UNITY_WEBGL
+    [DllImport("__Internal")]
+    #endif
     private static extern void WX_RevokeBufferURL(string url);
     
     public void RevokeBufferURL(string url)
@@ -8941,12 +9144,12 @@ namespace WeChatWASM
     #if UNITY_WEBGL
     [DllImport("__Internal")]
     #endif
-    private static extern void WX_SetStorageSync(string key,string data,bool encrypt);
+    private static extern void WX_SetStorageSync(string key,string data);
     
-    public void SetStorageSync<T>(string key,T data,bool encrypt)
+    public void SetStorageSync<T>(string key,T data)
     {
 
-            WX_SetStorageSync(key,JsonMapper.ToJson(data),encrypt);
+            WX_SetStorageSync(key,JsonMapper.ToJson(data));
     }
     #if UNITY_WEBGL
     [DllImport("__Internal")]

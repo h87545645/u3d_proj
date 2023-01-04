@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 using System.IO;
@@ -281,7 +281,7 @@ namespace WeChatWASM
         {
             PlayerSettings.WebGL.emscriptenArgs = "";
 #if UNITY_2021_2_OR_NEWER
-            PlayerSettings.WebGL.emscriptenArgs += " -s EXPORTED_FUNCTIONS=_sbrk";
+            PlayerSettings.WebGL.emscriptenArgs += " -s EXPORTED_FUNCTIONS=_sbrk,_emscripten_stack_get_base,_emscripten_stack_get_end";
 #endif
             PlayerSettings.runInBackground = false;
             if (memorySize != 0)
@@ -850,7 +850,7 @@ namespace WeChatWASM
 
                 new Rule()
                 {
-                    old="\"$PRELOAD_LIST\"",
+                    old="'$PRELOAD_LIST'",
                     newStr=PRELOAD_LIST
                 },
                 new Rule()

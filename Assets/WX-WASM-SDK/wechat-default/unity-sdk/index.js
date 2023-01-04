@@ -1,4 +1,5 @@
-﻿import storage from './storage';
+﻿/* eslint-disable no-underscore-dangle */
+import storage from './storage';
 import userInfo from './userinfo';
 import moduleHelper from './module-helper';
 import share from './share';
@@ -21,6 +22,7 @@ import camera from './camera';
 import recorder from './recorder';
 import uploadFile from './upload-file';
 import gameRecorder from './game-recorder';
+import reportScene from './report-scene';
 
 const unityVersion = '$unityVersion$';
 GameGlobal.unityNamespace = GameGlobal.unityNamespace || {};
@@ -36,7 +38,6 @@ if (unityVersion && unityVersion.split('.').slice(0, 2)
   canvas.height = height;
   window._ScaleRate = window.devicePixelRatio;
 }
-
 
 Object.defineProperty(canvas, 'clientHeight', {
   get() {
@@ -104,7 +105,7 @@ const WXWASMSDK = {
   ...recorder,
   ...uploadFile,
   ...gameRecorder,
+  ...reportScene,
 };
-
 
 GameGlobal.WXWASMSDK = WXWASMSDK;

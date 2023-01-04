@@ -64,9 +64,6 @@ namespace WeChatWASM
 #endif
 
 
-        private bool isWaitingPlay = false;
-        private bool isWaitingStop = false;
-        private bool isWaitingPause = false;
         private bool _isPlaying = false;
 
         private Action _onPlay = null;
@@ -176,11 +173,7 @@ namespace WeChatWASM
         {
             if (isWebGLPlayer)
             {
-                if (!isWaitingPlay)
-                {
-                    isWaitingPlay = true;
-                    WXSDKManagerHandler.Instance.StartCoroutine(DoPlay());
-                }
+                WXVideoPlay(instanceId);
                 return;
             }
 
@@ -190,14 +183,6 @@ namespace WeChatWASM
                 errMsg= "onPlay"
             });
 
-        }
-
-        private IEnumerator DoPlay()
-        {
-            //这里unity音频调用太频繁，延迟0.1秒后再执行
-            yield return new WaitForSeconds(0.1f);
-            WXVideoPlay(instanceId);
-            isWaitingPlay = false;
         }
 
         /// <summary>
@@ -438,11 +423,7 @@ namespace WeChatWASM
         {
             if (isWebGLPlayer)
             {
-                if (!isWaitingPause)
-                {
-                    isWaitingPause = true;
-                    WXSDKManagerHandler.Instance.StartCoroutine(DoPause());
-                }
+                WXVideoPause(instanceId);
                 return;
             }
             Debug.Log(param.src + " 视频暂停了");
@@ -451,14 +432,6 @@ namespace WeChatWASM
             {
                 errMsg = "onPause"
             });
-        }
-
-        IEnumerator DoPause()
-        {
-            //这里调用太频繁，延迟0.1秒后再执行
-            yield return new WaitForSeconds(0.1f);
-            WXVideoPause(instanceId);
-            isWaitingPause = false;
         }
 
         /// <summary>
@@ -493,23 +466,11 @@ namespace WeChatWASM
         {
             if (isWebGLPlayer)
             {
-                if (!isWaitingStop)
-                {
-                    isWaitingStop = true;
-                    WXSDKManagerHandler.Instance.StartCoroutine(DoStop());
-                }
+                WXVideoStop(instanceId);
                 return;
             }
             Debug.Log(param.src + " 音频停止了");
 
-        }
-
-        IEnumerator DoStop()
-        {
-            //这里unity调用太频繁，延迟0.1秒后再执行
-            yield return new WaitForSeconds(0.1f);
-            WXVideoStop(instanceId);
-            isWaitingStop = false;
         }
 
 

@@ -68,7 +68,9 @@ namespace WeChatWASM
         /// [wx.authorize(Object object)](https://developers.weixin.qq.com/minigame/dev/api/open-api/authorize/wx.authorize.html)
         /// 需要基础库： `1.2.0`
         /// 提前向用户发起授权请求。调用后会立刻弹窗询问用户是否同意授权小程序使用某项功能或获取用户的某些数据，但不会实际调用对应接口。如果用户之前已经同意授权，则不会出现弹窗，直接返回成功。更多用法详见 [用户授权](https://developers.weixin.qq.com/minigame/dev/guide/framework/authorize.html)。
-        /// > 小程序插件可以使用 [wx.authorizeForMiniProgram](#)
+        /// **注意事项**
+        /// - 小游戏内使用 `wx.authorize({scope: "scope.userInfo"})`，不会弹出授权窗口，请使用 [wx.createUserInfoButton](https://developers.weixin.qq.com/minigame/dev/api/open-api/user-info/wx.createUserInfoButton.html)
+        /// - 需要授权 `scope.userLocation` 时必须[配置地理位置用途说明](https://developers.weixin.qq.com/minigame/dev/reference/configuration/app.html#permission)。
         /// **示例代码**
         /// ```js
         /// // 可以通过 wx.getSetting 先查询一下用户是否授权了 "scope.record" 这个 scope
@@ -104,7 +106,7 @@ namespace WeChatWASM
         /// [wx.checkSession(Object object)](https://developers.weixin.qq.com/minigame/dev/api/open-api/login/wx.checkSession.html)
         /// 检查登录态是否过期。
         /// 通过 wx.login 接口获得的用户登录态拥有一定的时效性。用户越久未使用小程序，用户登录态越有可能失效。反之如果用户一直在使用小程序，则用户登录态一直保持有效。具体时效逻辑由微信维护，对开发者透明。开发者只需要调用 wx.checkSession 接口检测当前用户登录态是否有效。
-        /// 登录态过期后开发者可以再调用 wx.login 获取新的用户登录态。调用成功说明当前 session_key 未过期，调用失败说明 session_key 已过期。更多使用方法详见 [小程序登录](https://developers.weixin.qq.com/minigame/dev/guide/open-ability/login.html)。
+        /// 登录态过期后开发者可以再调用 wx.login 获取新的用户登录态。调用成功说明当前 session_key 未过期，调用失败说明 session_key 已过期。
         /// **示例代码**
         /// ```js
         /// wx.checkSession({
@@ -124,23 +126,53 @@ namespace WeChatWASM
         }
         /// <summary>
         /// [wx.chooseImage(Object object)](https://developers.weixin.qq.com/minigame/dev/api/media/image/wx.chooseImage.html)
-        /// 从本地相册选择图片或使用相机拍照。此接口不再更新，建议使用 `wx.chooseMedia`。
-        /// ****
-        /// ```js
-        /// wx.chooseImage({
-        /// count: 1,
-        /// sizeType: ['original', 'compressed'],
-        /// sourceType: ['album', 'camera'],
-        /// success (res) {
-        /// // tempFilePath可以作为img标签的src属性显示图片
-        /// const tempFilePaths = res.tempFilePaths
-        /// }
-        /// })
-        /// ```
         /// </summary>
         public static void ChooseImage(ChooseImageOption callback)
         {
             WXSDKManagerHandler.Instance.ChooseImage(callback);
+        }
+        /// <summary>
+        /// [wx.chooseMedia(Object object)](https://developers.weixin.qq.com/minigame/dev/api/media/video/wx.chooseMedia.html)
+        /// 需要基础库： `2.23.0`
+        /// 拍摄或从手机相册中选择图片或视频。
+        /// **示例代码**
+        /// ```js
+        /// wx.chooseMedia({
+        /// count: 9,
+        /// mediaType: ['image','video'],
+        /// sourceType: ['album', 'camera'],
+        /// maxDuration: 30,
+        /// camera: 'back',
+        /// success(res) {
+        /// console.log(res.tempFiles.tempFilePath)
+        /// console.log(res.tempFiles.size)
+        /// }
+        /// })
+        /// ```
+        /// </summary>
+        public static void ChooseMedia(ChooseMediaOption callback)
+        {
+            WXSDKManagerHandler.Instance.ChooseMedia(callback);
+        }
+        /// <summary>
+        /// [wx.chooseMessageFile(Object object)](https://developers.weixin.qq.com/minigame/dev/api/media/image/wx.chooseMessageFile.html)
+        /// 需要基础库： `2.23.0`
+        /// 从客户端会话选择文件。
+        /// ****
+        /// ```js
+        /// wx.chooseMessageFile({
+        /// count: 10,
+        /// type: 'image',
+        /// success (res) {
+        /// // tempFilePath可以作为img标签的src属性显示图片
+        /// const tempFilePaths = res.tempFiles
+        /// }
+        /// })
+        /// ```
+        /// </summary>
+        public static void ChooseMessageFile(ChooseMessageFileOption callback)
+        {
+            WXSDKManagerHandler.Instance.ChooseMessageFile(callback);
         }
         /// <summary>
         /// [wx.closeBLEConnection(Object object)](https://developers.weixin.qq.com/minigame/dev/api/device/bluetooth-ble/wx.closeBLEConnection.html)
@@ -181,22 +213,6 @@ namespace WeChatWASM
         }
         /// <summary>
         /// [wx.closeSocket(Object object)](https://developers.weixin.qq.com/minigame/dev/api/network/websocket/wx.closeSocket.html)
-        /// 关闭 WebSocket 连接。**推荐使用 [SocketTask](https://developers.weixin.qq.com/minigame/dev/api/network/websocket/SocketTask.html) 的方式去管理 webSocket 链接，每一条链路的生命周期都更加可控。同时存在多个 webSocket 的链接的情况下使用 wx 前缀的方法可能会带来一些和预期不一致的情况。**
-        /// **示例代码**
-        /// ```js
-        /// wx.connectSocket({
-        /// url: 'test.php'
-        /// })
-        /// //注意这里有时序问题，
-        /// //如果 wx.connectSocket 还没回调 wx.onSocketOpen，而先调用 wx.closeSocket，那么就做不到关闭 WebSocket 的目的。
-        /// //必须在 WebSocket 打开期间调用 wx.closeSocket 才能关闭。
-        /// wx.onSocketOpen(function() {
-        /// wx.closeSocket()
-        /// })
-        /// wx.onSocketClose(function(res) {
-        /// console.log('WebSocket 已关闭！')
-        /// })
-        /// ```
         /// </summary>
         public static void CloseSocket(CloseSocketOption callback)
         {
@@ -491,16 +507,6 @@ namespace WeChatWASM
         /// <summary>
         /// [wx.getFileInfo(Object object)](https://developers.weixin.qq.com/minigame/dev/api/file/wx.getFileInfo.html)
         /// 需要基础库： `1.4.0`
-        /// 获取文件信息
-        /// **示例代码**
-        /// ```js
-        /// wx.getFileInfo({
-        /// success (res) {
-        /// console.log(res.size)
-        /// console.log(res.digest)
-        /// }
-        /// })
-        /// ```
         /// </summary>
         public static void GetFileInfo(WxGetFileInfoOption callback)
         {
@@ -562,7 +568,9 @@ namespace WeChatWASM
         }
         /// <summary>
         /// [wx.getLocation(Object object)](https://developers.weixin.qq.com/minigame/dev/api/location/wx.getLocation.html)
-        /// 获取当前的地理位置、速度。当用户离开小程序后，此接口无法调用。开启高精度定位，接口耗时会增加，可指定 highAccuracyExpireTime 作为超时时间。地图相关使用的坐标格式应为 gcj02。高频率调用会导致耗电，如有需要可使用持续定位接口 `wx.onLocationChange`。基础库 `2.17.0` 版本起 `wx.getLocation` 增加调用频率限制，[相关公告](https://developers.weixin.qq.com/community/develop/doc/000aee91a98d206bc6dbe722b51801)。
+        /// 获取当前的地理位置、速度。当用户离开小程序后，此接口无法调用。开启高精度定位，接口耗时会增加，可指定 highAccuracyExpireTime 作为超时时间。地图相关使用的坐标格式应为 gcj02。
+        /// 高频率调用会导致耗电，如有需要可使用持续定位接口 `wx.onLocationChange`。
+        /// 基础库 `2.17.0` 版本起 `wx.getLocation` 增加调用频率限制，[相关公告](https://developers.weixin.qq.com/community/develop/doc/000aee91a98d206bc6dbe722b51801)。
         /// **示例代码**
         /// ```js
         /// wx.getLocation({
@@ -676,7 +684,7 @@ namespace WeChatWASM
         }
         /// <summary>
         /// [wx.getStorageInfo(Object object)](https://developers.weixin.qq.com/minigame/dev/api/storage/wx.getStorageInfo.html)
-        /// 异步获取当前storage的相关信息。缓存相关策略请查看 [存储](https://developers.weixin.qq.com/minigame/dev/guide/base-ability/storage.html)。
+        /// 异步获取当前storage的相关信息。
         /// **示例代码**
         /// ```js
         /// wx.getStorageInfo({
@@ -765,78 +773,6 @@ namespace WeChatWASM
         }
         /// <summary>
         /// [wx.getUserInfo(Object object)](https://developers.weixin.qq.com/minigame/dev/api/open-api/user-info/wx.getUserInfo.html)
-        /// 获取用户信息。
-        /// **接口调整说明**
-        /// 为优化用户登录体验，该接口将进行调整，详见 [用户信息接口调整说明](https://developers.weixin.qq.com/community/develop/doc/000cacfa20ce88df04cb468bc52801)
-        /// **示例代码**
-        /// ```js
-        /// // 必须是在用户已经授权的情况下调用
-        /// wx.getUserInfo({
-        /// success: function(res) {
-        /// var userInfo = res.userInfo
-        /// var nickName = userInfo.nickName
-        /// var avatarUrl = userInfo.avatarUrl
-        /// var gender = userInfo.gender //性别 0：未知、1：男、2：女
-        /// var province = userInfo.province
-        /// var city = userInfo.city
-        /// var country = userInfo.country
-        /// }
-        /// })
-        /// ```
-        /// 敏感数据有两种获取方式：
-        /// 1. 使用 [加密数据解密算法](https://developers.weixin.qq.com/minigame/dev/guide/open-ability/signature.html#加密数据解密算法)
-        /// 2. 使用 [云调用直接获取开放数据](https://developers.weixin.qq.com/minigame/dev/guide/open-ability/signature.html#云调用直接获取开放数据)
-        /// 获取得到的开放数据为以下 json 结构：
-        /// ```json
-        /// {
-        /// "openId": "OPENID",
-        /// "nickName": "NICKNAME",
-        /// "gender": GENDER,
-        /// "city": "CITY",
-        /// "province": "PROVINCE",
-        /// "country": "COUNTRY",
-        /// "avatarUrl": "AVATARURL",
-        /// "unionId": "UNIONID",
-        /// "watermark": {
-        /// "appid":"APPID",
-        /// "timestamp":TIMESTAMP
-        /// }
-        /// }
-        /// ```
-        /// **小程序用户信息组件示例代码**
-        /// ```html
-        /// <!-- 如果只是展示用户头像昵称，可以使用 <open-data /> 组件 -->
-        /// <open-data type="userAvatarUrl"></open-data>
-        /// <open-data type="userNickName"></open-data>
-        /// <!-- 需要使用 button 来授权登录 -->
-        /// <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
-        /// <view wx:else>请升级微信版本</view>
-        /// ```
-        /// ```js
-        /// Page({
-        /// data: {
-        /// canIUse: wx.canIUse('button.open-type.getUserInfo')
-        /// },
-        /// onLoad: function() {
-        /// // 查看是否授权
-        /// wx.getSetting({
-        /// success (res){
-        /// if (res.authSetting['scope.userInfo']) {
-        /// // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-        /// wx.getUserInfo({
-        /// success: function(res) {
-        ///   console.log(res.userInfo)
-        /// }
-        /// })
-        /// }
-        /// }
-        /// })
-        /// },
-        /// bindGetUserInfo (e) {
-        /// console.log(e.detail.userInfo)
-        /// }
-        /// })
-        /// ```
         /// </summary>
         public static void GetUserInfo(GetUserInfoOption callback)
         {
@@ -966,7 +902,7 @@ namespace WeChatWASM
         }
         /// <summary>
         /// [wx.login(Object object)](https://developers.weixin.qq.com/minigame/dev/api/open-api/login/wx.login.html)
-        /// 调用接口获取登录凭证（code）。通过凭证进而换取用户登录态信息，包括用户在当前小程序的唯一标识（openid）、微信开放平台帐号下的唯一标识（unionid，若当前小程序已绑定到微信开放平台帐号）及本次登录的会话密钥（session_key）等。用户数据的加解密通讯需要依赖会话密钥完成。更多使用方法详见 [小程序登录](https://developers.weixin.qq.com/minigame/dev/guide/open-ability/login.html)。
+        /// 调用接口获取登录凭证（code）。通过凭证进而换取用户登录态信息，包括用户在当前小程序的唯一标识（openid）、微信开放平台帐号下的唯一标识（unionid，若当前小程序已绑定到微信开放平台帐号）及本次登录的会话密钥（session_key）等。用户数据的加解密通讯需要依赖会话密钥完成。
         /// **示例代码**
         /// ```js
         /// wx.login({
@@ -1156,6 +1092,8 @@ namespace WeChatWASM
         /// [wx.openCustomerServiceConversation(Object object)](https://developers.weixin.qq.com/minigame/dev/api/open-api/customer-message/wx.openCustomerServiceConversation.html)
         /// 需要基础库： `2.0.3`
         /// 进入客服会话。要求在用户发生过至少一次 touch 事件后才能调用。后台接入方式与小程序一致，详见 [客服消息接入](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/customer-message/customer-message.html)
+        /// **注意事项**
+        /// - 在客服会话内点击小程序消息卡片进入小程序时，不能通过 wx.onShow 或 wx.getEnterOptionsSync 等接口获取启动路径和参数，而是应该通过 wx.openCustomerServiceConversation 接口的 success 回调获取启动路径和参数
         /// </summary>
         public static void OpenCustomerServiceConversation(OpenCustomerServiceConversationOption callback)
         {
@@ -1187,6 +1125,15 @@ namespace WeChatWASM
         /// <summary>
         /// [wx.previewImage(Object object)](https://developers.weixin.qq.com/minigame/dev/api/media/image/wx.previewImage.html)
         /// 在新页面中全屏预览图片。预览的过程中用户可以进行保存图片、发送给朋友等操作。
+        /// **支持长按识别的码**
+        /// | 类型 | 说明 | 最低版本 |
+        /// |------|------| -------|
+        /// | 小程序码 |    |
+        /// | 微信个人码 | 不支持小游戏   | [2.18.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) |
+        /// | 企业微信个人码 | 不支持小游戏   | [2.18.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) |
+        /// | 普通群码 | 指仅包含微信用户的群，不支持小游戏   | [2.18.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) |
+        /// | 互通群码 |  指既有微信用户也有企业微信用户的群，不支持小游戏  | [2.18.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) |
+        /// | 公众号二维码 | 不支持小游戏  | [2.18.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) |
         /// **示例代码**
         /// ```js
         /// wx.previewImage({
@@ -1203,6 +1150,15 @@ namespace WeChatWASM
         /// [wx.previewMedia(Object object)](https://developers.weixin.qq.com/minigame/dev/api/media/image/wx.previewMedia.html)
         /// 需要基础库： `2.12.0`
         /// 预览图片和视频。
+        /// **支持长按识别的码**
+        /// | 类型 | 说明 | 最低版本 |
+        /// |------|------| -------|
+        /// | 小程序码 |    |
+        /// | 微信个人码 | 不支持小游戏   | [2.18.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) |
+        /// | 企业微信个人码 | 不支持小游戏   | [2.18.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) |
+        /// | 普通群码 | 指仅包含微信用户的群，不支持小游戏   | [2.18.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) |
+        /// | 互通群码 |  指既有微信用户也有企业微信用户的群，不支持小游戏  | [2.18.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) |
+        /// | 公众号二维码 | 不支持小游戏  | [2.18.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) |
         /// </summary>
         public static void PreviewMedia(PreviewMediaOption callback)
         {
@@ -1241,7 +1197,7 @@ namespace WeChatWASM
         }
         /// <summary>
         /// [wx.removeStorage(Object object)](https://developers.weixin.qq.com/minigame/dev/api/storage/wx.removeStorage.html)
-        /// 从本地缓存中移除指定 key。缓存相关策略请查看 [存储](https://developers.weixin.qq.com/minigame/dev/guide/base-ability/storage.html)。
+        /// 从本地缓存中移除指定 key。
         /// **示例代码**
         /// ```js
         /// wx.removeStorage({
@@ -1525,31 +1481,6 @@ namespace WeChatWASM
         }
         /// <summary>
         /// [wx.sendSocketMessage(Object object)](https://developers.weixin.qq.com/minigame/dev/api/network/websocket/wx.sendSocketMessage.html)
-        /// 通过 WebSocket 连接发送数据。需要先 wx.connectSocket，并在 wx.onSocketOpen 回调之后才能发送。**推荐使用 [SocketTask](https://developers.weixin.qq.com/minigame/dev/api/network/websocket/SocketTask.html) 的方式去管理 webSocket 链接，每一条链路的生命周期都更加可控。同时存在多个 webSocket 的链接的情况下使用 wx 前缀的方法可能会带来一些和预期不一致的情况。**
-        /// **示例代码**
-        /// ```js
-        /// let socketOpen = false
-        /// let socketMsgQueue = []
-        /// wx.connectSocket({
-        /// url: 'test.php'
-        /// })
-        /// wx.onSocketOpen(function(res) {
-        /// socketOpen = true
-        /// for (let i = 0; i < socketMsgQueue.length; i++){
-        /// sendSocketMessage(socketMsgQueue[i])
-        /// }
-        /// socketMsgQueue = []
-        /// })
-        /// function sendSocketMessage(msg) {
-        /// if (socketOpen) {
-        /// wx.sendSocketMessage({
-        /// data:msg
-        /// })
-        /// } else {
-        /// socketMsgQueue.push(msg)
-        /// }
-        /// }
-        /// ```
         /// </summary>
         public static void SendSocketMessage(SendSocketMessageOption callback)
         {
@@ -2157,15 +2088,6 @@ namespace WeChatWASM
         }
 
 /// <summary>
-/// [wx.restartMiniProgram()](https://developers.weixin.qq.com/minigame/dev/api/navigate/wx.restartMiniProgram.html)
-/// 需要基础库： `2.22.1`
-/// 重启当前小程序
-/// </summary>
-public static void RestartMiniProgram()
-{
-    WXSDKManagerHandler.Instance.RestartMiniProgram();
-}
-/// <summary>
 /// [wx.removeStorageSync(string key)](https://developers.weixin.qq.com/minigame/dev/api/storage/wx.removeStorageSync.html)
 /// [wx.removeStorage](https://developers.weixin.qq.com/minigame/dev/api/storage/wx.removeStorage.html) 的同步版本
 /// **示例代码**
@@ -2246,6 +2168,15 @@ public static void ReserveChannelsLive(ReserveChannelsLiveOption option)
     WXSDKManagerHandler.Instance.ReserveChannelsLive(option);
 }
 /// <summary>
+/// [wx.restartMiniProgram()](https://developers.weixin.qq.com/minigame/dev/api/navigate/wx.restartMiniProgram.html)
+/// 需要基础库： `2.22.1`
+/// 重启当前小程序
+/// </summary>
+public static void RestartMiniProgram()
+{
+    WXSDKManagerHandler.Instance.RestartMiniProgram();
+}
+/// <summary>
 /// [wx.revokeBufferURL(string url)](https://developers.weixin.qq.com/minigame/dev/api/storage/wx.revokeBufferURL.html)
 /// 需要基础库： `2.14.0`
 /// 根据 URL 销毁存在内存中的数据
@@ -2263,41 +2194,18 @@ public static void SetPreferredFramesPerSecond(double fps)
     WXSDKManagerHandler.Instance.SetPreferredFramesPerSecond(fps);
 }
 /// <summary>
-/// [wx.setStorageSync(string key, any data, Boolean encrypt)](https://developers.weixin.qq.com/minigame/dev/api/storage/wx.setStorageSync.html)
-/// [wx.setStorage](https://developers.weixin.qq.com/minigame/dev/api/storage/wx.setStorage.html) 的同步版本
+/// [wx.setStorageSync(string key, any data)](https://developers.weixin.qq.com/minigame/dev/api/storage/wx.setStorageSync.html)
+/// 将数据存储在本地缓存中指定的 key 中。会覆盖掉原来该 key 对应的内容。除非用户主动删除或因存储空间原因被系统清理，否则数据都一直可用。单个 key 允许存储的最大数据长度为 1MB，所有数据存储上限为 10MB。
 /// **示例代码**
-/// ```js
-/// wx.setStorage({
-/// key:"key",
-/// data:"value"
-/// })
-/// ```
 /// ```js
 /// try {
 /// wx.setStorageSync('key', 'value')
 /// } catch (e) { }
 /// ```
-/// ```js
-/// // 开启加密存储
-/// wx.setStorage({
-/// key: "key",
-/// data: "value",
-/// encrypt: true, // 若开启加密存储，setStorage 和 getStorage 需要同时声明 encrypt 的值为 true
-/// success() {
-/// wx.getStorage({
-/// key: "key",
-/// encrypt: true, // 若开启加密存储，setStorage 和 getStorage 需要同时声明 encrypt 的值为 true
-/// success(res) {
-/// console.log(res.data)
-/// }
-/// })
-/// }
-/// })
-/// ```
 /// </summary>
-public static void SetStorageSync<T>(string key,T data,bool encrypt)
+public static void SetStorageSync<T>(string key,T data)
 {
-    WXSDKManagerHandler.Instance.SetStorageSync(key,data,encrypt);
+    WXSDKManagerHandler.Instance.SetStorageSync(key,data);
 }
 /// <summary>
 /// [wx.shareAppMessage(Object object)](https://developers.weixin.qq.com/minigame/dev/api/share/wx.shareAppMessage.html)
@@ -2581,7 +2489,7 @@ public static void StarDownloadTexture()
     /// <summary>
     /// [wx.onDeviceOrientationChange(function callback)](https://developers.weixin.qq.com/minigame/dev/api/device/orientation/wx.onDeviceOrientationChange.html)
     /// 需要基础库： `2.1.0`
-    /// 监听横竖屏切换事件
+    /// 监听屏幕方向变化事件
     /// </summary>
     public static void OnDeviceOrientationChange(Action<OnDeviceOrientationChangeCallbackResult> result)
     {
@@ -2823,7 +2731,6 @@ public static void StarDownloadTexture()
     }
     /// <summary>
     /// [wx.onSocketClose(function callback)](https://developers.weixin.qq.com/minigame/dev/api/network/websocket/wx.onSocketClose.html)
-    /// 监听 WebSocket 连接关闭事件。**推荐使用 [SocketTask](https://developers.weixin.qq.com/minigame/dev/api/network/websocket/SocketTask.html) 的方式去管理 webSocket 链接，每一条链路的生命周期都更加可控。同时存在多个 webSocket 的链接的情况下使用 wx 前缀的方法可能会带来一些和预期不一致的情况。**
     /// </summary>
     public static void OnSocketClose(Action<SocketTaskOnCloseCallbackResult> result)
     {
@@ -2835,7 +2742,6 @@ public static void StarDownloadTexture()
     }
     /// <summary>
     /// [wx.onSocketError(function callback)](https://developers.weixin.qq.com/minigame/dev/api/network/websocket/wx.onSocketError.html)
-    /// 监听 WebSocket 错误事件。**推荐使用 [SocketTask](https://developers.weixin.qq.com/minigame/dev/api/network/websocket/SocketTask.html) 的方式去管理 webSocket 链接，每一条链路的生命周期都更加可控。同时存在多个 webSocket 的链接的情况下使用 wx 前缀的方法可能会带来一些和预期不一致的情况。**
     /// </summary>
     public static void OnSocketError(Action<GeneralCallbackResult> result)
     {
@@ -2847,7 +2753,6 @@ public static void StarDownloadTexture()
     }
     /// <summary>
     /// [wx.onSocketMessage(function callback)](https://developers.weixin.qq.com/minigame/dev/api/network/websocket/wx.onSocketMessage.html)
-    /// 监听 WebSocket 接受到服务器的消息事件。**推荐使用 [SocketTask](https://developers.weixin.qq.com/minigame/dev/api/network/websocket/SocketTask.html) 的方式去管理 webSocket 链接，每一条链路的生命周期都更加可控。同时存在多个 webSocket 的链接的情况下使用 wx 前缀的方法可能会带来一些和预期不一致的情况。**
     /// </summary>
     public static void OnSocketMessage(Action<SocketTaskOnMessageCallbackResult> result)
     {
@@ -2859,7 +2764,6 @@ public static void StarDownloadTexture()
     }
     /// <summary>
     /// [wx.onSocketOpen(function callback)](https://developers.weixin.qq.com/minigame/dev/api/network/websocket/wx.onSocketOpen.html)
-    /// 监听 WebSocket 连接打开事件。**推荐使用 [SocketTask](https://developers.weixin.qq.com/minigame/dev/api/network/websocket/SocketTask.html) 的方式去管理 webSocket 链接，每一条链路的生命周期都更加可控。同时存在多个 webSocket 的链接的情况下使用 wx 前缀的方法可能会带来一些和预期不一致的情况。**
     /// </summary>
     public static void OnSocketOpen(Action<OnSocketOpenCallbackResult> result)
     {
@@ -3127,6 +3031,16 @@ public static GetBatteryInfoSyncResult GetBatteryInfoSync()
 /// | 1037   | 小程序打开小程序                | 来源小程序 |
 /// | 1038   | 从另一个小程序返回              | 来源小程序 |
 /// | 1043   | 公众号模板消息                  | 来源公众号 |
+/// **不同 apiCategory 场景下的 API 限制**
+/// `X` 表示 API 被限制无法使用；不在表格中的 API 不限制。
+/// |                                       | default | nativeFunctionalized | browseOnly | embedded |
+/// |-|-|-|-|-|
+/// |navigateToMiniProgram                  |         | `X`                  | `X`        |          |
+/// |openSetting                            |         |                      | `X`        |          |
+/// |&lt;button open-type="share"&gt;       |         | `X`                  | `X`        | `X`      |
+/// |&lt;button open-type="feedback"&gt;    |         |                      | `X`        |          |
+/// |&lt;button open-type="open-setting"&gt;|         |                      | `X`        |          |
+/// |openEmbeddedMiniProgram                |         | `X`                  | `X`        | `X`      |
 /// **注意**
 /// 部分版本在无`referrerInfo`的时候会返回 `undefined`，建议使用 `options.referrerInfo && options.referrerInfo.appId` 进行判断。
 /// </summary>

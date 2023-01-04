@@ -7,19 +7,34 @@ export default {
     const obj = wx.uploadFile({
       ...conf,
       success: (res) => {
-        moduleHelper.send('UploadFileCallback', JSON.stringify({
-          callbackId, type: 'success', res: JSON.stringify(res),
-        }));
+        moduleHelper.send(
+          'UploadFileCallback',
+          JSON.stringify({
+            callbackId,
+            type: 'success',
+            res: JSON.stringify(res),
+          }),
+        );
       },
       fail: (res) => {
-        moduleHelper.send('UploadFileCallback', JSON.stringify({
-          callbackId, type: 'fail', res: JSON.stringify(res),
-        }));
+        moduleHelper.send(
+          'UploadFileCallback',
+          JSON.stringify({
+            callbackId,
+            type: 'fail',
+            res: JSON.stringify(res),
+          }),
+        );
       },
       complete: (res) => {
-        moduleHelper.send('UploadFileCallback', JSON.stringify({
-          callbackId, type: 'complete', res: JSON.stringify(res),
-        }));
+        moduleHelper.send(
+          'UploadFileCallback',
+          JSON.stringify({
+            callbackId,
+            type: 'complete',
+            res: JSON.stringify(res),
+          }),
+        );
         setTimeout(() => {
           delete this.UploadTaskList[callbackId];
         }, 0);

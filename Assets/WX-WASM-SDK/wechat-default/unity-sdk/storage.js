@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const PreLoadKeys = '$PreLoadKeys'; // Unity插件会替换这里，不要改这里
 
 const storage = {
@@ -43,9 +44,9 @@ const storage = {
     this._doRun();
   },
   deleteAll() {
-    for (const key in this._cacheData) {
+    Object.keys(this._cacheData).forEach((key) => {
       this._cacheData[key] = null;
-    }
+    });
     this.isCallDeletedAll = true;
     this._handleList.push({
       type: 'deleteAll',

@@ -1,4 +1,3 @@
-import response from './response';
 import moduleHelper from './module-helper';
 
 const userInfoButtons = {};
@@ -66,24 +65,27 @@ export default {
     }
     button.onTap((res) => {
       res.userInfo = res.userInfo || {};
-      moduleHelper.send('UserInfoButtonOnTapCallback', JSON.stringify({
-        callbackId: id,
-        errCode: res.err_code || (res.errMsg.indexOf('getUserInfo:fail') === 0 ? 1 : 0),
-        errMsg: res.errMsg || '',
-        signature: res.signature || '',
-        encryptedData: res.encryptedData || '',
-        iv: res.iv || '',
-        cloudID: res.cloudID || '',
-        userInfoRaw: JSON.stringify({
-          nickName: res.userInfo.nickName || '',
-          avatarUrl: res.userInfo.avatarUrl || '',
-          country: res.userInfo.country || '',
-          province: res.userInfo.province || '',
-          city: res.userInfo.city || '',
-          language: res.userInfo.language || '',
-          gender: res.userInfo.gender || 0,
+      moduleHelper.send(
+        'UserInfoButtonOnTapCallback',
+        JSON.stringify({
+          callbackId: id,
+          errCode: res.err_code || (res.errMsg.indexOf('getUserInfo:fail') === 0 ? 1 : 0),
+          errMsg: res.errMsg || '',
+          signature: res.signature || '',
+          encryptedData: res.encryptedData || '',
+          iv: res.iv || '',
+          cloudID: res.cloudID || '',
+          userInfoRaw: JSON.stringify({
+            nickName: res.userInfo.nickName || '',
+            avatarUrl: res.userInfo.avatarUrl || '',
+            country: res.userInfo.country || '',
+            province: res.userInfo.province || '',
+            city: res.userInfo.city || '',
+            language: res.userInfo.language || '',
+            gender: res.userInfo.gender || 0,
+          }),
         }),
-      }));
+      );
     });
   },
 };

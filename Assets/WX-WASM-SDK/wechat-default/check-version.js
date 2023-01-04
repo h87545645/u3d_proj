@@ -1,4 +1,5 @@
-const { version, SDKVersion, platform, renderer, system } =    wx.getSystemInfoSync();
+/* eslint-disable no-multi-assign */
+const { version, SDKVersion, platform, renderer, system } = wx.getSystemInfoSync();
 
 function compareVersion(v1, v2) {
   return (
@@ -6,10 +7,10 @@ function compareVersion(v1, v2) {
       .split('.')
       .map(v => v.padStart(2, '0'))
       .join('')
-        >= v2
-          .split('.')
-          .map(v => v.padStart(2, '0'))
-          .join('')
+    >= v2
+      .split('.')
+      .map(v => v.padStart(2, '0'))
+      .join('')
   );
 }
 
@@ -22,9 +23,7 @@ const isMobile = !isPc && !isDevtools;
 const isH5Renderer = isMobile && renderer === 'h5';
 // 操作系统版本号
 const systemVersionArr = system ? system.split(' ') : [];
-const systemVersion = systemVersionArr.length
-  ? systemVersionArr[systemVersionArr.length - 1]
-  : '';
+const systemVersion = systemVersionArr.length ? systemVersionArr[systemVersionArr.length - 1] : '';
 
 // pc微信版本号不一致，需要>=3.3
 const isPcWeChatVersionValid = compareVersion(version, '3.3');
@@ -40,9 +39,15 @@ const isIOSH5SystemVersionValid = compareVersion(systemVersion, '14.0');
 const isIOSWebgl2SystemVersionValid = compareVersion(systemVersion, '15.0');
 // 是否用了webgl2
 const isWebgl2 = () => GameGlobal.managerConfig.contextConfig.contextType === 2;
+// 是否支持BufferURL
+export const isSupportBufferURL = GameGlobal.isIOSHighPerformanceMode
+  ? compareVersion(SDKVersion, '2.29.1') && compareVersion(version, '8.0.30')
+  : typeof wx.createBufferURL === 'function';
+// 是否支持webAudio，IOS 8.0.31版本非高性能模式不支持WebAudio
+export const isSupportWebAudio = !(isIOS && !GameGlobal.isIOSHighPerformanceMode && version === '8.0.31');
 
 // 是否能以iOSH5模式运行
-const canUseH5Renderer = (GameGlobal.canUseH5Renderer =    isH5Renderer && isH5LibVersionValid);
+const canUseH5Renderer = (GameGlobal.canUseH5Renderer = isH5Renderer && isH5LibVersionValid);
 
 // pc微信版本不满足要求
 const isPcInvalid = isPc && !isPcWeChatVersionValid;
@@ -59,7 +64,7 @@ const disableFallback = false;
 // iOSH5模式基础库不支持wss
 const isWssNotEnable = canUseH5Renderer && !isWssLibVersionValid && useWss;
 // 压缩纹理需要iOS系统版本>=14.0，检测到不支持压缩纹理时会提示升级系统
-const isH5SystemVersionInvalid =    canUseH5Renderer && !isIOSH5SystemVersionValid && disableFallback;
+const isH5SystemVersionInvalid = canUseH5Renderer && !isIOSH5SystemVersionValid && disableFallback;
 // 是否支持webgl2
 const isWebgl2SystemVersionInvalid = () => isIOS && isWebgl2() && !isIOSWebgl2SystemVersionValid;
 
@@ -77,26 +82,27 @@ export function canUseCoverview() {
   return isMobile || isDevtools;
 }
 
-export default () => new Promise((resolve, reject) => {
+export default () => new Promise((resolve) => {
   if (!isDevtools) {
     if (
       isPcInvalid
-                || isMobileInvalid
-                || isIOSH5Invalid
-                || isWssNotEnable
-                || isH5SystemVersionInvalid
-                || isWebgl2SystemVersionInvalid()
+        || isMobileInvalid
+        || isIOSH5Invalid
+        || isWssNotEnable
+        || isH5SystemVersionInvalid
+        || isWebgl2SystemVersionInvalid()
     ) {
       wx.showModal({
         title: '提示',
-        content: (isH5SystemVersionInvalid || isWebgl2SystemVersionInvalid())
-          ? '当前操作系统版本过低\n请更新iOS系统后进行游戏'
-          : '当前微信版本过低\n请更新微信后进行游戏',
+        content:
+            isH5SystemVersionInvalid || isWebgl2SystemVersionInvalid()
+              ? '当前操作系统版本过低\n请更新iOS系统后进行游戏'
+              : '当前微信版本过低\n请更新微信后进行游戏',
         showCancel: false,
         success(res) {
           if (res.confirm) {
             wx.exitMiniProgram({
-              success: (res) => {},
+              success: () => {},
             });
           }
         },

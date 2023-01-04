@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import moduleHelper from './module-helper';
 import response from './response';
 import Audio from './audio.js';
@@ -14,24 +15,33 @@ export default {
     ads[key] = ad;
     ad.onError((res) => {
       console.error(res);
-      moduleHelper.send('ADOnErrorCallback', JSON.stringify({
-        callbackId: key,
-        errMsg: res.errMsg,
-        errCode: res.errCode || res.err_code,
-      }));
+      moduleHelper.send(
+        'ADOnErrorCallback',
+        JSON.stringify({
+          callbackId: key,
+          errMsg: res.errMsg,
+          errCode: res.errCode || res.err_code,
+        }),
+      );
     });
     ad.onLoad(() => {
-      moduleHelper.send('ADOnLoadCallback', JSON.stringify({
-        callbackId: key,
-        errMsg: '',
-      }));
+      moduleHelper.send(
+        'ADOnLoadCallback',
+        JSON.stringify({
+          callbackId: key,
+          errMsg: '',
+        }),
+      );
     });
     ad.onResize((res) => {
-      moduleHelper.send('ADOnResizeCallback', JSON.stringify({
-        callbackId: key,
-        errMsg: '',
-        ...res,
-      }));
+      moduleHelper.send(
+        'ADOnResizeCallback',
+        JSON.stringify({
+          callbackId: key,
+          errMsg: '',
+          ...res,
+        }),
+      );
     });
     return key;
   },
@@ -52,29 +62,38 @@ export default {
     ads[key] = ad;
     ad.onError((res) => {
       console.error(res);
-      moduleHelper.send('ADOnErrorCallback', JSON.stringify({
-        callbackId: key,
-        errMsg: res.errMsg,
-        errCode: res.errCode || res.err_code,
-      }));
+      moduleHelper.send(
+        'ADOnErrorCallback',
+        JSON.stringify({
+          callbackId: key,
+          errMsg: res.errMsg,
+          errCode: res.errCode || res.err_code,
+        }),
+      );
     });
     ad.onLoad(() => {
-      moduleHelper.send('ADOnLoadCallback', JSON.stringify({
-        callbackId: key,
-        errMsg: '',
-      }));
+      moduleHelper.send(
+        'ADOnLoadCallback',
+        JSON.stringify({
+          callbackId: key,
+          errMsg: '',
+        }),
+      );
     });
     const oldWidth = info.windowWidth;
     ad.onResize((res) => {
       if (Math.abs(res.height - height) > 1 || Math.abs(res.width - oldWidth) > 1) {
-        ad.style.left = parseInt((info.windowWidth - res.width) / 2);
-        ad.style.top = parseInt(info.windowHeight - res.height);
+        ad.style.left = parseInt((info.windowWidth - res.width) / 2, 10);
+        ad.style.top = parseInt(info.windowHeight - res.height, 10);
       }
-      moduleHelper.send('ADOnResizeCallback', JSON.stringify({
-        callbackId: key,
-        errMsg: '',
-        ...res,
-      }));
+      moduleHelper.send(
+        'ADOnResizeCallback',
+        JSON.stringify({
+          callbackId: key,
+          errMsg: '',
+          ...res,
+        }),
+      );
     });
     return key;
   },
@@ -84,31 +103,41 @@ export default {
     const key = new Date().getTime()
       .toString(32) + Math.random().toString(32);
     ads[key] = ad;
-    if (!conf.multiton) { // 单例模式要处理一下
+    if (!conf.multiton) {
+      // 单例模式要处理一下
       ad.offLoad();
       ad.offError();
       ad.offClose();
     }
     ad.onError((res) => {
       console.error(res);
-      moduleHelper.send('ADOnErrorCallback', JSON.stringify({
-        callbackId: key,
-        errMsg: res.errMsg,
-        errCode: res.errCode || res.err_code,
-      }));
+      moduleHelper.send(
+        'ADOnErrorCallback',
+        JSON.stringify({
+          callbackId: key,
+          errMsg: res.errMsg,
+          errCode: res.errCode || res.err_code,
+        }),
+      );
     });
     ad.onLoad(() => {
-      moduleHelper.send('ADOnLoadCallback', JSON.stringify({
-        callbackId: key,
-        errMsg: '',
-      }));
+      moduleHelper.send(
+        'ADOnLoadCallback',
+        JSON.stringify({
+          callbackId: key,
+          errMsg: '',
+        }),
+      );
     });
     ad.onClose((res) => {
-      moduleHelper.send('ADOnVideoCloseCallback', JSON.stringify({
-        callbackId: key,
-        errMsg: '',
-        ...res,
-      }));
+      moduleHelper.send(
+        'ADOnVideoCloseCallback',
+        JSON.stringify({
+          callbackId: key,
+          errMsg: '',
+          ...res,
+        }),
+      );
       setTimeout(() => {
         Audio.resumeWebAudio();
       }, 0);
@@ -123,23 +152,32 @@ export default {
     ads[key] = ad;
     ad.onError((res) => {
       console.error(res);
-      moduleHelper.send('ADOnErrorCallback', JSON.stringify({
-        callbackId: key,
-        errMsg: res.errMsg,
-        errCode: res.errCode || res.err_code,
-      }));
+      moduleHelper.send(
+        'ADOnErrorCallback',
+        JSON.stringify({
+          callbackId: key,
+          errMsg: res.errMsg,
+          errCode: res.errCode || res.err_code,
+        }),
+      );
     });
     ad.onLoad(() => {
-      moduleHelper.send('ADOnLoadCallback', JSON.stringify({
-        callbackId: key,
-        errMsg: '',
-      }));
+      moduleHelper.send(
+        'ADOnLoadCallback',
+        JSON.stringify({
+          callbackId: key,
+          errMsg: '',
+        }),
+      );
     });
     ad.onClose(() => {
-      moduleHelper.send('ADOnCloseCallback', JSON.stringify({
-        callbackId: key,
-        errMsg: '',
-      }));
+      moduleHelper.send(
+        'ADOnCloseCallback',
+        JSON.stringify({
+          callbackId: key,
+          errMsg: '',
+        }),
+      );
     });
     return key;
   },
@@ -152,24 +190,33 @@ export default {
     ads[key] = ad;
     ad.onError((res) => {
       console.error(res);
-      moduleHelper.send('ADOnErrorCallback', JSON.stringify({
-        callbackId: key,
-        errMsg: res.errMsg,
-        errCode: res.errCode || res.err_code,
-      }));
+      moduleHelper.send(
+        'ADOnErrorCallback',
+        JSON.stringify({
+          callbackId: key,
+          errMsg: res.errMsg,
+          errCode: res.errCode || res.err_code,
+        }),
+      );
     });
     ad.onLoad(() => {
-      moduleHelper.send('ADOnLoadCallback', JSON.stringify({
-        callbackId: key,
-        errMsg: '',
-      }));
+      moduleHelper.send(
+        'ADOnLoadCallback',
+        JSON.stringify({
+          callbackId: key,
+          errMsg: '',
+        }),
+      );
     });
     ad.onResize((res) => {
-      moduleHelper.send('ADOnResizeCallback', JSON.stringify({
-        callbackId: key,
-        errMsg: '',
-        ...res,
-      }));
+      moduleHelper.send(
+        'ADOnResizeCallback',
+        JSON.stringify({
+          callbackId: key,
+          errMsg: '',
+          ...res,
+        }),
+      );
     });
     return key;
   },
@@ -182,23 +229,32 @@ export default {
     ads[key] = ad;
     ad.onError((res) => {
       console.error(res);
-      moduleHelper.send('ADOnErrorCallback', JSON.stringify({
-        callbackId: key,
-        errMsg: res.errMsg,
-        errCode: res.errCode || res.err_code,
-      }));
+      moduleHelper.send(
+        'ADOnErrorCallback',
+        JSON.stringify({
+          callbackId: key,
+          errMsg: res.errMsg,
+          errCode: res.errCode || res.err_code,
+        }),
+      );
     });
     ad.onLoad(() => {
-      moduleHelper.send('ADOnLoadCallback', JSON.stringify({
-        callbackId: key,
-        errMsg: '',
-      }));
+      moduleHelper.send(
+        'ADOnLoadCallback',
+        JSON.stringify({
+          callbackId: key,
+          errMsg: '',
+        }),
+      );
     });
     ad.onClose(() => {
-      moduleHelper.send('ADOnCloseCallback', JSON.stringify({
-        callbackId: key,
-        errMsg: '',
-      }));
+      moduleHelper.send(
+        'ADOnCloseCallback',
+        JSON.stringify({
+          callbackId: key,
+          errMsg: '',
+        }),
+      );
     });
     return key;
   },
@@ -212,11 +268,13 @@ export default {
     if (!ads[id]) {
       return false;
     }
-    ads[id].show().then(() => {
-      response.textFormat(succ, {
-        errMsg: 'show:ok',
-      });
-    })
+    ads[id]
+      .show()
+      .then(() => {
+        response.textFormat(succ, {
+          errMsg: 'show:ok',
+        });
+      })
       .catch((e) => {
         response.textFormat(fail, {
           errMsg: e.errMsg || '',
@@ -227,11 +285,13 @@ export default {
     if (!ads[id]) {
       return false;
     }
-    ads[id].show({ branchId, branchDim }).then(() => {
-      response.textFormat(succ, {
-        errMsg: 'show:ok',
-      });
-    })
+    ads[id]
+      .show({ branchId, branchDim })
+      .then(() => {
+        response.textFormat(succ, {
+          errMsg: 'show:ok',
+        });
+      })
       .catch((e) => {
         response.textFormat(fail, {
           errMsg: e.errMsg || '',
@@ -243,11 +303,13 @@ export default {
       return false;
     }
     if (succ || fail) {
-      ads[id].hide().then((v) => {
-        response.textFormat(succ, {
-          errMsg: 'hide:ok',
-        });
-      })
+      ads[id]
+        .hide()
+        .then(() => {
+          response.textFormat(succ, {
+            errMsg: 'hide:ok',
+          });
+        })
         .catch((e) => {
           response.textFormat(fail, {
             errMsg: e.errMsg || '',
@@ -257,11 +319,11 @@ export default {
       ads[id].hide();
     }
   },
-  WXADGetStyleValue(id, key) {
-    if (!ads[id]) {
-      return -1;
+  WXADGetStyleValue(id, key) {
+    if (!ads[id]) {
+      return -1;
     }
-    return ads[id].style[key];
+    return ads[id].style[key];
   },
   WXADDestroy(id) {
     if (!ads[id]) {
@@ -274,14 +336,19 @@ export default {
     if (!ads[id]) {
       return false;
     }
-    ads[id].load().then(() => {
-      response.textFormat(succ, {});
-    })
+    ads[id]
+      .load()
+      .then(() => {
+        response.textFormat(succ, {});
+      })
       .catch((res) => {
-        moduleHelper.send('ADLoadErrorCallback', JSON.stringify({
-          callbackId: fail,
-          ...res,
-        }));
+        moduleHelper.send(
+          'ADLoadErrorCallback',
+          JSON.stringify({
+            callbackId: fail,
+            ...res,
+          }),
+        );
       });
   },
   WXReportShareBehavior(id, conf) {

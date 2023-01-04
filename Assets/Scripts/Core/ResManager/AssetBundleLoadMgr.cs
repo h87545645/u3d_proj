@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class AssetBundleLoadMgr
 {
@@ -64,6 +65,8 @@ public class AssetBundleLoadMgr
                 return "IOS";
 #elif UNITY_ANDROID
                 return "Android";
+#elif UNITY_WEBGL
+                return "WebGL";
 #else
             return "StandaloneWindows";
 #endif

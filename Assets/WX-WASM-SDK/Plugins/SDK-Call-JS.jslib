@@ -17,6 +17,12 @@ WX_CheckSession:function( conf, callbackId){
 WX_ChooseImage:function( conf, callbackId){
     window.WXWASMSDK.WX_ChooseImage(_WXPointer_stringify_adaptor(conf), _WXPointer_stringify_adaptor(callbackId));
 },
+WX_ChooseMedia:function( conf, callbackId){
+    window.WXWASMSDK.WX_ChooseMedia(_WXPointer_stringify_adaptor(conf), _WXPointer_stringify_adaptor(callbackId));
+},
+WX_ChooseMessageFile:function( conf, callbackId){
+    window.WXWASMSDK.WX_ChooseMessageFile(_WXPointer_stringify_adaptor(conf), _WXPointer_stringify_adaptor(callbackId));
+},
 WX_CloseBLEConnection:function( conf, callbackId){
     window.WXWASMSDK.WX_CloseBLEConnection(_WXPointer_stringify_adaptor(conf), _WXPointer_stringify_adaptor(callbackId));
 },
@@ -354,9 +360,6 @@ WX_GetGameClubData:function( conf, callbackId){
     window.WXWASMSDK.WX_GetGameClubData(_WXPointer_stringify_adaptor(conf), _WXPointer_stringify_adaptor(callbackId));
 },
 
-WX_RestartMiniProgram:function(){
-    window.WXWASMSDK.WX_RestartMiniProgram();
-},
 WX_RemoveStorageSync:function(key){
     window.WXWASMSDK.WX_RemoveStorageSync(_WXPointer_stringify_adaptor(key));
 },
@@ -375,14 +378,17 @@ WX_ReportUserBehaviorBranchAnalytics:function(option){
 WX_ReserveChannelsLive:function(option){
     window.WXWASMSDK.WX_ReserveChannelsLive(_WXPointer_stringify_adaptor(option));
 },
+WX_RestartMiniProgram:function(){
+    window.WXWASMSDK.WX_RestartMiniProgram();
+},
 WX_RevokeBufferURL:function(url){
     window.WXWASMSDK.WX_RevokeBufferURL(_WXPointer_stringify_adaptor(url));
 },
 WX_SetPreferredFramesPerSecond:function(fps){
     window.WXWASMSDK.WX_SetPreferredFramesPerSecond(fps);
 },
-WX_SetStorageSync:function(key,data,encrypt){
-    window.WXWASMSDK.WX_SetStorageSync(_WXPointer_stringify_adaptor(key),_WXPointer_stringify_adaptor(data),encrypt);
+WX_SetStorageSync:function(key,data){
+    window.WXWASMSDK.WX_SetStorageSync(_WXPointer_stringify_adaptor(key),_WXPointer_stringify_adaptor(data));
 },
 WX_ShareAppMessage:function(option){
     window.WXWASMSDK.WX_ShareAppMessage(_WXPointer_stringify_adaptor(option));

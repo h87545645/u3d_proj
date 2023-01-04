@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-param-reassign */
 const cacheAudios = {};
 const funs = {
   getFullUrl(v) {
@@ -73,7 +75,6 @@ export default {
       delete cacheAudios[str];
     }
   },
-
 };
 
 const mod = {
@@ -96,4 +97,3 @@ const mod = {
 };
 
 mod.init();
-

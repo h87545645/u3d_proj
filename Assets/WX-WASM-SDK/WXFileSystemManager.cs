@@ -100,6 +100,16 @@ namespace WeChatWASM
         [DllImport("__Internal")]
         #endif
         private static extern string WXMkdirSync(string dirPath, bool recursive);
+
+        #if UNITY_WEBGL
+        [DllImport("__Internal")]
+        #endif
+        private static extern void WXRmdir(string dirPath, bool recursive, string s, string f, string c);
+
+        #if UNITY_WEBGL
+        [DllImport("__Internal")]
+        #endif
+        private static extern string WXRmdirSync(string dirPath, bool recursive);
         
 
 
@@ -356,6 +366,26 @@ namespace WeChatWASM
         /// <returns></returns>
         public string MkdirSync(string dirPath,bool recursive) {
             return WXMkdirSync(dirPath, recursive);
+        }
+
+        /// <summary>
+        /// 删除目录，https://developers.weixin.qq.com/minigame/dev/api/file/FileSystemManager.rmdir.html
+        /// </summary>
+        /// <param name="param"></param>
+        public void RmDir(RmdirParam param)
+        {
+            WXRmdir(param.dirPath, param.recursive, WXCallBackHandler.Add(param.success), WXCallBackHandler.Add(param.fail), WXCallBackHandler.Add(param.complete));
+        }
+
+        /// <summary>
+        /// 同步删除目录，https://developers.weixin.qq.com/minigame/dev/api/file/FileSystemManager.rmdirSync.html
+        /// </summary>
+        /// <param name="dirPath">要删除的目录路径 (本地路径)</param>
+        /// <param name="recursive">是否递归删除目录。如果为 true，则删除该目录和该目录下的所有子目录以及文件</param>
+        /// <returns></returns>
+        public string RmdirSync(string dirPath, bool recursive)
+        {
+            return WXRmdirSync(dirPath, recursive);
         }
 
 

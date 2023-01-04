@@ -52,11 +52,14 @@ export default {
   },
   WXGameClubButtonAddListener(id, key) {
     if (gameClubs[id]) {
-      gameClubs[id][key]((e) => {
-        moduleHelper.send('OnGameClubButtonCallback', JSON.stringify({
-          callbackId: id,
-          errMsg: key,
-        }));
+      gameClubs[id][key](() => {
+        moduleHelper.send(
+          'OnGameClubButtonCallback',
+          JSON.stringify({
+            callbackId: id,
+            errMsg: key,
+          }),
+        );
       });
     } else {
       printErrMsg(id);

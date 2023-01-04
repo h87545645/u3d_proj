@@ -24,16 +24,16 @@ export default function getStyle(data) {
     },
 
     listItem: {
-      position: "relative",
+      position: 'relative',
       width: Math.ceil(data.width * 0.94),
       height: data.height / 2 / 3,
-      flexDirection: "row",
-      alignItems: "center",
+      flexDirection: 'row',
+      alignItems: 'center',
       marginTop: 2,
     },
 
     rankBg: {
-      position: "absolute",
+      position: 'absolute',
       top: 0,
       left: 0,
       width: Math.ceil(data.width * 0.94),
@@ -41,7 +41,7 @@ export default function getStyle(data) {
     },
 
     rankAvatarBg: {
-      position: "absolute",
+      position: 'absolute',
       top: (data.height / 2 / 3) * 0.1,
       left: data.width * 0.08,
       width: (data.height / 2 / 3) * 0.8,
@@ -56,14 +56,14 @@ export default function getStyle(data) {
     },
 
     rankNameView: {
-      position: "relative",
+      position: 'relative',
       marginLeft: data.width * 0.06,
       width: data.width * 0.35,
       height: data.height / 2 / 3,
     },
 
     rankNameBg: {
-      position: "absolute",
+      position: 'absolute',
       top: (data.height / 2 / 3) * 0.14,
       left: 0,
       width: data.width * 0.35,
@@ -71,49 +71,49 @@ export default function getStyle(data) {
     },
 
     rankName: {
-      position: "absolute",
+      position: 'absolute',
       top: (data.height / 2 / 3) * 0.14,
       left: 0,
       width: data.width * 0.35,
       height: (data.height / 2 / 3) * 0.4,
-      textAlign: "center",
+      textAlign: 'center',
       lineHeight: (data.height / 2 / 3) * 0.4,
       fontSize: data.width * 0.043,
-      textOverflow: "ellipsis",
-      color: "#fff",
+      textOverflow: 'ellipsis',
+      color: '#fff',
     },
 
     rankScoreTip: {
-      position: "absolute",
+      position: 'absolute',
       bottom: (data.height / 2 / 3) * 0.1,
       left: 0,
       width: data.width * 0.15,
       height: (data.height / 2 / 3) * 0.3,
       lineHeight: (data.height / 2 / 3) * 0.3,
       fontSize: data.width * 0.042,
-      color: "#fff",
+      color: '#fff',
     },
 
     rankScoreVal: {
-      position: "absolute",
+      position: 'absolute',
       bottom: (data.height / 2 / 3) * 0.1,
       left: data.width * 0.15,
       width: data.width * 0.18,
       height: (data.height / 2 / 3) * 0.3,
       lineHeight: (data.height / 2 / 3) * 0.3,
       fontSize: data.width * 0.042,
-      color: "#fff",
+      color: '#fff',
     },
 
     shareNameView: {
-      position: "relative",
+      position: 'relative',
       marginLeft: data.width * 0.06,
       width: data.width * 0.35,
       height: (data.height / 2 / 3) * 0.4,
     },
 
     shareNameBg: {
-      position: "absolute",
+      position: 'absolute',
       top: 0,
       left: 0,
       width: data.width * 0.35,
@@ -121,27 +121,27 @@ export default function getStyle(data) {
     },
 
     shareName: {
-      position: "absolute",
+      position: 'absolute',
       top: 0,
       left: 0,
       width: data.width * 0.35,
       height: (data.height / 2 / 3) * 0.4,
-      textAlign: "center",
+      textAlign: 'center',
       lineHeight: (data.height / 2 / 3) * 0.4,
       fontSize: data.width * 0.043,
-      textOverflow: "ellipsis",
-      color: "#fff",
+      textOverflow: 'ellipsis',
+      color: '#fff',
     },
 
     shareToBtn: {
-      position: "relative",
+      position: 'relative',
       marginLeft: data.width * 0.08,
       width: data.width * 0.21,
       height: data.height * 0.16,
     },
 
     shareBtnBg: {
-      position: "absolute",
+      position: 'absolute',
       right: 0,
       top: data.height * 0.16 * 0.25,
       width: data.width * 0.21,
@@ -149,15 +149,15 @@ export default function getStyle(data) {
     },
 
     shareText: {
-      position: "absolute",
+      position: 'absolute',
       right: 0,
       top: data.height * 0.16 * 0.25,
       width: data.width * 0.21,
       height: data.height * 0.16 * 0.5,
       lineHeight: data.height * 0.16 * 0.5,
-      textAlign: "center",
+      textAlign: 'center',
       fontSize: data.width * 0.043,
-      color: "#fff",
+      color: '#fff',
     },
   };
 }

@@ -1,8 +1,12 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable eqeqeq */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-unused-vars */
 import moduleHelper from './module-helper';
 import { uid } from './utils';
-import { isAndroid, webAudioNeedResume } from '../check-version';
+import { isAndroid, webAudioNeedResume, isSupportBufferURL, isSupportWebAudio } from '../check-version';
 
 const audios = {};
 const msg = 'InnerAudioContext does not exist!';
@@ -15,7 +19,6 @@ const soundVolumeHandler = {};
 const err = (msg) => {
   GameGlobal.manager.printErr(msg);
 };
-const isSupportBufferURL = !GameGlobal.isIOSHighPerformanceMode && typeof wx.createBufferURL === 'function';
 const fs = wx.getFileSystemManager();
 fs.rmdir({
   dirPath: `${wx.env.USER_DATA_PATH}/__GAME_FILE_CACHE/audios`,
@@ -35,7 +38,7 @@ const funs = {
       const cdnPath = GameGlobal.manager.assetPath;
       v = `${cdnPath.replace(/\/$/, '')}/${v.replace(/^\//, '').replace(/^Assets\//, '')}`;
     }
-    return encodeURI(v);
+    return v;
   },
   // 下载并保存音频列表
   downloadAudios(paths) {
@@ -45,9 +48,12 @@ const funs = {
       return new Promise(async (resolve, reject) => {
         // 是否不在下载中
         if (!downloadingAudioMap[src]) {
-          downloadingAudioMap[src] = [{
-            resolve, reject,
-          }];
+          downloadingAudioMap[src] = [
+            {
+              resolve,
+              reject,
+            },
+          ];
           if (funs.checkLocalFile(src)) {
             funs.handleDownloadEnd(src, true);
           } else if (!GameGlobal.unityNamespace.isCacheableFile(src)) {
@@ -85,7 +91,8 @@ const funs = {
           }
         } else {
           downloadingAudioMap[src].push({
-            resolve, reject,
+            resolve,
+            reject,
           });
         }
       });
@@ -127,16 +134,18 @@ const funs = {
         funs.handleDownloadEnd(src, true);
         resolve(localAudioMap[src]);
       } else if (audio._needDownload) {
-        funs.downloadAudios(src).then(() => {
-          if (audio) {
-            audio.src = localAudioMap[src];
-            audio.isLoading = false;
-            resolve(localAudioMap[src]);
-          } else {
-            console.warn('音频已被删除:', src);
-            reject();
-          }
-        })
+        funs
+          .downloadAudios(src)
+          .then(() => {
+            if (audio) {
+              audio.src = localAudioMap[src];
+              audio.isLoading = false;
+              resolve(localAudioMap[src]);
+            } else {
+              console.warn('音频已被删除:', src);
+              reject();
+            }
+          })
           .catch(() => {
             console.warn('资源下载失败:', src);
             if (audio) {
@@ -154,41 +163,31 @@ const funs = {
       }
     });
   },
-  setSoundClip(soundClip, tempFilePath) {
-    soundClip.url = tempFilePath;
-    soundClip.mediaElement = wx.createInnerAudioContext();
-    this.setAudioSrc(soundClip.mediaElement, tempFilePath).then(() => {
-      soundClip.mediaElement.onCanplay(() => {
-        const { duration } = soundClip.mediaElement;
-        setTimeout(() => {
-          soundClip.duration = soundClip.mediaElement.duration;
-          if (soundClip.mediaElement) {
-            soundClip.mediaElement.destroy();
-            delete soundClip.mediaElement;
-          }
-        }, 0);
-      });
-    });
-  },
 };
 
 const WEBAudio = {
   audioInstanceIdCounter: 0,
   audioInstances: {},
   audioContext: null,
-  audioWebEnabled: 0,
+  audioWebEnabled: 1, // 修改为0禁用音频，用于对比测试内存用
   audioCache: [],
   lOrientation: {
-    x: 0, y: 0, z: 0, xUp: 0, yUp: 0, zUp: 0,
+    x: 0,
+    y: 0,
+    z: 0,
+    xUp: 0,
+    yUp: 0,
+    zUp: 0,
   },
   lPosition: { x: 0, y: 0, z: 0 },
+  audio3DSupport: 0, // 是否支持3d音效，默认不支持
+  audioWebSupport: 0, // 判断客户端是否支持webAudio
 };
 
 const resumeWebAudio = () => {
   if (
     WEBAudio.audioContext
-    && (WEBAudio.audioContext.state === 'suspended'
-      || WEBAudio.audioContext.state === 'interrupted')
+    && (WEBAudio.audioContext.state === 'suspended' || WEBAudio.audioContext.state === 'interrupted')
   ) {
     WEBAudio.audioContext.resume();
   }
@@ -204,10 +203,13 @@ export default {
     if (src) {
       // 设置原始src
       funs.setAudioSrc(getAudio, src).catch(() => {
-        moduleHelper.send('OnAudioCallback', JSON.stringify({
-          callbackId: id,
-          errMsg: 'onError',
-        }));
+        moduleHelper.send(
+          'OnAudioCallback',
+          JSON.stringify({
+            callbackId: id,
+            errMsg: 'onError',
+          }),
+        );
       });
     }
     if (loop) {
@@ -339,10 +341,13 @@ export default {
             // 兼容基础库获取属性异常的bug
             const { duration, buffered, referrerPolicy, volume } = audios[id];
             setTimeout(() => {
-              moduleHelper.send('OnAudioCallback', JSON.stringify({
-                callbackId: id,
-                errMsg: key,
-              }));
+              moduleHelper.send(
+                'OnAudioCallback',
+                JSON.stringify({
+                  callbackId: id,
+                  errMsg: key,
+                }),
+              );
             }, 0);
           });
         } else {
@@ -354,10 +359,13 @@ export default {
                 return;
               }
             }
-            moduleHelper.send('OnAudioCallback', JSON.stringify({
-              callbackId: id,
-              errMsg: key,
-            }));
+            moduleHelper.send(
+              'OnAudioCallback',
+              JSON.stringify({
+                callbackId: id,
+                errMsg: key,
+              }),
+            );
           });
         }
       };
@@ -388,22 +396,30 @@ export default {
     }
   },
   WXPreDownloadAudios(paths, id) {
-    funs.downloadAudios(paths).then(() => {
-      moduleHelper.send('WXPreDownloadAudiosCallback', JSON.stringify({
-        callbackId: id.toString(),
-        errMsg: '0',
-      }));
-    })
+    funs
+      .downloadAudios(paths)
+      .then(() => {
+        moduleHelper.send(
+          'WXPreDownloadAudiosCallback',
+          JSON.stringify({
+            callbackId: id.toString(),
+            errMsg: '0',
+          }),
+        );
+      })
       .catch((e) => {
-        moduleHelper.send('WXPreDownloadAudiosCallback', JSON.stringify({
-          callbackId: id.toString(),
-          errMsg: '1',
-        }));
+        moduleHelper.send(
+          'WXPreDownloadAudiosCallback',
+          JSON.stringify({
+            callbackId: id.toString(),
+            errMsg: '1',
+          }),
+        );
       });
   },
   // -------------------Unity Audio适配--------------------
   _JS_Sound_Create_Channel(callback, userData) {
-    if (WEBAudio.audioWebEnabled == 0) return;
+    if (WEBAudio.audioWebEnabled === 0) return;
     const channel = {
       gain: WEBAudio.audioContext.createGain(),
       panner: WEBAudio.audioContext.createPanner(),
@@ -413,7 +429,7 @@ export default {
         this.gain.disconnect();
         this.panner.disconnect();
       },
-      playUrl(startTime, url, startOffset, duration, volume) {
+      playUrl(startTime, url, startOffset, volume) {
         try {
           if (this.source && url === this.source.url) {
             this.source.start(startTime, startOffset);
@@ -427,17 +443,20 @@ export default {
           this.source.mediaElement.onPlay(() => {
             if (typeof this.source !== 'undefined') {
               this.source.isPlaying = true;
-              if (!this.source.loop && this.source.mediaElement && duration) {
-                if (this.source.stopTicker) {
-                  clearTimeout(this.source.stopTicker);
-                  this.source.stopTicker = 0;
-                }
-                const time = Math.floor(duration * 1000) + 1000;
-                this.source.stopTicker = setTimeout(() => {
-                  if (this.source && this.source.mediaElement) {
-                    this.source.mediaElement.stop();
+              if (!this.source.loop && this.source.mediaElement) {
+                const { duration } = this.source.mediaElement;
+                if (duration) {
+                  if (this.source.stopTicker) {
+                    clearTimeout(this.source.stopTicker);
+                    this.source.stopTicker = 0;
                   }
-                }, time);
+                  const time = Math.floor(duration * 1000) + 1000;
+                  this.source.stopTicker = setTimeout(() => {
+                    if (this.source && this.source.mediaElement) {
+                      this.source.mediaElement.stop();
+                    }
+                  }, time);
+                }
               }
             }
           });
@@ -461,9 +480,7 @@ export default {
               chan.disconnectSource();
             }
             if (callback) {
-              GameGlobal.unityNamespace.Module.dynCall_vi(callback, [
-                userData,
-              ]);
+              GameGlobal.unityNamespace.Module.dynCall_vi(callback, [userData]);
             }
           });
           this.source.mediaElement.onEnded(() => {
@@ -486,7 +503,7 @@ export default {
             }
           });
           this.source.start(startTime, startOffset);
-          this.source.playbackStartTime =            startTime - startOffset / this.source.playbackRateValue;
+          this.source.playbackStartTime = startTime - startOffset / this.source.playbackRateValue;
         } catch (e) {
           err(`playUrl error. Exception: ${e}`);
         }
@@ -539,11 +556,26 @@ export default {
           }
         }
       },
+      isPaused() {
+        if (!this.source) {
+          return true;
+        }
+        if (this.source.isPausedMockNode) {
+          return true;
+        }
+        if (this.source.mediaElement) {
+          return this.source.mediaElement.paused || this.source.pauseRequested;
+        }
+        return false;
+      },
       pause() {
         const s = this.source;
         if (!s) return;
         if (s.mediaElement) {
           s._pauseMediaElement();
+          return;
+        }
+        if (s.isPausedMockNode) {
           return;
         }
         const pausedSource = {
@@ -552,7 +584,6 @@ export default {
           loopStart: s.loopStart,
           loopEnd: s.loopEnd,
           buffer: s.buffer,
-          url: s.mediaElement ? s.mediaElement.src : null,
           playbackRate: s.playbackRateValue,
           playbackPausedAtPosition: s.estimatePlaybackPosition(),
           setPitch(v) {
@@ -565,27 +596,19 @@ export default {
       },
       resume() {
         const pausedSource = this.source;
-        if (pausedSource && pausedSource.mediaElement) {
+        if (!pausedSource) return;
+        if (pausedSource.mediaElement) {
           pausedSource.start();
           return;
         }
-        if (!pausedSource || !pausedSource.isPausedMockNode) return;
+        if (!pausedSource.isPausedMockNode) return;
         delete this.source;
-        if (pausedSource.url) {
-          this.playUrl(
-            WEBAudio.audioContext.currentTime
-                      - Math.min(0, pausedSource.playbackPausedAtPosition),
-            pausedSource.url,
-            Math.max(0, pausedSource.playbackPausedAtPosition),
-          );
-        } else {
-          this.playBuffer(
-            WEBAudio.audioContext.currentTime
-                      - Math.min(0, pausedSource.playbackPausedAtPosition),
-            pausedSource.buffer,
-            Math.max(0, pausedSource.playbackPausedAtPosition),
-          );
-        }
+        this.playBuffer(
+          WEBAudio.audioContext.currentTime
+                    - Math.min(0, pausedSource.playbackPausedAtPosition),
+          pausedSource.buffer,
+          Math.max(0, pausedSource.playbackPausedAtPosition),
+        );
         this.source.loop = pausedSource.loop;
         this.source.loopStart = pausedSource.loopStart;
         this.source.loopEnd = pausedSource.loopEnd;
@@ -594,10 +617,7 @@ export default {
       setVolume(volume) {
         if (this.source) {
           if (this.source.buffer) {
-            this.gain.gain.setValueAtTime(
-              volume,
-              WEBAudio.audioContext.currentTime,
-            );
+            this.gain.gain.setValueAtTime(volume, WEBAudio.audioContext.currentTime);
           } else if (this.source.mediaElement) {
             this.source.mediaElement.volume = volume;
           }
@@ -622,7 +642,8 @@ export default {
                 // 从innerAudio切换到innerAudio
                 // 播放同一个实例
                 return;
-              } if (url !== this.source.url) {
+              }
+              if (url !== this.source.url) {
                 // 从innerAudio切换到innerAudio
                 // 客户端有bug尚未修复，复用时无法触发onCanplay，所以此处都先销毁
                 this.source._reset();
@@ -655,7 +676,7 @@ export default {
           getAudio.src = url;
           this.source.mediaElement = getAudio;
           this.source.url = url;
-          const { duration, buffered, referrerPolicy, volume } = getAudio;
+          const { buffered, referrerPolicy, volume } = getAudio;
           const { source } = this;
           Object.defineProperty(this.source, 'loop', {
             get() {
@@ -701,12 +722,7 @@ export default {
             }
             // 兜底，客户端有概率不会触发onCanplay或者没有触发onPlay
             this.source.fixPlayTicker = setTimeout(() => {
-              if (
-                this.source
-                && this.source.mediaElement
-                && this.source.needCanPlay
-                && !this.source.isPlaying
-              ) {
+              if (this.source && this.source.mediaElement && this.source.needCanPlay && !this.source.isPlaying) {
                 this.source.mediaElement.play();
               }
             }, 2000);
@@ -728,6 +744,8 @@ export default {
                 }
               } else {
                 this.source.mediaElement.onCanplay(() => {
+                  // duration兼容用
+                  const { duration } = this.source.mediaElement;
                   this.source.needCanPlay = false;
                   this.source.readyToPlay = true;
                   this.source.mediaElement.offCanplay();
@@ -791,10 +809,7 @@ export default {
           };
           this.source.start = (startTime, offset) => {
             if (typeof this.source === 'undefined') return;
-            if (
-              typeof startTime === 'undefined'
-              && typeof offset === 'undefined'
-            ) {
+            if (typeof startTime === 'undefined' && typeof offset === 'undefined') {
               _innerPlay();
               return;
             }
@@ -805,7 +820,7 @@ export default {
               offset = 0;
             }
             const startDelayThresholdMS = 4;
-            const startDelayMS =              (startTime - WEBAudio.audioContext.currentTime) * 1e3;
+            const startDelayMS = (startTime - WEBAudio.audioContext.currentTime) * 1e3;
             if (startDelayMS > startDelayThresholdMS) {
               this.source.playTimeout = setTimeout(() => {
                 this.source.playTimeout = null;
@@ -821,13 +836,10 @@ export default {
               stopTime = WEBAudio.audioContext.currentTime;
             }
             const stopDelayThresholdMS = 4;
-            const stopDelayMS =              (stopTime - WEBAudio.audioContext.currentTime) * 1e3;
+            const stopDelayMS = (stopTime - WEBAudio.audioContext.currentTime) * 1e3;
             if (stopDelayMS > stopDelayThresholdMS) {
               setTimeout(() => {
-                if (
-                  this.source && this.source.isPlaying
-                  && this.source.mediaElement
-                ) {
+                if (this.source && this.source.isPlaying && this.source.mediaElement) {
                   this.source.stopCache = true;
                   this.source.mediaElement.stop();
                 }
@@ -841,11 +853,9 @@ export default {
           };
         }
         this.source.estimatePlaybackPosition = function () {
-          let t = (WEBAudio.audioContext.currentTime - this.playbackStartTime)
-                      * this.playbackRateValue;
+          let t = (WEBAudio.audioContext.currentTime - this.playbackStartTime) * this.playbackRateValue;
           if (this.loop && t >= this.loopStart) {
-            t = ((t - this.loopStart) % (this.loopEnd - this.loopStart))
-                          + this.loopStart;
+            t = ((t - this.loopStart) % (this.loopEnd - this.loopStart)) + this.loopStart;
           }
           return t;
         };
@@ -879,25 +889,24 @@ export default {
     return WEBAudio.audioInstanceIdCounter;
   },
   _JS_Sound_GetLength(bufferInstance) {
-    if (WEBAudio.audioWebEnabled == 0) return 0;
-    const sound = WEBAudio.audioInstances[bufferInstance];
-    if (sound.buffer) {
-      const sampleRateRatio = 44100 / sound.buffer.sampleRate;
-      return sound.buffer.length * sampleRateRatio;
+    if (WEBAudio.audioWebSupport === 0 || WEBAudio.audioWebEnabled === 0) return 0;
+    const soundClip = WEBAudio.audioInstances[bufferInstance];
+    if (soundClip.buffer) {
+      const sampleRateRatio = 44100 / soundClip.buffer.sampleRate;
+      return soundClip.buffer.length * sampleRateRatio;
     }
-    // innerAudio * 1000
-    return sound.duration * 1000 || 0;
+    // TODO 暂时没有实际使用场景，先返回0
+    return 0;
   },
   _JS_Sound_GetLoadState(bufferInstance) {
-    if (WEBAudio.audioWebEnabled == 0) return 2;
-    const sound = WEBAudio.audioInstances[bufferInstance];
-    if (sound.error) return 2;
-    if (sound.buffer || sound.url) return 0;
+    if (WEBAudio.audioWebEnabled === 0) return 2;
+    const soundClip = WEBAudio.audioInstances[bufferInstance];
+    if (soundClip.error) return 2;
+    if (soundClip.buffer || soundClip.url) return 0;
     return 1;
   },
   _JS_Sound_Init() {
     try {
-      WEBAudio.audio3DSupport = 0;
       window.AudioContext = window.AudioContext || window.webkitAudioContext;
       if (window.AudioContext) {
         WEBAudio.audioContext = new AudioContext();
@@ -910,7 +919,7 @@ export default {
         err('Minigame Web Audio API not suppoted');
         return;
       }
-      WEBAudio.audioWebEnabled = 1;
+      WEBAudio.audioWebSupport = isSupportWebAudio ? 1 : 0;
       wx.onHide((result) => {
         WEBAudio.audioContext.suspend();
       });
@@ -920,10 +929,7 @@ export default {
       if (webAudioNeedResume) {
         let resumeInterval = 0;
         const tryToResumeAudioContext = function () {
-          if (
-            WEBAudio.audioContext.state === 'suspended'
-            || WEBAudio.audioContext.state === 'interrupted'
-          ) {
+          if (WEBAudio.audioContext.state === 'suspended' || WEBAudio.audioContext.state === 'interrupted') {
             WEBAudio.audioContext.resume();
             clearInterval(resumeInterval);
           }
@@ -937,7 +943,7 @@ export default {
     }
   },
   _JS_Sound_Load(ptr, length, decompress) {
-    if (WEBAudio.audioWebEnabled == 0) return 0;
+    if (WEBAudio.audioWebEnabled === 0) return;
     const audioData = GameGlobal.unityNamespace.Module.HEAPU8.buffer.slice(ptr, ptr + length);
 
     // 超过128K强制使用innerAudio，低于128K使用webAudio
@@ -947,7 +953,7 @@ export default {
       decompress = 1;
     }
 
-    if (decompress) {
+    if (decompress && WEBAudio.audioWebSupport) {
       const soundClip = {
         buffer: null,
         error: false,
@@ -982,14 +988,13 @@ export default {
       if (isSupportBufferURL) {
         const url = wx.createBufferURL(audioData);
         soundClip.url = url;
-        funs.setSoundClip(soundClip, url);
       } else {
         const tempFilePath = `${wx.env.USER_DATA_PATH}/__GAME_FILE_CACHE/audios/temp-audio${ptr + length}.mp3`;
         if (GameGlobal.manager.getCachePath(tempFilePath)) {
-          funs.setSoundClip(soundClip, tempFilePath);
+          soundClip.url = tempFilePath;
         } else {
           GameGlobal.manager.writeFile(tempFilePath, audioData).then(() => {
-            funs.setSoundClip(soundClip, tempFilePath);
+            soundClip.url = tempFilePath;
           })
             .catch((res) => {
               soundClip.error = true;
@@ -1003,7 +1008,7 @@ export default {
     return WEBAudio.audioInstanceIdCounter;
   },
   _JS_Sound_Load_PCM(channels, length, sampleRate, ptr) {
-    if (WEBAudio.audioWebEnabled == 0) return 0;
+    if (WEBAudio.audioWebSupport === 0 || WEBAudio.audioWebEnabled === 0) return 0;
     const sound = {
       buffer: WEBAudio.audioContext.createBuffer(channels, length, sampleRate),
       error: false,
@@ -1011,41 +1016,37 @@ export default {
     for (let i = 0; i < channels; i++) {
       const offs = (ptr >> 2) + length * i;
       const { buffer } = sound;
-      const copyToChannel = buffer.copyToChannel
-              || function (source, channelNumber, startInChannel) {
-                const clipped = source.subarray(
-                  0,
-                  Math.min(source.length, this.length - (startInChannel | 0)),
-                );
-                this.getChannelData(channelNumber | 0).set(clipped, startInChannel | 0);
-              };
+      const copyToChannel =        buffer.copyToChannel
+        || function (source, channelNumber, startInChannel) {
+          const clipped = source.subarray(0, Math.min(source.length, this.length - (startInChannel | 0)));
+          this.getChannelData(channelNumber | 0).set(clipped, startInChannel | 0);
+        };
       copyToChannel.apply(buffer, [GameGlobal.unityNamespace.Module.HEAPF32.subarray(offs, offs + length), i, 0]);
     }
     WEBAudio.audioInstances[++WEBAudio.audioInstanceIdCounter] = sound;
     return WEBAudio.audioInstanceIdCounter;
   },
   _JS_Sound_Play(bufferInstance, channelInstance, offset, delay) {
+    if (WEBAudio.audioWebEnabled === 0) return;
     WXWASMSDK._JS_Sound_Stop(channelInstance, 0);
-    if (WEBAudio.audioWebEnabled == 0) return;
-    const sound = WEBAudio.audioInstances[bufferInstance];
+    const soundClip = WEBAudio.audioInstances[bufferInstance];
     const channel = WEBAudio.audioInstances[channelInstance];
-    if (sound.url) {
+    if (soundClip.url) {
       try {
         channel.playUrl(
           WEBAudio.audioContext.currentTime + delay,
-          sound.url,
+          soundClip.url,
           offset,
-          sound.duration,
           soundVolumeHandler[channelInstance],
         );
       } catch (e) {
         err(`playUrl error. Exception: ${e}`);
       }
-    } else if (sound.buffer) {
+    } else if (soundClip.buffer) {
       try {
         channel.playBuffer(
           WEBAudio.audioContext.currentTime + delay,
-          sound.buffer,
+          soundClip.buffer,
           offset,
         );
       } catch (e) {
@@ -1054,6 +1055,7 @@ export default {
     } else console.log('Trying to play sound which is not loaded.');
   },
   _JS_Sound_ReleaseInstance(instance) {
+    if (WEBAudio.audioWebEnabled === 0) return;
     const object = WEBAudio.audioInstances[instance];
     if (object) {
       object.release();
@@ -1061,11 +1063,11 @@ export default {
     delete WEBAudio.audioInstances[instance];
   },
   _JS_Sound_ResumeIfNeeded() {
-    if (WEBAudio.audioWebEnabled == 0) return;
+    if (WEBAudio.audioWebSupport === 0 || WEBAudio.audioWebEnabled === 0) return;
     resumeWebAudio();
   },
   _JS_Sound_Set3D(channelInstance, threeD) {
-    if (WEBAudio.audio3DSupport == 0) return;
+    if (WEBAudio.audio3DSupport === 0 || WEBAudio.audioWebEnabled === 0) return;
     const channel = WEBAudio.audioInstances[channelInstance];
     if (channel.threeD != threeD) {
       channel.threeD = threeD;
@@ -1076,15 +1078,21 @@ export default {
     }
   },
   _JS_Sound_SetListenerOrientation(x, y, z, xUp, yUp, zUp) {
-    if (WEBAudio.audio3DSupport == 0) return;
-    if (WEBAudio.audioWebEnabled == 0) return;
+    if (WEBAudio.audio3DSupport === 0 || WEBAudio.audioWebSupport === 0 || WEBAudio.audioWebEnabled === 0) return;
     x = x > 0 ? 0 : x;
     y = y > 0 ? 0 : y;
     z = z > 0 ? 0 : z;
     xUp = xUp < 0 ? 0 : xUp;
     yUp = yUp < 0 ? 0 : yUp;
     zUp = zUp < 0 ? 0 : zUp;
-    if (x == WEBAudio.lOrientation.x && y == WEBAudio.lOrientation.y && z == WEBAudio.lOrientation.z && xUp == WEBAudio.lOrientation.xUp && yUp == WEBAudio.lOrientation.yUp && zUp == WEBAudio.lOrientation.zUp) {
+    if (
+      x == WEBAudio.lOrientation.x
+      && y == WEBAudio.lOrientation.y
+      && z == WEBAudio.lOrientation.z
+      && xUp == WEBAudio.lOrientation.xUp
+      && yUp == WEBAudio.lOrientation.yUp
+      && zUp == WEBAudio.lOrientation.zUp
+    ) {
       return;
     }
     WEBAudio.lOrientation.x = x;
@@ -1094,37 +1102,18 @@ export default {
     WEBAudio.lOrientation.yUp = yUp;
     WEBAudio.lOrientation.zUp = zUp;
     if (WEBAudio.audioContext.listener.forwardX) {
-      WEBAudio.audioContext.listener.forwardX.setValueAtTime(
-        -x,
-        WEBAudio.audioContext.currentTime,
-      );
-      WEBAudio.audioContext.listener.forwardY.setValueAtTime(
-        -y,
-        WEBAudio.audioContext.currentTime,
-      );
-      WEBAudio.audioContext.listener.forwardZ.setValueAtTime(
-        -z,
-        WEBAudio.audioContext.currentTime,
-      );
-      WEBAudio.audioContext.listener.upX.setValueAtTime(
-        xUp,
-        WEBAudio.audioContext.currentTime,
-      );
-      WEBAudio.audioContext.listener.upY.setValueAtTime(
-        yUp,
-        WEBAudio.audioContext.currentTime,
-      );
-      WEBAudio.audioContext.listener.upZ.setValueAtTime(
-        zUp,
-        WEBAudio.audioContext.currentTime,
-      );
+      WEBAudio.audioContext.listener.forwardX.setValueAtTime(-x, WEBAudio.audioContext.currentTime);
+      WEBAudio.audioContext.listener.forwardY.setValueAtTime(-y, WEBAudio.audioContext.currentTime);
+      WEBAudio.audioContext.listener.forwardZ.setValueAtTime(-z, WEBAudio.audioContext.currentTime);
+      WEBAudio.audioContext.listener.upX.setValueAtTime(xUp, WEBAudio.audioContext.currentTime);
+      WEBAudio.audioContext.listener.upY.setValueAtTime(yUp, WEBAudio.audioContext.currentTime);
+      WEBAudio.audioContext.listener.upZ.setValueAtTime(zUp, WEBAudio.audioContext.currentTime);
     } else {
       WEBAudio.audioContext.listener.setOrientation(-x, -y, -z, xUp, yUp, zUp);
     }
   },
   _JS_Sound_SetListenerPosition(x, y, z) {
-    if (WEBAudio.audio3DSupport == 0) return;
-    if (WEBAudio.audioWebEnabled == 0) return;
+    if (WEBAudio.audio3DSupport === 0 || WEBAudio.audioWebSupport === 0 || WEBAudio.audioWebEnabled === 0) return;
     x = x < 0 ? 0 : x;
     y = y < 0 ? 0 : y;
     z = z < 0 ? 0 : z;
@@ -1135,24 +1124,15 @@ export default {
     WEBAudio.lPosition.y = y;
     WEBAudio.lPosition.z = z;
     if (WEBAudio.audioContext.listener.positionX) {
-      WEBAudio.audioContext.listener.positionX.setValueAtTime(
-        x,
-        WEBAudio.audioContext.currentTime,
-      );
-      WEBAudio.audioContext.listener.positionY.setValueAtTime(
-        y,
-        WEBAudio.audioContext.currentTime,
-      );
-      WEBAudio.audioContext.listener.positionZ.setValueAtTime(
-        z,
-        WEBAudio.audioContext.currentTime,
-      );
+      WEBAudio.audioContext.listener.positionX.setValueAtTime(x, WEBAudio.audioContext.currentTime);
+      WEBAudio.audioContext.listener.positionY.setValueAtTime(y, WEBAudio.audioContext.currentTime);
+      WEBAudio.audioContext.listener.positionZ.setValueAtTime(z, WEBAudio.audioContext.currentTime);
     } else {
       WEBAudio.audioContext.listener.setPosition(x, y, z);
     }
   },
   _JS_Sound_SetLoop(channelInstance, loop) {
-    if (WEBAudio.audioWebEnabled == 0) return;
+    if (WEBAudio.audioWebEnabled === 0) return;
     const channel = WEBAudio.audioInstances[channelInstance];
     if (!channel.source) {
       channel.setup();
@@ -1160,7 +1140,7 @@ export default {
     channel.source.loop = loop > 0;
   },
   _JS_Sound_SetLoopPoints(channelInstance, loopStart, loopEnd) {
-    if (WEBAudio.audioWebEnabled == 0) return;
+    if (WEBAudio.audioWebEnabled === 0) return;
     const channel = WEBAudio.audioInstances[channelInstance];
     if (!channel.source) {
       channel.setup();
@@ -1169,17 +1149,15 @@ export default {
     channel.source.loopEnd = loopEnd;
   },
   _JS_Sound_SetPaused(channelInstance, paused) {
-    if (WEBAudio.audioWebEnabled == 0) return;
+    if (WEBAudio.audioWebEnabled === 0) return;
     const channel = WEBAudio.audioInstances[channelInstance];
-    const channelCurrentlyPaused = !channel.source || channel.source.isPausedMockNode;
-    if (paused != channelCurrentlyPaused) {
+    if (!!paused !== channel.isPaused()) {
       if (paused) channel.pause();
       else channel.resume();
     }
   },
   _JS_Sound_SetPitch(channelInstance, v) {
-    if (WEBAudio.audio3DSupport == 0) return;
-    if (WEBAudio.audioWebEnabled == 0) return;
+    if (WEBAudio.audio3DSupport === 0 || WEBAudio.audioWebSupport === 0 || WEBAudio.audioWebEnabled === 0) return;
     try {
       WEBAudio.audioInstances[channelInstance].source.setPitch(v);
     } catch (e) {
@@ -1187,8 +1165,7 @@ export default {
     }
   },
   _JS_Sound_SetPosition(channelInstance, x, y, z) {
-    if (WEBAudio.audio3DSupport == 0) return;
-    if (WEBAudio.audioWebEnabled == 0) return;
+    if (WEBAudio.audio3DSupport === 0 || WEBAudio.audioWebSupport === 0 || WEBAudio.audioWebEnabled === 0) return;
     const channel = WEBAudio.audioInstances[channelInstance];
     if (channel.x != x || channel.y != y || channel.z != z) {
       channel.panner.setPosition(x, y, z);
@@ -1198,7 +1175,7 @@ export default {
     }
   },
   _JS_Sound_SetVolume(channelInstance, v) {
-    if (WEBAudio.audioWebEnabled == 0) return;
+    if (WEBAudio.audioWebEnabled === 0) return;
     try {
       const volume = Number(v.toFixed(2));
       const cur = soundVolumeHandler[channelInstance];
@@ -1218,7 +1195,7 @@ export default {
     }
   },
   _JS_Sound_Stop(channelInstance, delay) {
-    if (WEBAudio.audioWebEnabled == 0) return;
+    if (WEBAudio.audioWebEnabled === 0) return;
     const channel = WEBAudio.audioInstances[channelInstance];
     channel.stop(delay);
   },

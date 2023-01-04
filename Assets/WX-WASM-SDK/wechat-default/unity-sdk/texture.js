@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-restricted-properties */
 /* eslint-disable no-plusplus */
 import canvasContext from './canvas-context';
 const downloadedTextures = {};
@@ -39,9 +41,11 @@ const mod = {
     if (hasCheckSupportedExtensions) {
       return GameGlobal.TextureCompressedFormat;
     }
-    const list = canvas.getContext(GameGlobal.managerConfig.contextConfig.contextType == 2 ? 'webgl2' : 'webgl').getSupportedExtensions();
+    const list = canvas
+      .getContext(GameGlobal.managerConfig.contextConfig.contextType === 2 ? 'webgl2' : 'webgl')
+      .getSupportedExtensions();
 
-    const noneLimitSupportedTextures = [''];  // 兜底采用png
+    const noneLimitSupportedTextures = ['']; // 兜底采用png
     GameGlobal.TextureCompressedFormat = '';
     if (list.indexOf('WEBGL_compressed_texture_s3tc') !== -1 && UseDXT5) {
       GameGlobal.TextureCompressedFormat = 'dds';
@@ -71,7 +75,11 @@ const mod = {
     if (textureFormat && limitType) {
       textureFormat = GameGlobal.NoneLimitSupportedTexture;
     }
-    if (!textureFormat || (textureFormat == 'pvr' && (width != height || PotList.indexOf(width) === -1)) || (textureFormat == 'dds' && (width % 4 !== 0 || height % 4 !== 0))) {
+    if (
+      !textureFormat
+      || (textureFormat === 'pvr' && (width !== height || PotList.indexOf(width) === -1))
+      || (textureFormat === 'dds' && (width % 4 !== 0 || height % 4 !== 0))
+    ) {
       mod.downloadFile(path, width, height);
     } else {
       mod.requestFile(path, width, height, textureFormat, limitType);
@@ -149,9 +157,6 @@ const mod = {
       delete downloadFailedTextures[cid];
       delete downloadedTextures[cid];
     };
-    image.onerror = function () {
-      mod.reTryRemoteImageFile(path, width, height, false);
-    };
   },
   callbackPngFile(path, cid) {
     const image = wx.createImage();
@@ -214,59 +219,10 @@ const mod = {
       }
     }
   },
-  readFile(textureId, callback, width, height) {
-    const cid = textureId;
-    const fileManager = wx.getFileSystemManager();
-    const filePath = `${wx.env.USER_DATA_PATH}/${cid}.txt`;
-    fileManager.readFile({
-      filePath,
-      success(res) {
-        if (!GameGlobal.TextureCompressedFormat) {
-          const image = wx.createImage();
-          image.src = filePath;
-          image.onload = function () {
-            handleLoaded(image);
-            delete downloadedTextures[cid];
-          };
-        } else {
-          handleLoaded();
-          delete downloadedTextures[cid].data;
-        }
-
-        function handleLoaded(image) {
-          downloadedTextures[cid] = {
-            data: image || res.data,
-            tmpFile: filePath,
-          };
-          callback();
-        }
-      },
-      fail(err) {
-        err(err, `读取压缩纹理失败！id:${cid}`);
-        handleError();
-      },
-    });
-
-
-    function handleError() {
-      let path;
-      if (type === 'Texture') {
-        path = GameGlobal.TextureConfig[textureId].p;
-      } else {
-        path = GameGlobal.SpriteAtlasConfig[textureId].p;
-      }
-      if (downloadingTextures[cid]) {
-        downloadingTextures[cid].push(callback);
-      } else {
-        downloadingTextures[cid] = [callback];
-      }
-      mod.getRemoteImageFile(textureId, type, path.replace(/\\/g, '/'), width, height);
-    }
-  },
   WXDownloadTexture(path, width, height, callback, limitType = false) {
     const width4m = width % 4;
     if (width4m !== 0) {
-      width += (4 - width4m);
+      width += 4 - width4m;
     }
     if (!hasCheckSupportedExtensions) {
       mod.getSupportedExtensions();
@@ -313,7 +269,7 @@ GameGlobal.ParalleLDownloadTexture = function (filename) {
         const image = wx.createImage();
         image.crossOrigin = '';
         image.src = p;
-      } else if (f != 'pvr') {
+      } else if (f !== 'pvr') {
         const http = new GameGlobal.unityNamespace.UnityLoader.UnityCache.XMLHttpRequest();
         const p = `${GameGlobal.manager.assetPath}/Textures/${f}/${v.w}/${v.p}.txt`;
         http.open('GET', p, true);
@@ -324,19 +280,17 @@ GameGlobal.ParalleLDownloadTexture = function (filename) {
   }
 };
 
-
 export default {
   WXDownloadTexture: mod.WXDownloadTexture,
 };
 
-
 canvasContext.addCreatedListener(() => {
   if (GameGlobal.USED_TEXTURE_COMPRESSION) {
     mod.getSupportedExtensions();
-    if (GameGlobal.TextureCompressedFormat == '' || GameGlobal.TextureCompressedFormat == 'pvr') {
+    if (GameGlobal.TextureCompressedFormat === '' || GameGlobal.TextureCompressedFormat === 'pvr') {
       wx.getSystemInfo({
         success(res) {
-          if (res.platform == 'ios') {
+          if (res.platform === 'ios') {
             wx.showModal({
               title: '提示',
               content: '当前操作系统版本过低，建议您升级至最新版本。',
@@ -348,12 +302,12 @@ canvasContext.addCreatedListener(() => {
   }
   wx.onNetworkStatusChange((res) => {
     if (res.isConnected) {
-      for (const key in downloadFailedTextures) {
+      Object.keys(downloadFailedTextures).forEach((key) => {
         const v = downloadFailedTextures[key];
         if (v.count > 4) {
           mod.getRemoteImageFile(v.path, v.width, v.height, v.limitType);
         }
-      }
+      });
     }
   });
 });

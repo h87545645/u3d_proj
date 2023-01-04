@@ -1,29 +1,26 @@
-import {
-  getFriendRankData,
-  getGroupFriendsRankData,
-  getSelfData,
-  setUserRecord,
-} from "./data/index";
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-unused-vars */
+import { getFriendRankData, getGroupFriendsRankData, getSelfData, setUserRecord } from './data/index';
 
-import getFriendRankXML from "./render/tpls/friendRank";
-import getFriendRankStyle from "./render/styles/friendRank";
-import getTipsXML from "./render/tpls/tips";
-import getTipsStyle from "./render/styles/tips";
+import getFriendRankXML from './render/tpls/friendRank';
+import getFriendRankStyle from './render/styles/friendRank';
+import getTipsXML from './render/tpls/tips';
+import getTipsStyle from './render/styles/tips';
 
-const Layout = requirePlugin("Layout").default;
-const RANK_KEY = "user_rank";
+const Layout = requirePlugin('Layout').default;
+const RANK_KEY = 'user_rank';
 const sharedCanvas = wx.getSharedCanvas();
-const sharedContext = sharedCanvas.getContext("2d");
+const sharedContext = sharedCanvas.getContext('2d');
 
 // test
 setUserRecord(RANK_KEY, Math.ceil(Math.random() * 1000));
 
 const MessageType = {
-  WX_RENDER: "WXRender",
-  WX_DESTROY: "WXDestroy",
-  SHOW_FRIENDS_RANK: "showFriendsRank",
-  SHOW_GROUP_FRIENDS_RANK: "showGroupFriendsRank",
-  SET_USER_RECORD: "setUserRecord",
+  WX_RENDER: 'WXRender',
+  WX_DESTROY: 'WXDestroy',
+  SHOW_FRIENDS_RANK: 'showFriendsRank',
+  SHOW_GROUP_FRIENDS_RANK: 'showGroupFriendsRank',
+  SET_USER_RECORD: 'setUserRecord',
 };
 
 /**
@@ -31,19 +28,20 @@ const MessageType = {
  * 温馨提示，这里仅仅是示意，请注意修改 shareMessageToFriend 参数
  */
 const initShareEvents = () => {
-	// 绑定邀请
+  // 绑定邀请
   const shareBtnList = Layout.getElementsByClassName('shareToBtn');
-	shareBtnList && shareBtnList.forEach(item => {
-		item.on('click', (e) => {
-      if (item.dataset.isSelf === 'false') {
-        wx.shareMessageToFriend({
-          openId: item.dataset.id,
-          title: '最强战力排行榜！谁是第一？',
-          imageUrl: 'https://mmgame.qpic.cn/image/5f9144af9f0e32d50fb878e5256d669fa1ae6fdec77550849bfee137be995d18/0',
-        });
-      }
-		});
-	});
+  shareBtnList
+    && shareBtnList.forEach((item) => {
+      item.on('click', (e) => {
+        if (item.dataset.isSelf === 'false') {
+          wx.shareMessageToFriend({
+            openId: item.dataset.id,
+            title: '最强战力排行榜！谁是第一？',
+            imageUrl: 'https://mmgame.qpic.cn/image/5f9144af9f0e32d50fb878e5256d669fa1ae6fdec77550849bfee137be995d18/0',
+          });
+        }
+      });
+    });
 };
 
 /**
@@ -68,7 +66,7 @@ function LayoutWithTplAndStyle(xml, style) {
 }
 
 // 仅仅渲染一些提示，比如数据加载中、当前无授权等
-function renderTips(tips = "") {
+function renderTips(tips = '') {
   LayoutWithTplAndStyle(
     getTipsXML({
       tips,
@@ -98,7 +96,7 @@ async function renderFriendsRank() {
       getFriendRankStyle({
         width: sharedCanvas.width,
         height: sharedCanvas.height,
-      })
+      }),
     );
     initShareEvents();
   } catch (e) {
@@ -121,12 +119,12 @@ async function renderGroupFriendsRank(shareTicket) {
 
     LayoutWithTplAndStyle(
       getFriendRankXML({
-        data
+        data,
       }),
       getFriendRankStyle({
         width: sharedCanvas.width,
         height: sharedCanvas.height,
-      })
+      }),
     );
   } catch (e) {
     renderTips('群同玩好友数据加载失败');
@@ -135,13 +133,13 @@ async function renderGroupFriendsRank(shareTicket) {
 
 function main() {
   wx.onMessage((data) => {
-    console.log("[WX OpenData] onMessage", data);
+    console.log('[WX OpenData] onMessage', data);
 
-    if (typeof data === "string") {
+    if (typeof data === 'string') {
       try {
         data = JSON.parse(data);
       } catch (e) {
-        console.error("[WX OpenData] onMessage data is not a object");
+        console.error('[WX OpenData] onMessage data is not a object');
         return;
       }
     }
@@ -171,9 +169,7 @@ function main() {
         break;
 
       default:
-        console.error(
-          `[WX OpenData] onMessage type 「${type}」 is not supported`
-        );
+        console.error(`[WX OpenData] onMessage type 「${data.type}」 is not supported`);
         break;
     }
   });

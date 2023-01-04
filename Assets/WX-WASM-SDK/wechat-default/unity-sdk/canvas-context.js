@@ -13,4 +13,3 @@ export default {
     callbacks.forEach(v => v());
   },
 };
-

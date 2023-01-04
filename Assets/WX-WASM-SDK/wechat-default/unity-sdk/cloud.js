@@ -1,6 +1,8 @@
+/* eslint-disable no-param-reassign */
 import response from './response';
 const CloudIDObject = {};
 function fixWXCallFunctionData(data) {
+  // eslint-disable-next-line no-restricted-syntax
   for (const key in data) {
     if (typeof data[key] === 'object') {
       fixWXCallFunctionData(data[key]);
@@ -22,13 +24,13 @@ export default {
     wx.cloud.callFunction({
       name,
       data: d,
-      config: conf == '' ? null : JSON.parse(conf),
+      config: conf === '' ? null : JSON.parse(conf),
       ...response.handlecloudCallFunction(s, f, c),
     });
   },
   WXCloudID(cloudId) {
     const res = wx.cloud.CloudID(cloudId);
-    const r =  JSON.stringify(res);
+    const r = JSON.stringify(res);
     CloudIDObject[r] = res;
     return r;
   },

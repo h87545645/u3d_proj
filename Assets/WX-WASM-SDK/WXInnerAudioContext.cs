@@ -99,7 +99,6 @@ namespace WeChatWASM
         private float _playbackRate = 1;
         private bool _isPlaying = false;
         private bool _needDownload = false;
-        private bool isWaitingPlay = false;
         private Action _onCanplay;
         private Action _onPlay;
         private Action _onPause;
@@ -476,27 +475,14 @@ namespace WeChatWASM
         {
             if (isWebGLPlayer)
             {
-                if (!isWaitingPlay)
-                {
-                    isWaitingPlay = true;
-                    WXSDKManagerHandler.Instance.StartCoroutine(DoPlay());
-                }
+                WXInnerAudioContextPlay(instanceId);
                 return;
             }
 
-           
             Debug.Log(_src + " 音频播放了，这里就不真的播放了。");
             ht["paused"] = false;
             _HandleCallBack("onPlay");
 
-        }
-
-        IEnumerator DoPlay()
-        {
-            //这里unity音频调用太频繁，延迟0.1秒后再执行
-            yield return new WaitForSeconds(0.1f);
-            WXInnerAudioContextPlay(instanceId);
-            isWaitingPlay = false;
         }
 
         /// <summary>

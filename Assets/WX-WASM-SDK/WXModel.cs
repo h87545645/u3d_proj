@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 using UnityEngine.Scripting;
 
 namespace WeChatWASM
@@ -468,6 +470,21 @@ namespace WeChatWASM
         public string dirPath;
         /// <summary>
         /// 是否在递归创建该目录的上级目录后再创建该目录。如果对应的上级目录已经存在，则不创建该上级目录。如 dirPath 为 a/b/c/d 且 recursive 为 true，将创建 a 目录，再在 a 目录下创建 b 目录，以此类推直至创建 a/b/c 目录下的 d 目录。
+        /// </summary>
+        public bool recursive = false;
+    }
+
+    /// <summary>
+    /// https://developers.weixin.qq.com/miniprogram/dev/api/file/FileSystemManager.rmdir.html
+    /// </summary>
+    public class RmdirParam : WXBaseActionParam<WXTextResponse>
+    {
+        /// <summary>
+        /// 要删除的目录路径 (本地路径)
+        /// </summary>
+        public string dirPath;
+        /// <summary>
+        /// 是否递归删除目录。如果为 true，则删除该目录和该目录下的所有子目录以及文件。
         /// </summary>
         public bool recursive = false;
     }
@@ -1300,5 +1317,28 @@ namespace WeChatWASM
         /// 引擎初始化(callmain)
         /// </summary>
         prepareGame,
+    }
+
+    /// <summary>
+    /// reportScene接口参数
+    /// </summary>
+    public class ReportSceneParams : WXBaseActionParam<GeneralCallbackResult>
+    {
+        /// <summary>
+        /// 场景ID，在「小程序管理后台」获取
+        /// </summary>
+        public int sceneId;
+        /// <summary>
+        /// 此场景耗时，单位 ms
+        /// </summary>
+        public int costTime;
+        /// <summary>
+        /// 自定义维度数据，key在「小程序管理后台」获取。只支持能够通过JSON.stringify序列化的对象，且序列化后长度不超过1024个字符
+        /// </summary>
+        public Dictionary<string, string> dimension;
+        /// <summary>
+        /// 自定义指标数据，key在「小程序管理后台」获取。只支持能够通过JSON.stringify序列化的对象，且序列化后长度不超过1024个字符
+        /// </summary>
+        public Dictionary<string, string> metric;
     }
 }

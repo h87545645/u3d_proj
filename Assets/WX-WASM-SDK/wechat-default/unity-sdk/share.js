@@ -9,10 +9,12 @@ export default {
   WXOnShareAppMessage(conf, isPromise) {
     wx.onShareAppMessage(() => ({
       ...JSON.parse(conf),
-      promise: isPromise ? new Promise((resolve) => {
-        shareResolve = resolve;
-        moduleHelper.send('OnShareAppMessageCallback');
-      }) : null,
+      promise: isPromise
+        ? new Promise((resolve) => {
+          shareResolve = resolve;
+          moduleHelper.send('OnShareAppMessageCallback');
+        })
+        : null,
     }));
   },
   WXOnShareAppMessageResolve(conf) {
@@ -25,5 +27,3 @@ export default {
 wx.showShareMenu({
   menus: ['shareAppMessage', 'shareTimeline'],
 });
-
-
