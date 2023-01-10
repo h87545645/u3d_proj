@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Networking;
 
 public class AssetBundleLoadMgr
 {
     public delegate void AssetBundleLoadCallBack(AssetBundle ab);
 
-    private class AssetBundleObject
+    public class AssetBundleObject
     {
         public string _hashName;
 
@@ -135,6 +136,7 @@ public class AssetBundleLoadMgr
 
     public bool IsABExist(string _assetName)
     {
+        if (Application.platform == RuntimePlatform.WebGLPlayer) return true;
         string hashName = GetHashName(_assetName);
         return _dependsDataList.ContainsKey(hashName);
     }
@@ -142,16 +144,54 @@ public class AssetBundleLoadMgr
     //同步加载
     public AssetBundle LoadSync(string _assetName)
     {
+        AssetBundleObject abObj = null;
         string hashName = GetHashName(_assetName);
-        var abObj = LoadAssetBundleSync(hashName);
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            if (_abHashNameList.ContainsKey(hashName))
+            {
+                hashName = _abHashNameList[hashName];
+            }
+            AssetBundleWebGL.GetInstance().LoadAssetBundle(hashName,abObj);
+        }
+        else
+        {
+            abObj = LoadAssetBundleSync(hashName);
+        }
         return abObj._ab;
     }
+    
+
 
     //异步加载（已经加载直接回调），每次加载引用计数+1
     public void LoadAsync(string _assetName, AssetBundleLoadCallBack callFun)
     {
+        Debug.Log("===>>> platform : " + Application.platform);
         string hashName = GetHashName(_assetName);
-        LoadAssetBundleAsync(hashName, callFun);
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            Debug.Log("===>>> LoadAsync webgl: " + _assetName);
+            if (_abHashNameList.ContainsKey(hashName))
+            {
+                Debug.Log("===>>> LoadAsync webgl hashName: " + hashName);
+                hashName = _abHashNameList[hashName];
+            }
+            AssetBundleWebGL.GetInstance().LoadAssetBundle(hashName,(ab =>
+            {
+                if (callFun != null)
+                {
+                    callFun(ab);
+                }
+            }));
+
+        }
+        else
+        {
+            Debug.Log("===>>> LoadAsync : " + _assetName);
+            LoadAssetBundleAsync(hashName, callFun);
+        }
+      
+       
     }
     //卸载（异步），每次卸载引用计数-1
     public void Unload(string _assetName)

@@ -76,6 +76,7 @@ public class AssetsLoadMgr
         // return false;
         return EditorAssetLoadMgr.I.IsFileExist(_assetName);
 #else
+        if (Application.platform == RuntimePlatform.WebGLPlayer) return true;
         if (ResourcesLoadMgr.I.IsFileExist(_assetName)) return true;
         return AssetBundleLoadMgr.I.IsABExist(_assetName);
 #endif

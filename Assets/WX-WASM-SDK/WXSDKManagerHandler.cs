@@ -1665,15 +1665,15 @@ namespace WeChatWASM
                 WX_OperateGameRecorderVideo(JsonMapper.ToJson(option));
         }
 
-        #if UNITY_WEBGL
-            [DllImport("__Internal")]
-            private static extern void WXReportScene(string conf, string callbackId);
-        #else
+#if UNITY_WEBGL && !UNITY_EDITOR
+        [DllImport("__Internal")]
+        private static extern void WXReportScene(string conf, string callbackId);
+#else
         private static void WXReportScene(string conf, string callbackId)
         {
-            Debug.Log("[reportScene] sceneId: "+conf.sceneId+"; costTime: "+conf.costTime);
+            Debug.Log("[reportScene] sceneId: "+conf+ "; callbackId: " + callbackId);
         }
-        #endif
+#endif
 
         private Dictionary<string, ReportSceneParams> ReportSceneParamsList;
         public void ReportScene(ReportSceneParams option)

@@ -26,7 +26,8 @@ public class FragMenuMainUI : PanelBase
             // FragGameRecord.GetInstance().reocrd.playerPosition = new Vector2(0, 0);
             // FragGameRecord.GetInstance().reocrd.playerAlreadyGuide = false;
             FragGameRecord.GetInstance().reocrd = new FragGameRecord.PlayerRecord();
-            SceneMgr.GetInstance().LoadScene("FragGameScene",null);
+            Debug.Log("===>>> platform : " + Application.platform);
+            LoadGameScene();
         });
         
         GetControl<Button>("ContinueButton").onClick.AddListener(() =>

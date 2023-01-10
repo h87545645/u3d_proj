@@ -1135,6 +1135,7 @@ GameObject:
   - component: {fileID: 986605237}
   - component: {fileID: 986605236}
   - component: {fileID: 986605240}
+  - component: {fileID: 986605241}
   m_Layer: 0
   m_Name: GameMgr
   m_TagString: Untagged
@@ -1211,6 +1212,18 @@ MonoBehaviour:
   _languageFile: {fileID: 4900000, guid: a07c4f8f1f32ddf459e9307f7bfe189a, type: 3}
   _useCustomFonts: 0
   _langFonts: []
+--- !u!114 &986605241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986605235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 637596fa48177a84986100ca81eeb3be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1095252195
 GameObject:
   m_ObjectHideFlags: 0

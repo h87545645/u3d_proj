@@ -14,8 +14,9 @@ public class GameMgr : MonoSingletonBase<GameMgr>
         GameObject.DontDestroyOnLoad(gameObject);
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
-            string path = Application.streamingAssetsPath + "/WebGL";
-            StartCoroutine(this.LoadAB4WEBGL(path));
+            // string path = Application.streamingAssetsPath + "/WebGL";
+            // StartCoroutine(this.LoadAB4WEBGL(path));
+            AssetBundleWebGL.GetInstance().LoadAssetBundle("WebGL");
         }
         else
         {
@@ -47,23 +48,23 @@ public class GameMgr : MonoSingletonBase<GameMgr>
     }
     
     
-    public IEnumerator LoadAB4WEBGL(string uriPath)
-    {
-        Debug.Log("===>>> LoadAB4WEBGL : " + uriPath);
-        UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(uriPath);
-        yield return request.SendWebRequest();
-        if (request.isHttpError)
-        {
-            Debug.LogError(GetType() + "/ERROR/" + request.error);
-        }
-        else
-        {
-            AssetBundle ab = (request.downloadHandler as DownloadHandlerAssetBundle).assetBundle;
-            
-            // ab.LoadAsset
-            ab.Unload(false);
-        }
-        request.Dispose();
-    }
+    // public IEnumerator LoadAB4WEBGL(string uriPath)
+    // {
+    //     Debug.Log("===>>> LoadAB4WEBGL : " + uriPath);
+    //     UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(uriPath);
+    //     yield return request.SendWebRequest();
+    //     if (request.isHttpError)
+    //     {
+    //         Debug.LogError(GetType() + "/ERROR/" + request.error);
+    //     }
+    //     else
+    //     {
+    //         AssetBundle ab = (request.downloadHandler as DownloadHandlerAssetBundle).assetBundle;
+    //         
+    //         // ab.LoadAsset
+    //         ab.Unload(false);
+    //     }
+    //     request.Dispose();
+    // }
 
 }

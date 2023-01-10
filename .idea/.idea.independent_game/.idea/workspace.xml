@@ -13,6 +13,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/ChainPack/Chain2D/Editor/ChainEditor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/Function-UI/UIBlockWaitMgr.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/AssetBundleWebGL.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/FragGameRecord.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/LightChain.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/player/PelicanAnimController.cs" root0="FORCE_HIGHLIGHTING" />
@@ -146,6 +147,7 @@
       <workItem from="1672456228723" duration="6558000" />
       <workItem from="1672540876088" duration="4553000" />
       <workItem from="1672833870349" duration="6772000" />
+      <workItem from="1673354048841" duration="9780000" />
     </task>
     <servers />
   </component>
