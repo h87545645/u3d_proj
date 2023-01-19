@@ -128,8 +128,8 @@ public class FragHero : MonoBehaviour
     {
         EventCenter.RemoveListener<Game_Direction,bool>(Game_Event.FragGameDirection, this.OnFragDirection);
         EventCenter.RemoveListener<float>(Game_Event.FragGameDirection, this.OnFragJump);
-        EventCenter.RemoveListener(Game_Event.FragGameDirection, this.OnFragCharge);
-        EventCenter.RemoveListener(Game_Event.FragGameDirection, this.OnFragChargeCancel);
+        EventCenter.RemoveListener(Game_Event.FragGameCharge, this.OnFragCharge);
+        EventCenter.RemoveListener(Game_Event.FragGameChargeCancel, this.OnFragChargeCancel);
     }
     
     

@@ -167,7 +167,7 @@ namespace WeChatWASM
             //修改使用纹理dxt
             string content = File.ReadAllText(Path.Combine(Application.dataPath, "WX-WASM-SDK", "wechat-default", "unity-sdk", "texture.js"), Encoding.UTF8);
 
-            content = content.Replace("\"$UseDXT5$\"", miniGameConf.CompressTexture.useDXT5 ? "true" : "false");
+            content = content.Replace("'$UseDXT5$'", miniGameConf.CompressTexture.useDXT5 ? "true" : "false");
 
             File.WriteAllText(Path.Combine(miniGameConf.ProjectConf.DST, "minigame", "unity-sdk", "texture.js"), content, Encoding.UTF8);
 

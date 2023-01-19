@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,11 @@ public class FragGameMainUI : PanelBase
         }
         EventCenter.AddListener<bool>(Game_Event.FragActiveAllUI,OnActiveAllUI);
         base.Awake();
+    }
+
+    private void OnDestroy()
+    {
+        EventCenter.RemoveListener<bool>(Game_Event.FragActiveAllUI,OnActiveAllUI);
     }
 
     // Start is called before the first frame update

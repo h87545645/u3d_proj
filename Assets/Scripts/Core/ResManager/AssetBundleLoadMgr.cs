@@ -61,8 +61,9 @@ public class AssetBundleLoadMgr
     {
         get
         {
-            // return "StandaloneWindows";
-#if UNITY_IOS
+#if UNITY_EDITOR
+            return "WebGL";
+#elif  UNITY_IOS
                 return "IOS";
 #elif UNITY_ANDROID
                 return "Android";
@@ -74,13 +75,22 @@ public class AssetBundleLoadMgr
         }
     }
 
-    public void LoadMainfest()
+    public void LoadMainfest(AssetBundle outab = null)
     {
-        string path = Application.streamingAssetsPath + "/" + sMainABName;
-        if (string.IsNullOrEmpty(path)) return;
+        AssetBundle ab = null;
+        if (outab != null)
+        {
+            ab = outab;
+        }
+        else
+        {
+            string path = Application.streamingAssetsPath + "/" + sMainABName;
+            if (string.IsNullOrEmpty(path)) return;
 
-        _dependsDataList.Clear();
-        AssetBundle ab = AssetBundle.LoadFromFile(path);
+            _dependsDataList.Clear();
+            ab = AssetBundle.LoadFromFile(path);
+        }
+  
 
         if(ab == null)
         {
@@ -141,23 +151,30 @@ public class AssetBundleLoadMgr
         return _dependsDataList.ContainsKey(hashName);
     }
 
-    //同步加载
+    //同步加载 不可在webgl使用
     public AssetBundle LoadSync(string _assetName)
     {
         AssetBundleObject abObj = null;
         string hashName = GetHashName(_assetName);
-        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        if (_abHashNameList.ContainsKey(hashName))
         {
-            if (_abHashNameList.ContainsKey(hashName))
-            {
-                hashName = _abHashNameList[hashName];
-            }
-            AssetBundleWebGL.GetInstance().LoadAssetBundle(hashName,abObj);
+            Debug.Log("===>>> LoadAsync webgl hashName: " + hashName);
+            hashName = _abHashNameList[hashName];
         }
-        else
-        {
-            abObj = LoadAssetBundleSync(hashName);
-        }
+        // if (Application.platform == RuntimePlatform.WebGLPlayer)
+        // {
+        //     if (_abHashNameList.ContainsKey(hashName))
+        //     {
+        //         hashName = _abHashNameList[hashName];
+        //     }
+        //     AssetBundleWebGL.GetInstance().LoadAssetBundle(hashName,abObj);
+        // }
+        // else
+        // {
+        //     abObj = LoadAssetBundleSync(hashName);
+        // }
+        
+        abObj = LoadAssetBundleSync(hashName);
         return abObj._ab;
     }
     
@@ -168,14 +185,15 @@ public class AssetBundleLoadMgr
     {
         Debug.Log("===>>> platform : " + Application.platform);
         string hashName = GetHashName(_assetName);
+        if (_abHashNameList.ContainsKey(hashName))
+        {
+            Debug.Log("===>>> LoadAsync webgl hashName: " + hashName);
+            hashName = _abHashNameList[hashName];
+        }
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
             Debug.Log("===>>> LoadAsync webgl: " + _assetName);
-            if (_abHashNameList.ContainsKey(hashName))
-            {
-                Debug.Log("===>>> LoadAsync webgl hashName: " + hashName);
-                hashName = _abHashNameList[hashName];
-            }
+         
             AssetBundleWebGL.GetInstance().LoadAssetBundle(hashName,(ab =>
             {
                 if (callFun != null)
@@ -252,14 +270,7 @@ public class AssetBundleLoadMgr
 
         //创建一个加载
         abObj = new AssetBundleObject();
-        if (_abHashNameList.ContainsKey(_hashName))
-        {
-            abObj._hashName = _abHashNameList[_hashName];
-        }
-        else
-        {
-            abObj._hashName = _hashName;
-        }
+        abObj._hashName = _hashName;
 
         abObj._refCount = 1;
 
@@ -371,14 +382,7 @@ public class AssetBundleLoadMgr
 
         //创建一个加载
         abObj = new AssetBundleObject();
-        if (_abHashNameList.ContainsKey(_hashName))
-        {
-            abObj._hashName = _abHashNameList[_hashName];
-        }
-        else
-        {
-            abObj._hashName = _hashName;
-        }
+        abObj._hashName = _hashName;
 
         abObj._refCount = 1;
         abObj._callFunList.Add(_callFun);

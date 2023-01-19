@@ -1,0 +1,5 @@
+<linker>
+    <assembly fullname="UnityEngine">
+        <type fullname="UnityEngine.Tilemap" preserve="all"/>
+    </assembly>
+</linker>

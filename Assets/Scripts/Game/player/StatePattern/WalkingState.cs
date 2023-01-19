@@ -29,6 +29,7 @@ public class WalkingState : IBaseState
         {
             Vector2 force = new Vector2((float)_fragHero.direction * 100 , 0);
             _fragHero.heroRigidbody2D.AddForce(force);
+            _fragHero.IsReady = false;
             _fragHero.SetHeroineState(new FallingState(_fragHero));
             return;
         }

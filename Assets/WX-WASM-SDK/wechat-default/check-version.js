@@ -43,8 +43,6 @@ const isWebgl2 = () => GameGlobal.managerConfig.contextConfig.contextType === 2;
 export const isSupportBufferURL = GameGlobal.isIOSHighPerformanceMode
   ? compareVersion(SDKVersion, '2.29.1') && compareVersion(version, '8.0.30')
   : typeof wx.createBufferURL === 'function';
-// 是否支持webAudio，IOS 8.0.31版本非高性能模式不支持WebAudio
-export const isSupportWebAudio = !(isIOS && !GameGlobal.isIOSHighPerformanceMode && version === '8.0.31');
 
 // 是否能以iOSH5模式运行
 const canUseH5Renderer = (GameGlobal.canUseH5Renderer = isH5Renderer && isH5LibVersionValid);

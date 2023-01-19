@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 993122110
+CRC: 3792786438
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 7c595383aaace6c9b4a2041294d952f9
+    Hash: 14f227790f4ebb960f9dc3a21314e29a
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 50190d9c417f2ade732ffd91c60a0435
+    Hash: 25b32dbf9700211dc61575ae71ee707b
 HashAppended: 1
 ClassTypes:
 - Class: 1
@@ -27,6 +27,8 @@ ClassTypes:
   Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 44cf0b3813e8d9a468a21ab273b6422d, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 68aa3880584536d4e86c2611fdceef46, type: 3}
 - Class: 114
@@ -61,4 +63,4 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/GameAssets/Prefab/UI/FragSettingPanel.prefab
 Dependencies:
-- C:/U3D/U3D_proj/independent_game/AssetBundles/WebGL/font_70f2685c535a827101cf465d339f4b77
+- C:/U3D/U3D_proj/independent_game/AssetBundles/WebGL/font_450e2c9ccd7e7422f5c47cec428328d0

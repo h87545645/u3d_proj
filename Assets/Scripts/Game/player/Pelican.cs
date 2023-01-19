@@ -107,12 +107,22 @@ public class Pelican : DialogBase
 
     public void GuideSpeak(Action callback)
     {
-        _calllback = callback;
-        for (int i = 1; i <= 3; i++)
+
+        try
         {
-            string str = GameMgr.GetInstance().langMgr.getValue("^game_guide"+i);
-            Speak(str);
+            _calllback = callback;
+            for (int i = 1; i <= 3; i++)
+            {
+                string str = GameMgr.GetInstance().langMgr.getValue("^game_guide"+i);
+                Speak(str);
+            }
         }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+   
     }
 
 

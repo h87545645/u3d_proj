@@ -13,33 +13,77 @@ public class UIManager : SingletonBase<UIManager>
 
     private Transform uObj_TopLayer;
 
-    private Transform uObj_BotLayer;
+    public Transform uObj_BotLayer;
 
     public UIManager()
     {
         GameObject uObj_uiRoot = GameObject.Find("/Canvas");
-        if (uObj_uiRoot == null)
+        GameObject uObj_eventSystem = GameObject.Find("/EventSystem");
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
-            uObj_uiRoot = PrefabLoadMgr.I.LoadSync("Canvas.prefab");
-            //uObj_uiRoot = ResLoadMgr.GetInstance().LoadRes<GameObject>("UI/Canvas");
+            if (uObj_uiRoot == null)
+            {
+                Debug.Log("===>>> UIManager uObj_uiRoot is null!!");
+                PrefabLoadMgr.I.LoadAsync("Canvas.prefab",((name, o) =>
+                {
+                    Debug.Log("===>>> UIManager LoadAsync Canvas :"+o.name);
+                    genUI(o);
+                }));
+            }
+            else
+            {
+                genUI(uObj_uiRoot);
+            }
+            if (uObj_eventSystem == null)
+            {
+                PrefabLoadMgr.I.LoadAsync("EventSystem.prefab",((name, o) =>
+                {
+                    genEventSystem(o);
+                }));
+            }
+            else
+            {
+                genEventSystem(uObj_eventSystem);
+            }
         }
+        else
+        {
+            if (uObj_uiRoot == null)
+            {
+                uObj_uiRoot = PrefabLoadMgr.I.LoadSync("Canvas.prefab");
+                //uObj_uiRoot = ResLoadMgr.GetInstance().LoadRes<GameObject>("UI/Canvas");
+            }
+            if (uObj_eventSystem == null)
+            {
+                uObj_eventSystem = PrefabLoadMgr.I.LoadSync("EventSystem.prefab");
+                //uObj_eventSystem = ResLoadMgr.GetInstance().LoadRes<GameObject>("UI/EventSystem");
+            }
 
+            genUI(uObj_uiRoot);
+            genEventSystem(uObj_eventSystem);
+        }
+       
+     
+
+
+        
+  
+    }
+
+    private void genUI(GameObject uObj_uiRoot)
+    {
         Transform uTrans_uiRoot = uObj_uiRoot.transform;
-        //����Canvas�������������ʱ�򲻱��Ƴ�
+ 
         GameObject.DontDestroyOnLoad(uObj_uiRoot);
-
-        //�ҵ�����
+        
         uObj_TipLayer = uTrans_uiRoot.Find("uObj_tip");
         uObj_TopLayer = uTrans_uiRoot.Find("uObj_top");
         uObj_BotLayer = uTrans_uiRoot.Find("uObj_bot");
-
-        //����EventSystem������������ť�����������Ӧ
-        GameObject uObj_eventSystem = GameObject.Find("/EventSystem");
-        if (uObj_eventSystem == null)
-        {
-            uObj_eventSystem = PrefabLoadMgr.I.LoadSync("EventSystem.prefab");
-            //uObj_eventSystem = ResLoadMgr.GetInstance().LoadRes<GameObject>("UI/EventSystem");
-        }
+        Debug.Log("===>>> UIManager uObj_TipLayer"+uObj_TipLayer.name);
+    }
+    
+    private void genEventSystem(GameObject uObj_eventSystem)
+    {
         GameObject.DontDestroyOnLoad(uObj_eventSystem);
     }
 

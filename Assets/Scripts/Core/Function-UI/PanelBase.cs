@@ -153,8 +153,15 @@ public class PanelBase : MonoBehaviour
     public virtual void ShowUI()
     {
         GameObject content = transform.Find("content") == null ?  gameObject : transform.Find("content").gameObject;
-        content.transform.localScale = new Vector3(0,0,0);
+        // Debug.Log("===>>> ShowUI content"+ content.name);
+        content.transform.localScale = new Vector3(0.001f,0.001f,0.001f);
         content.transform.DOScale(1, 0.25f);
+        StartCoroutine(  UnityUtils.DelayFuc((() =>
+        {
+            Debug.Log("===>>>  scale"+ content.transform.localScale);
+        }), 0.3f));
+      
+ 
     }
 
     /// <summary>

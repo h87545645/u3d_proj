@@ -6,39 +6,43 @@ public class FragInputCtrl : MonoBehaviour
 {
     public FragJumpButtonCtrl jump;
 
-    public FragMoveButtonCtrl left;
+    public ScrollRocker moveRocker;
 
-    public FragMoveButtonCtrl right;
+    // public FragMoveButtonCtrl left;
+    //
+    // public FragMoveButtonCtrl right;
 
-    private bool _inputEnable = false;
+    public bool inputEnable = false;
     
     // private float _upWaitTime  = 0f;
 
     // Update is called once per frame
     void Update()
     {
-        if (!_inputEnable)
+        if (!inputEnable)
         {
             return;
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             // Debug.Log("left arrow");
-            left.OnPointerDown(null);
+            // left.OnPointerDown(null);
+            EventCenter.PostEvent<Game_Direction,bool>(Game_Event.FragGameDirection, Game_Direction.Left,false);
         }else if ( Input.GetKeyUp(KeyCode.LeftArrow))
         {
-            Debug.Log("-------------------left key up  :");
-            left.OnPointerUp(null);
-
+            // Debug.Log("-------------------left key up  :");
+            // left.OnPointerUp(null);
+            EventCenter.PostEvent<Game_Direction,bool>(Game_Event.FragGameDirection, Game_Direction.None,false);
         } 
         if (Input.GetKey(KeyCode.RightArrow)  /*&& !Input.GetKey(KeyCode.RightArrow)*/ )
         {
-            right.OnPointerDown(null);
-            
+            // right.OnPointerDown(null);
+            EventCenter.PostEvent<Game_Direction, bool>(Game_Event.FragGameDirection, Game_Direction.Right, false);
         }else if (Input.GetKeyUp(KeyCode.RightArrow)/*&& !Input.GetKey(KeyCode.LeftArrow)*/)
         {
-            Debug.Log("-------------------right key up  :");
-            right.OnPointerUp(null);
+            // Debug.Log("-------------------right key up  :");
+            // right.OnPointerUp(null);
+            EventCenter.PostEvent<Game_Direction,bool>(Game_Event.FragGameDirection, Game_Direction.None,false);
         }
         
         if (Input.GetKeyDown(KeyCode.Space))
@@ -54,15 +58,20 @@ public class FragInputCtrl : MonoBehaviour
 
     public void EnableInput(bool enable)
     {
-        _inputEnable = enable;
+        Debug.Log("===>>> EnableInput EnableInput start GetInstanceID: " +this.GetInstanceID());
+
+        inputEnable = enable;
+        Debug.Log("===>>> EnableInput inputEnable inputEnable : "+ inputEnable);
         jump.enabled = enable;
-        left.enabled = enable;
-        right.enabled = enable;
+        moveRocker.enabled = enable;
+        // left.enabled = enable;
+        // right.enabled = enable;
     }
 
     public void OnMenuBtn()
     {
-        if (!_inputEnable)
+        Debug.Log("===>>> EnableInput GetInstanceID : " +this.GetInstanceID());
+        if (!inputEnable)
         {
             return;
         }

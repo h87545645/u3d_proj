@@ -39,20 +39,17 @@ public class FragAnimEvent : MonoBehaviour
         bool isLeft = false;
         bool isDown = false;
         if (Math.Round(collision.contacts[0].normal.y) == -1) {
-            Debug.Log("++++++++++++++���Ϸ���ײ");
+
             isUp = true;
         } else if (Math.Round(collision.contacts[0].normal.y) == 1)
         {
             isDown = true;
-            Debug.Log("++++++++++++++���·���ײ");
         }else if (Math.Round(collision.contacts[0].normal.x) == 1)
         {
             isLeft = true;
-            Debug.Log("++++++++++++++�������ײ");
         }else if (Math.Round(collision.contacts[0].normal.x) == -1)
         {
             isRight = true;
-            Debug.Log("++++++++++++++���ұ���ײ");
         }
     
         // foreach (ContactPoint2D contact in collision.contacts)

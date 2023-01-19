@@ -18,8 +18,9 @@ public class UIBlockWaitMgr : MonoSingletonBase<UIBlockWaitMgr>
 
     protected override void Awake()
     {
+
         base.Awake();
-        GameObject.DontDestroyOnLoad(gameObject);
+        // GameObject.DontDestroyOnLoad(gameObject);
         waitDict = new Dictionary<string , int>();
     }
 

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 4059295295
+CRC: 3153139099
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 70f2685c535a827101cf465d339f4b77
+    Hash: 450e2c9ccd7e7422f5c47cec428328d0
   TypeTreeHash:
     serializedVersion: 2
     Hash: 8acecc61fa1ea02fa7aba22de71088f3
@@ -32,12 +32,6 @@ SerializeReferenceClassIdentifiers:
   ClassName: TMPro.TMP_FontFeatureTable
 - AssemblyName: Unity.TextMeshPro
   ClassName: TMPro.TMP_FontWeightPair
-- AssemblyName: Unity.TextMeshPro
-  ClassName: TMPro.TMP_GlyphAdjustmentRecord
-- AssemblyName: Unity.TextMeshPro
-  ClassName: TMPro.TMP_GlyphPairAdjustmentRecord
-- AssemblyName: Unity.TextMeshPro
-  ClassName: TMPro.TMP_GlyphValueRecord
 - AssemblyName: UnityEngine.TextCoreFontEngineModule
   ClassName: UnityEngine.TextCore.FaceInfo
 - AssemblyName: UnityEngine.TextCoreFontEngineModule
@@ -47,6 +41,6 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.TextCoreFontEngineModule
   ClassName: UnityEngine.TextCore.GlyphRect
 Assets:
-- Assets/GameAssets/Font/msyhbd SDF.asset
+- Assets/GameAssets/Font/TMPChineseFont.asset
 Dependencies:
-- C:/U3D/U3D_proj/independent_game/AssetBundles/WebGL/fonsdf_8b2cdbd5c8d605c90e66fadd0d6ab802
+- C:/U3D/U3D_proj/independent_game/AssetBundles/WebGL/tmp_sdf_1ef289cb745a3ef0c4a68ce19e239c55

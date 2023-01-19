@@ -1,26 +1,37 @@
 ManifestFileVersion: 0
-CRC: 4056131953
+CRC: 831782852
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: dialogprefab_47986ee7d9393900b29b9adb58277939
+      Name: fragsettingpanel_14f227790f4ebb960f9dc3a21314e29a
       Dependencies:
-        Dependency_0: font_70f2685c535a827101cf465d339f4b77
+        Dependency_0: font_450e2c9ccd7e7422f5c47cec428328d0
     Info_1:
-      Name: fragsettingpanel_7c595383aaace6c9b4a2041294d952f9
-      Dependencies:
-        Dependency_0: font_70f2685c535a827101cf465d339f4b77
-    Info_2:
       Name: popupmask_ab2d4a1d168b860ee3c4350e1d6bf4f3
       Dependencies: {}
-    Info_3:
-      Name: font_70f2685c535a827101cf465d339f4b77
+    Info_2:
+      Name: dialogprefab_46658bbf9e704c56efd0d0c0041ef3be
       Dependencies:
-        Dependency_0: fonsdf_8b2cdbd5c8d605c90e66fadd0d6ab802
+        Dependency_0: font_450e2c9ccd7e7422f5c47cec428328d0
+    Info_3:
+      Name: font_450e2c9ccd7e7422f5c47cec428328d0
+      Dependencies:
+        Dependency_0: tmp_sdf_1ef289cb745a3ef0c4a68ce19e239c55
     Info_4:
-      Name: fonsdf_8b2cdbd5c8d605c90e66fadd0d6ab802
+      Name: tmp_sdf_1ef289cb745a3ef0c4a68ce19e239c55
       Dependencies: {}
     Info_5:
-      Name: fraggamescene_b1624aadb91f62622a3b5e0f66d2e810
+      Name: fraggamescene_38ad78c0f2777d114951711a95c4f91e
+      Dependencies: {}
+    Info_6:
+      Name: fraggamecompleted_c2fc38686a9864d8bdd8ea933d2b8e08
       Dependencies:
-        Dependency_0: font_70f2685c535a827101cf465d339f4b77
+        Dependency_0: font_450e2c9ccd7e7422f5c47cec428328d0
+        Dependency_1: record_c1973c900723d0b39c6d6592fed2b61d
+    Info_7:
+      Name: fraggamemainui_3e098775a30de641bb4564babf832026
+      Dependencies:
+        Dependency_0: font_450e2c9ccd7e7422f5c47cec428328d0
+    Info_8:
+      Name: record_c1973c900723d0b39c6d6592fed2b61d
+      Dependencies: {}

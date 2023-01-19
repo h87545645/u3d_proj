@@ -50,19 +50,39 @@ public class FragGameController : MonoBehaviour
     {
         EventCenter.AddListener<int>(Game_Event.FragGameCameraMove,OnCameraMove);
         EventCenter.AddListener(Game_Event.FragGameFinish,OnPlayerCompleted);
+        
+    }
+
+    private void OnDestroy()
+    {
+        EventCenter.RemoveListener<int>(Game_Event.FragGameCameraMove,OnCameraMove);
+        EventCenter.RemoveListener(Game_Event.FragGameFinish,OnPlayerCompleted);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        if (FragGameRecord.GetInstance().reocrd.playerAlreadyGuide)
+        Debug.Log("===>>> FragGameController start");
+        GenGameUI(() =>
         {
-            StartGame();
-        }
-        else
-        {
-            StartGuide();
-        }
+            if (FragGameRecord.GetInstance().reocrd.playerAlreadyGuide)
+            {
+                StartGame();
+            }
+            else
+            {
+                StartGuide();
+            }
+        });
+        // if (FragGameRecord.GetInstance().reocrd.playerAlreadyGuide)
+        // {
+        //     StartGame();
+        // }
+        // else
+        // {
+        //     StartGuide();
+        // }
+
     }
 
     // Update is called once per frame
@@ -80,8 +100,24 @@ public class FragGameController : MonoBehaviour
         // }
     }
 
+    private void GenGameUI(Action cb)
+    {
+        PrefabLoadMgr.I.LoadAsync("FragGameMainUI", (string name, GameObject obj) =>
+        {
+            inputCtrl = obj.GetComponent<FragInputCtrl>();
+            // Debug.Log("===>>>GenGameUI inputCtrl GetInstanceID: " +this.GetInstanceID());
+            PrefabLoadMgr.I.LoadAsync("FragGameCompleted", (string name, GameObject obj) =>
+            {
+                completedPanel = obj.GetComponent<FragGameCompleted>();
+                cb();
+            } ,UIManager.GetInstance().uObj_BotLayer);
+        } ,UIManager.GetInstance().uObj_BotLayer);
+        
+    }
+
     private void StartGuide()
     {
+        Debug.Log("===>>> StartGuide");
         EventCenter.PostEvent<bool>(Game_Event.FragActiveAllUI,false);
         fragGameCameraCtrl.enable = false;
         fragHero.heroRigidbody2D.mass = 0;
@@ -100,13 +136,30 @@ public class FragGameController : MonoBehaviour
 
     private void StartGame()
     {
-        inputCtrl.EnableInput(true);
-        fragHero.heroRigidbody2D.gameObject.SetActive(true);
-        fragHero.SetRecordPos();
-        EventCenter.PostEvent<bool>(Game_Event.FragActiveAllUI,true);
-        fragGameCameraCtrl.enable = true;
-        fragHero.heroRigidbody2D.mass = 2;
-        InvokeRepeating(nameof(OnPelicanSpeak), 35, 35);
+        try
+        {
+            EventCenter.PostEvent<bool>(Game_Event.FragActiveAllUI,true);
+            // Debug.Log("===>>> inputCtrl GetInstanceID: " +this.GetInstanceID());
+            inputCtrl.EnableInput(true);
+  
+            fragHero.heroRigidbody2D.gameObject.SetActive(true);
+
+            fragHero.SetRecordPos();
+
+ 
+            fragGameCameraCtrl.enable = true;
+
+            fragHero.heroRigidbody2D.mass = 2;
+ 
+            InvokeRepeating(nameof(OnPelicanSpeak), 35, 35);
+            Debug.Log("===>>>StartGame7");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
     }
 
 
@@ -123,13 +176,15 @@ public class FragGameController : MonoBehaviour
         {
             return;
         }
+
         StartCoroutine(UnityUtils.DelayFuc(() =>
         {
-            if (!pelican.isVisible && !_isCompleted)
+            if ( !pelican.isVisible && !_isCompleted)
             {
                 pelican.FlyToPlayer(fragHero.heroRigidbody2D.transform);
             }
         }, 5));
+
        
         switch (index)
         {

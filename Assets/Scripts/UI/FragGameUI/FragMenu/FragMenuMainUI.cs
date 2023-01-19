@@ -8,8 +8,7 @@ using UnityEngine.UI;
 
 public class FragMenuMainUI : PanelBase
 {
-
-    public I18N Lang = null;
+    
     public I18NTextMesh playerRecordText;
 
     protected override void Awake()
@@ -28,6 +27,7 @@ public class FragMenuMainUI : PanelBase
             FragGameRecord.GetInstance().reocrd = new FragGameRecord.PlayerRecord();
             Debug.Log("===>>> platform : " + Application.platform);
             LoadGameScene();
+            // SceneMgr.GetInstance().LoadScene("FragGameScene",null);
         });
         
         GetControl<Button>("ContinueButton").onClick.AddListener(() =>
@@ -45,8 +45,20 @@ public class FragMenuMainUI : PanelBase
         
         GetControl<Button>("LangButton").onClick.AddListener(() =>
         {
-            LanguageCode code = Lang.gameLang != LanguageCode.EN ? LanguageCode.EN : LanguageCode.SCN;
-            Lang.setLanguage(code);
+            // PrefabLoadMgr.I.LoadSync("test", transform);
+            // return;
+            // PrefabLoadMgr.I.LoadAsync("test", (string name, GameObject obj) =>
+            // {
+            //     // dialogGo = obj;
+            //     // text = dialogGo.GetComponentInChildren<TextMeshProUGUI>();
+            //     // dialoImage = dialogGo.transform.GetChild(0).Find("Image");
+            //     // _originScale = new Vector3(1/transform.localScale.x,1/transform.localScale.y,1/transform.localScale.z);
+            //     // dialoImage.localScale = _originScale;
+            //     // dialogGo.SetActive(false);
+            // } ,transform);
+            // return;
+            LanguageCode code = GameMgr.GetInstance().langMgr.gameLang != LanguageCode.EN ? LanguageCode.EN : LanguageCode.SCN;
+            GameMgr.GetInstance().langMgr.setLanguage(code);
         });
 
 

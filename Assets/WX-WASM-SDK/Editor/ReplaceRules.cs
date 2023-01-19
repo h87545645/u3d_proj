@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 namespace WeChatWASM
@@ -48,42 +48,42 @@ namespace WeChatWASM
        },
        new Rule()
        {
-            old="new *\\(window.AudioContext*\\|*\\|window.webkitAudioContext\\)",
+            old="new *\\(window.AudioContext *\\|\\| *window.webkitAudioContext\\)",
             newStr="createWebAudio()"
        },
        new Rule()
        {
-            old="context.createScriptProcessor*\\(*\\$1,0",
+            old="context.createScriptProcessor *\\( *\\$1, *0",
             newStr="context.createScriptProcessor($1,1"
        },
        new Rule()
        {
-            old="eval*\\(UTF8ToString*\\(ptr*\\)*\\)",
+            old="eval *\\(UTF8ToString *\\(ptr *\\) *\\)",
             newStr="/*eval(UTF8ToString(ptr))*/"
        },
        new Rule()
        {
-            old="window.addEventListener*\\(\"touchend\",OutputWebAudio_resumeAudio,false*\\);window.addEventListener*\\(\"click\",OutputWebAudio_resumeAudio,false*\\)",
+            old="window.addEventListener *\\(\"touchend\",OutputWebAudio_resumeAudio,false*\\);window.addEventListener*\\(\"click\",OutputWebAudio_resumeAudio,false*\\)",
             newStr="/*window.addEventListener(\"touchend\",OutputWebAudio_resumeAudio,false);window.addEventListener(\"click\",OutputWebAudio_resumeAudio,false)*/",
        },
        new Rule()
        {
-            old="window.removeEventListener*\\(\"click\",OutputWebAudio_resumeAudio,false*\\);window.removeEventListener*\\(\"touchend\",OutputWebAudio_resumeAudio,false*\\)",
+            old="window.removeEventListener *\\(\"click\",OutputWebAudio_resumeAudio,false*\\);window.removeEventListener*\\(\"touchend\",OutputWebAudio_resumeAudio,false*\\)",
             newStr="/*window.removeEventListener(\"click\",OutputWebAudio_resumeAudio,false);window.removeEventListener(\"touchend\",OutputWebAudio_resumeAudio,false)*/",
        },
        new Rule()
        {
-            old="window.removeEventListener*\\(\"click\",OutputAudioWorklet_resumeAudio,false*\\);window.removeEventListener*\\(\"touchend\",OutputAudioWorklet_resumeAudio,false*\\)",
+            old="window.removeEventListener *\\(\"click\",OutputAudioWorklet_resumeAudio,false*\\);window.removeEventListener*\\(\"touchend\",OutputAudioWorklet_resumeAudio,false*\\)",
             newStr="/*window.removeEventListener(\"click\",OutputAudioWorklet_resumeAudio,false);window.removeEventListener(\"touchend\",OutputAudioWorklet_resumeAudio,false)*/",
        },
        new Rule()
        {
-            old="window.addEventListener*\\(\"touchend\",OutputAudioWorklet_resumeAudio,false*\\);window.addEventListener*\\(\"click\",OutputAudioWorklet_resumeAudio,false*\\)",
+            old="window.addEventListener *\\(\"touchend\",OutputAudioWorklet_resumeAudio,false*\\);window.addEventListener*\\(\"click\",OutputAudioWorklet_resumeAudio,false*\\)",
             newStr="/*window.addEventListener(\"touchend\",OutputAudioWorklet_resumeAudio,false);window.addEventListener(\"click\",OutputAudioWorklet_resumeAudio,false)*/",
        },
        new Rule()
        {
-            old="scriptDirectory=self.location.href",
+            old="scriptDirectory *=self.location.href",
             newStr="scriptDirectory=this.location.href",
        },
        new Rule()
@@ -133,25 +133,6 @@ namespace WeChatWASM
            newStr="this.allocationSiteStatistics[str][1] -= sz;this.allocationSiteStatistics[str][3] += 1;"
        },
        // ----MemoryProfiler End-----//
-#if !UNITY_2021
-       new Rule()
-       {
-           old=@"t\.clientX *- *canvasRect\.left",
-           newStr="(t.clientX - canvasRect.left) * window._ScaleRate * (canvas.width / window.innerWidth / devicePixelRatio)"
-       },new Rule()
-       {
-           old=@"t\.clientY *- *canvasRect\.top",
-           newStr="(t.clientY - canvasRect.top) * window._ScaleRate * (canvas.height / window.innerHeight / devicePixelRatio)"
-       },new Rule()
-       {
-           old=@"t\.clientX *- *targetRect\.left",
-           newStr="(t.clientX - targetRect.left) * window._ScaleRate * (canvas.width / window.innerWidth / devicePixelRatio)"
-       },new Rule()
-       {
-           old=@"t\.clientY *- *targetRect\.top",
-           newStr="(t.clientY - targetRect.top) * window._ScaleRate * (canvas.height / window.innerHeight / devicePixelRatio)"
-       },
-#endif
        new Rule()
        {
            old=@"document\.URL",
@@ -214,6 +195,10 @@ namespace WeChatWASM
        {
            old=": *_JS_Sound_Init",
            newStr=":window.WXWASMSDK._JS_Sound_Init"
+       },new Rule()
+       {
+           old=": *_JS_Sound_IsStopped",
+           newStr=":window.WXWASMSDK._JS_Sound_IsStopped"
        },new Rule()
        {
            old=": *_JS_Sound_Load",
@@ -293,10 +278,10 @@ namespace WeChatWASM
            newStr="_emscripten_set_main_loop_timing(1, 1);if (!GameGlobal.unityNamespace.isLoopRunnerEnable) return;"
        },new Rule(){
            old="\"parent\": *Module\\b",
-           newStr="\"parent\": Module,wx:{ignore_opt_glue_apis:[\"_glGenTextures\",\"_glBindTexture\",\"_glDeleteTextures\",\"_glFramebufferTexture2D\",\"_glIsTexture\",\"_glCompressedTexImage2D\",\"_glGetString\"]}"
+           newStr="\"parent\": Module,wx:{ignore_opt_glue_apis:[\"_glGenTextures\",\"_glBindTexture\",\"_glDeleteTextures\",\"_glFramebufferTexture2D\",\"_glIsTexture\",\"_glCompressedTexImage2D\",\"_glGetString\"],wx_disable_wasm_opt:GameGlobal.managerConfig.contextConfig.contextType==2?1:0}"
        },new Rule(){
            old="info={\"a\":asmLibraryArg}",
-           newStr="info={\"a\":asmLibraryArg,\"wx\":{ignore_opt_glue_apis:[\"glGenTextures\",\"glBindTexture\",\"glDeleteTextures\",\"glFramebufferTexture2D\",\"glIsTexture\",\"glCompressedTexImage2D\",\"glGetString\"]}}"
+           newStr="info={\"a\":asmLibraryArg,\"wx\":{ignore_opt_glue_apis:[\"glGenTextures\",\"glBindTexture\",\"glDeleteTextures\",\"glFramebufferTexture2D\",\"glIsTexture\",\"glCompressedTexImage2D\",\"glGetString\"],wx_disable_wasm_opt:GameGlobal.managerConfig.contextConfig.contextType==2?1:0}}"
        },new Rule(){
           old = "GL.createContext\\(([^)]+)\\);",
           newStr="GL.createContext($1);WXWASMSDK.canvasContext && WXWASMSDK.canvasContext._triggerCallback();"
@@ -331,6 +316,14 @@ namespace WeChatWASM
       new Rule(){
           old = "function _glTexStorage2D\\(x0, *x1, *x2, *x3, *x4\\) *{",
           newStr = "function _glTexStorage2D(x0, x1, x2, x3, x4) {window._lastTexStorage2DParams = [x0, x1, x2, x3, x4];if(x2 == 36196){return;}"
+      },
+      new Rule(){
+          old = "emscriptenWebGLGetHeapForType\\(type\\), *pixels *>> *emscriptenWebGLGetShiftForType\\(type\\)",
+          newStr = "emscriptenWebGLGetTexPixelData(type, format, width, height, pixels, 0)"
+      },
+      new Rule(){
+          old = "heap, *pixels *>> *heapAccessShiftForWebGLHeap\\(heap\\)",
+          newStr = "emscriptenWebGLGetTexPixelData(type, format, width, height, pixels, 0)"
       },
 #if UNITY_2020
        new Rule()
@@ -472,6 +465,25 @@ namespace WeChatWASM
        {
           old="allocsAtThisLoc\\[1\\] *-= *sz",
           newStr="allocsAtThisLoc[1] -= sz; allocsAtThisLoc[3] += 1;" 
+       },
+#endif
+#if !UNITY_2021
+       new Rule()
+       {
+           old=@"t\.clientX *- *canvasRect\.left",
+           newStr="(t.clientX - canvasRect.left) * window._ScaleRate * (canvas.width / window.innerWidth / devicePixelRatio)"
+       },new Rule()
+       {
+           old=@"t\.clientY *- *canvasRect\.top",
+           newStr="(t.clientY - canvasRect.top) * window._ScaleRate * (canvas.height / window.innerHeight / devicePixelRatio)"
+       },new Rule()
+       {
+           old=@"t\.clientX *- *targetRect\.left",
+           newStr="(t.clientX - targetRect.left) * window._ScaleRate * (canvas.width / window.innerWidth / devicePixelRatio)"
+       },new Rule()
+       {
+           old=@"t\.clientY *- *targetRect\.top",
+           newStr="(t.clientY - targetRect.top) * window._ScaleRate * (canvas.height / window.innerHeight / devicePixelRatio)"
        },
 #endif
 #if UNITY_2021_3_OR_NEWER

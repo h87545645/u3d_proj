@@ -8,7 +8,7 @@ public class AssetBundleWebGL : MonoSingletonBase<AssetBundleWebGL>
 {
     
     // public delegate void AssetBundleLoadCallBack(AssetBundle ab);
-    
+
     
     
 
@@ -38,7 +38,7 @@ public class AssetBundleWebGL : MonoSingletonBase<AssetBundleWebGL>
             AssetBundle ab = (request.downloadHandler as DownloadHandlerAssetBundle).assetBundle;
             abObj._ab = ab;
             // ab.LoadAsset
-            ab.Unload(false);
+            // ab.Unload(false);
         }
         request.Dispose();
     }
@@ -61,7 +61,7 @@ public class AssetBundleWebGL : MonoSingletonBase<AssetBundleWebGL>
                 callBack(ab);
             }
             // ab.LoadAsset
-            ab.Unload(false);
+            // ab.Unload(false);
         }
         request.Dispose();
     }

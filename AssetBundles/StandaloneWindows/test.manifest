@@ -1,0 +1,36 @@
+ManifestFileVersion: 0
+CRC: 3583786603
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0fbd8b7c56c5d8b33aebe2553d53f106
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d9e5a0898521081230067edbb630e778
+HashAppended: 1
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: Unity.TextMeshPro
+  ClassName: TMPro.VertexGradient
+- AssemblyName: UnityEngine.CoreModule
+  ClassName: UnityEngine.Events.PersistentCallGroup
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
+Assets:
+- Assets/GameAssets/Prefab/Game/test.prefab
+Dependencies:
+- C:/U3D/U3D_proj/independent_game/AssetBundles/StandaloneWindows/font_6cd0e43b9ebcef6803a5706f2a2dbc17

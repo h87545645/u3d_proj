@@ -5,6 +5,10 @@
 ^exit	Exit	退出游戏
 ^lang	中文	En
 
+^setting_title	菜单	Menu
+^setting_back	返回主页	Back
+^setting_exit	退出游戏	Exit
+
 ^player_record	BEST RECORD\nTIME: {0}\nJUMPS: {1}\nHEIGHT: {2} 	最好记录\n时长: {0}\n跳跃次数: {1}\n高度: {2}
 ^game_completed	COMPLETED ON ATTEMPT!	到达世界最高层！
 ^game_continue	CONTINUE	继续

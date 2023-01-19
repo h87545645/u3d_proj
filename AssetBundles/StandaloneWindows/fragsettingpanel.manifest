@@ -1,19 +1,17 @@
 ManifestFileVersion: 0
-CRC: 797581764
+CRC: 2553276891
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f2d5000a256be22930fd7dc2a91858b1
+    Hash: f31ae52dee17a0531786b51112260d7f
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 50190d9c417f2ade732ffd91c60a0435
+    Hash: 11a7ad0148b228a5689826da5fd7a722
 HashAppended: 1
 ClassTypes:
 - Class: 1
   Script: {instanceID: 0}
 - Class: 4
-  Script: {instanceID: 0}
-- Class: 21
   Script: {instanceID: 0}
 - Class: 28
   Script: {instanceID: 0}
@@ -29,8 +27,6 @@ ClassTypes:
   Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 68aa3880584536d4e86c2611fdceef46, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 213
@@ -60,5 +56,4 @@ SerializeReferenceClassIdentifiers:
   ClassName: UnityEngine.UI.SpriteState
 Assets:
 - Assets/GameAssets/Prefab/UI/FragSettingPanel.prefab
-Dependencies:
-- C:/U3D/U3D_proj/independent_game/AssetBundles/StandaloneWindows/font_815504f5b18c895eba222fdf8442b093
+Dependencies: []

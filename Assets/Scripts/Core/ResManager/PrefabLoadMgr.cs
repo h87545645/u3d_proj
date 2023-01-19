@@ -143,7 +143,12 @@ public class PrefabLoadMgr
 		}
 	}
 
-
+	/// <summary>
+	/// can not use in webgl
+	/// </summary>
+	/// <param name="_assetName"></param>
+	/// <param name="_parent"></param>
+	/// <returns></returns>
 	public GameObject LoadSync(string _assetName, Transform _parent = null)
     {
         PrefabObject prefabObj = null;

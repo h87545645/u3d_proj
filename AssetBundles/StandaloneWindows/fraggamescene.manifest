@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3960759222
+CRC: 2125826122
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 160b1c2e87bf7625b192d1516c1be998
+    Hash: 53b242567f21dd5b29dc83b186a628f6
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 11e62700f3de567f861e95eb4bf0534f
+    Hash: fd8c065484e8230d135b9661c90d7268
 HashAppended: 1
 ClassTypes:
 - Class: 1
@@ -139,4 +139,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Scenes/FragGameScene.unity
 Dependencies:
-- C:/U3D/U3D_proj/independent_game/AssetBundles/StandaloneWindows/font_815504f5b18c895eba222fdf8442b093
+- C:/U3D/U3D_proj/independent_game/AssetBundles/StandaloneWindows/font_6cd0e43b9ebcef6803a5706f2a2dbc17

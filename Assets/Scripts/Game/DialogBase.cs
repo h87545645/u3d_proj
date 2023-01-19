@@ -10,10 +10,10 @@ public class DialogBase : MonoBehaviour
     public GameObject dialogGo;
     public Transform dialoImage;
     public TextMeshProUGUI text;
-    public float speed = 1;    //ÏÔÊ¾µÄËÙ¶È.
-    public float interval = 100;//Á½¾ä»°ÖÐ¼ä¼ä¸ô
+    public float speed = 1;    //ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ù¶ï¿½.
+    public float interval = 100;//ï¿½ï¿½ï¿½ä»°ï¿½Ð¼ï¿½ï¿½ï¿½
     
-    private bool _isDialogShowing = false; //µ±Ç°ÊÇ·ñÕýÔÚÏÔÊ¾¶Ô»°¿ò
+    private bool _isDialogShowing = false; //ï¿½ï¿½Ç°ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Ô»ï¿½ï¿½ï¿½
     private Queue<string> _sentenceQueue = new Queue<string>();
     private string _currentSentence = string.Empty;
     private float _curInterval = 0;
@@ -25,12 +25,29 @@ public class DialogBase : MonoBehaviour
     {
         if (dialogGo == null)
         {
-            dialogGo = PrefabLoadMgr.I.LoadSync("dialogprefab", transform);
-            text = dialogGo.GetComponentInChildren<TextMeshProUGUI>();
-            dialoImage = dialogGo.transform.GetChild(0).Find("Image");
-            _originScale = new Vector3(1/transform.localScale.x,1/transform.localScale.y,1/transform.localScale.z);
-            dialoImage.localScale = _originScale;
-            dialogGo.SetActive(false);
+            if (Application.platform == RuntimePlatform.WebGLPlayer)
+            {
+                PrefabLoadMgr.I.LoadAsync("dialogprefab", (string name, GameObject obj) =>
+                {
+                    dialogGo = obj;
+                    text = dialogGo.GetComponentInChildren<TextMeshProUGUI>();
+                    dialoImage = dialogGo.transform.GetChild(0).Find("Image");
+                    _originScale = new Vector3(1/transform.localScale.x,1/transform.localScale.y,1/transform.localScale.z);
+                    dialoImage.localScale = _originScale;
+                    dialogGo.SetActive(false);
+                } ,transform);
+         
+            }
+            else
+            {
+                dialogGo = PrefabLoadMgr.I.LoadSync("dialogprefab", transform);
+                text = dialogGo.GetComponentInChildren<TextMeshProUGUI>();
+                dialoImage = dialogGo.transform.GetChild(0).Find("Image");
+                _originScale = new Vector3(1/transform.localScale.x,1/transform.localScale.y,1/transform.localScale.z);
+                dialoImage.localScale = _originScale;
+                dialogGo.SetActive(false);
+            }
+          
         }
     }
     
@@ -42,12 +59,12 @@ public class DialogBase : MonoBehaviour
     }
     
     /// <summary>
-    /// ÏÔÊ¾ÎÄ×Ö.
+    /// ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½.
     /// </summary>
     public virtual void Speak(string sentence)
     {
         _sentenceQueue.Enqueue(GetNstring(sentence));
-        //ÖØ¸´µ÷ÓÃ ÎÄ×Ö´òÓ¡»ú ·½·¨.
+        //ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö´ï¿½Ó¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
         if (!_isDialogShowing)
         {
             _isDialogShowing = true;
@@ -60,10 +77,10 @@ public class DialogBase : MonoBehaviour
     }
     
     /// <summary>
-    /// ½«str¸ü»»Îª´ø»»ÐÐ"/n"µÄÊäÈë¿ò
+    /// ï¿½ï¿½strï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"/n"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
-    /// <param name="str">ÐèÒª×ª»»µÄstr</param>
-    /// <returns>´ø»»ÐÐµÄStr</returns>
+    /// <param name="str">ï¿½ï¿½Òª×ªï¿½ï¿½ï¿½ï¿½str</param>
+    /// <returns>ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Str</returns>
     private string GetNstring(string str)
     {
         string result = "";
@@ -82,16 +99,16 @@ public class DialogBase : MonoBehaviour
     }
 
     /// <summary>
-    /// ÎÄ±¾´ò×Ö»ú.
+    /// ï¿½Ä±ï¿½ï¿½ï¿½ï¿½Ö»ï¿½.
     /// </summary>
     private void ShowText()
     {
-        //Èç¹û¼ÆÊý³¤¶È(ÏÔÊ¾ËÙ¶È) < ÎÄ±¾³¤¶È£¬ÔòÔËÐÐ£¬·ñÔòÍ£Ö¹Invokeµ÷ÓÃµ±Ç°·½·¨.
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ê¾ï¿½Ù¶ï¿½) < ï¿½Ä±ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½Í£Ö¹Invokeï¿½ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½ï¿½ï¿½.
         if (_curSentenceCnt < _currentSentence.Length)
         {
-            _curSentenceCnt += Time.deltaTime * speed;    //Ã¿´Îµ÷ÓÃÔö¼Ó¼ÆÊý.
+            _curSentenceCnt += Time.deltaTime * speed;    //Ã¿ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½.
 
-            //m_LogingTextÎª ÐèÒªÏÔÊ¾µÄTextÎÄ±¾µÄÎïÌå.
+            //m_LogingTextÎª ï¿½ï¿½Òªï¿½ï¿½Ê¾ï¿½ï¿½Textï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
             text.text = _currentSentence.Substring(0, (int)_curSentenceCnt);
         }
         else
@@ -107,7 +124,7 @@ public class DialogBase : MonoBehaviour
                 }
                 else
                 {
-                    //Í£Ö¹Invokeµ÷ÓÃ·½·¨.
+                    //Í£Ö¹Invokeï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½.
                     
                     
                     dialoImage.DOScale(0, 0.2f);

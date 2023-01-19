@@ -9,11 +9,13 @@ public class FragMoveButtonCtrl : MonoBehaviour, IPointerDownHandler, IPointerUp
     public Game_Direction direction;
     public void OnPointerDown(PointerEventData eventData)
     {
+        Debug.Log("===>>> frog move OnPointerDown dire :"+direction);
         EventCenter.PostEvent<Game_Direction,bool>(Game_Event.FragGameDirection, direction,false);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        Debug.Log("===>>> frog move OnPointerUp dire :"+direction);
         EventCenter.PostEvent<Game_Direction,bool>(Game_Event.FragGameDirection, Game_Direction.None,false);
     }
 

@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3960759222
+CRC: 2006677620
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 160b1c2e87bf7625b192d1516c1be998
+    Hash: 38ad78c0f2777d114951711a95c4f91e
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 11e62700f3de567f861e95eb4bf0534f
+    Hash: 0cb3713d8f6cb42dab563541201818fc
 HashAppended: 1
 ClassTypes:
 - Class: 1
@@ -50,31 +50,17 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 56a91da9dee90a744a75a8c2397a82b3, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 47d6976d01dc7f345ad7da3bce692442, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 97c561e12287e4546b221ef4cf76cb54, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: d43e71aacc114af7b18e8da37027dbbd, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: edde4e59c4e618548bbafac5905b8aa0, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: e641e74c80947624e8675fd2e920d8b2, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: d683e1906617ab144a775dc9d92fc71c, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 44cf0b3813e8d9a468a21ab273b6422d, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: d746055dafbc1cf4d88851e11c118794, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: fa70d43877966974ea7688c541fdae8a, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: cb91568d8ad2f2f40912064358c452ea, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
 - Class: 114
@@ -82,27 +68,17 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 7f4753492fed9de40a8b3d0dae3402ca, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 9b082012862d5c94996a3fefdec8fe06, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 3fdc555bf80f7d043b4d89711a4c4ef7, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 16fdc962e2c30194192c450dc6428b93, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 4ba8cd37ed484b341a9f151eafd2d451, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 2dd6faa91451157438a56e307f870d24, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: fb7cbdfcfa48b294aa60580e54fd5ab5, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: dd04794644c8d334f83a9d922f17afec, type: 3}
 - Class: 114
@@ -138,5 +114,4 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Scenes/FragGameScene.unity
-Dependencies:
-- C:/U3D/U3D_proj/independent_game/AssetBundles/StandaloneWindows/font_815504f5b18c895eba222fdf8442b093
+Dependencies: []
