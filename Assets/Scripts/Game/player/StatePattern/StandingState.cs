@@ -9,6 +9,7 @@ public class StandingState : IBaseState
         _fragHore = frag;
         _fragHore.fragAnim.SetBool("standing", true);
         _fragHore.fragAnim.speed = 1f;
+        EventCenter.PostEvent(Game_Event.FragStanding);
         Debug.Log("------------------------FragHore in StandingState~");
     }
 

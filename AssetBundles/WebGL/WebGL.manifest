@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 831782852
+CRC: 1734100577
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -21,7 +21,7 @@ AssetBundleManifest:
       Name: tmp_sdf_1ef289cb745a3ef0c4a68ce19e239c55
       Dependencies: {}
     Info_5:
-      Name: fraggamescene_38ad78c0f2777d114951711a95c4f91e
+      Name: fraggamescene_36da82a452a82f820079cd24b5fc560c
       Dependencies: {}
     Info_6:
       Name: fraggamecompleted_c2fc38686a9864d8bdd8ea933d2b8e08
@@ -29,7 +29,7 @@ AssetBundleManifest:
         Dependency_0: font_450e2c9ccd7e7422f5c47cec428328d0
         Dependency_1: record_c1973c900723d0b39c6d6592fed2b61d
     Info_7:
-      Name: fraggamemainui_3e098775a30de641bb4564babf832026
+      Name: fraggamemainui_e0ad2314b24a64b2d5c7e86d54546241
       Dependencies:
         Dependency_0: font_450e2c9ccd7e7422f5c47cec428328d0
     Info_8:

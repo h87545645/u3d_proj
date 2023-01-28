@@ -72,6 +72,8 @@ public class FragMenuMainUI : PanelBase
         // {
         //     SceneMgr.GetInstance().LoadScene("FragGameScene",null);
         // });
+        // SceneMgr.GetInstance().LoadScene("FragGameScene",null);
+        // return;
         AssetBundleLoadMgr.I.LoadAsync("FragGameScene",(AssetBundle _ab) =>
         {
             SceneMgr.GetInstance().LoadScene("FragGameScene",null);

@@ -3,110 +3,32 @@
   <component name="ChangeListManager">
     <list default="true" id="ca957faf-98c3-4959-8046-862fd44feb55" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.independent_game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.independent_game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/StandaloneWindows/StandaloneWindows" beforeDir="false" afterPath="$PROJECT_DIR$/AssetBundles/StandaloneWindows/StandaloneWindows" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/StandaloneWindows/StandaloneWindows.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/AssetBundles/StandaloneWindows/StandaloneWindows.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/StandaloneWindows/dialogprefab.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/AssetBundles/StandaloneWindows/dialogprefab.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/StandaloneWindows/dialogprefab_f4044d2e8d2f55e6974f7904da03d083" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/StandaloneWindows/fonsdf.manifest" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/StandaloneWindows/fonsdf_fa7d1f89f2054f53f793d9b2baf267a0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/StandaloneWindows/font.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/AssetBundles/StandaloneWindows/font.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/StandaloneWindows/font_815504f5b18c895eba222fdf8442b093" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/StandaloneWindows/fraggamescene.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/AssetBundles/StandaloneWindows/fraggamescene.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/StandaloneWindows/fraggamescene_160b1c2e87bf7625b192d1516c1be998" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/StandaloneWindows/fragsettingpanel.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/AssetBundles/StandaloneWindows/fragsettingpanel.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/StandaloneWindows/fragsettingpanel_f2d5000a256be22930fd7dc2a91858b1" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/AssetBundles/WebGL/WebGL" beforeDir="false" afterPath="$PROJECT_DIR$/AssetBundles/WebGL/WebGL" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AssetBundles/WebGL/WebGL.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/AssetBundles/WebGL/WebGL.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/WebGL/dialogprefab.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/AssetBundles/WebGL/dialogprefab.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/WebGL/dialogprefab_47986ee7d9393900b29b9adb58277939" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/WebGL/fonsdf.manifest" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/WebGL/fonsdf_8b2cdbd5c8d605c90e66fadd0d6ab802" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/WebGL/font.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/AssetBundles/WebGL/font.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/WebGL/font_70f2685c535a827101cf465d339f4b77" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AssetBundles/WebGL/fraggamemainui.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/AssetBundles/WebGL/fraggamemainui.manifest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AssetBundles/WebGL/fraggamemainui_3e098775a30de641bb4564babf832026" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/AssetBundles/WebGL/fraggamescene.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/AssetBundles/WebGL/fraggamescene.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/WebGL/fraggamescene_b1624aadb91f62622a3b5e0f66d2e810" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/WebGL/fragsettingpanel.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/AssetBundles/WebGL/fragsettingpanel.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AssetBundles/WebGL/fragsettingpanel_7c595383aaace6c9b4a2041294d952f9" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/2D Casual UI/Sprite/GUI.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/2D Casual UI/Sprite/GUI.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GameAssets/Font/SimHei.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GameAssets/Font/SimHei.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GameAssets/Font/msyhbd SDF.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GameAssets/Font/msyhbd SDF.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GameAssets/Prefab/Game/DialogPrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameAssets/Prefab/Game/DialogPrefab.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GameAssets/Prefab/UI/FragSettingPanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameAssets/Prefab/UI/FragSettingPanel.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GameAssets/Prefab/UI/PlayerRecord.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameAssets/Prefab/UI/PlayerRecord.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Jungle_tiles/sprites/animals/frog/jump/frog_jump_complete_anim_005.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Jungle_tiles/sprites/animals/frog/jump/frog_jump_complete_anim_005.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/LangData/LangPad.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/LangData/LangPad.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AssetBundles/WebGL/fraggamescene_38ad78c0f2777d114951711a95c4f91e" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GameAssets/Animations/frag/frog-animator.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameAssets/Animations/frag/frog-animator.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GameAssets/Prefab/UI/FragGameMainUI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameAssets/Prefab/UI/FragGameMainUI.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/FragGameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/FragGameScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/FragMenuScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/FragMenuScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Function-UI/PanelBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Function-UI/PanelBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Function-UI/UIBlockWaitMgr.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Function-UI/UIBlockWaitMgr.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Function-UI/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Function-UI/UIManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/ResManager/AssetBundleLoadMgr.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/ResManager/AssetBundleLoadMgr.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/ResManager/PrefabLoadMgr.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/ResManager/PrefabLoadMgr.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/SoundMgr/SoundMgr.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/SoundMgr/SoundMgr.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/AssetBundleWebGL.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/AssetBundleWebGL.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/DialogBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/DialogBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/FragGameController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/FragGameController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/GameMgr.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameMgr.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/player/FragAnimEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/player/FragAnimEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/player/FragHero.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/player/FragHero.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/player/Pelican.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/player/Pelican.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/player/StatePattern/WalkingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/player/StatePattern/WalkingState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/FragGameUI/FragGame/FragGameMainUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/FragGameUI/FragGame/FragGameMainUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/GameDefine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameDefine.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/player/StatePattern/StandingState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/player/StatePattern/StandingState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/FragGameUI/FragGame/FragInputCtrl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/FragGameUI/FragGame/FragInputCtrl.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/FragGameUI/FragGame/FragJumpButtonCtrl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/FragGameUI/FragGame/FragJumpButtonCtrl.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/FragGameUI/FragGame/FragMoveButtonCtrl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/FragGameUI/FragGame/FragMoveButtonCtrl.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/FragGameUI/FragGame/FragSettingPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/FragGameUI/FragGame/FragSettingPanel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/FragGameUI/FragMenu/FragMenuMainUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/FragGameUI/FragMenu/FragMenuMainUI.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/ScrollRocker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/ScrollRocker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/StandaloneWindows" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/StandaloneWindows.manifest" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/StandaloneWindows.manifest.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/StandaloneWindows.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/WebGL" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/WebGL" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/WebGL.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/WebGL.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/dialogprefab.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/dialogprefab.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/dialogprefab_47986ee7d9393900b29b9adb58277939" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/dialogprefab_47986ee7d9393900b29b9adb58277939.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/dialogprefab_f4044d2e8d2f55e6974f7904da03d083" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/dialogprefab_f4044d2e8d2f55e6974f7904da03d083.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fonsdf.manifest" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fonsdf.manifest.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fonsdf_8b2cdbd5c8d605c90e66fadd0d6ab802" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fonsdf_8b2cdbd5c8d605c90e66fadd0d6ab802.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fonsdf_fa7d1f89f2054f53f793d9b2baf267a0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fonsdf_fa7d1f89f2054f53f793d9b2baf267a0.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/font.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/font.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/font.manifest.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/font.manifest.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/font_70f2685c535a827101cf465d339f4b77" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/font_70f2685c535a827101cf465d339f4b77.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/font_815504f5b18c895eba222fdf8442b093" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/font_815504f5b18c895eba222fdf8442b093.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fraggamemainui.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/fraggamemainui.manifest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fraggamemainui_3e098775a30de641bb4564babf832026" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fraggamemainui_3e098775a30de641bb4564babf832026.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fraggamescene.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/fraggamescene.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fraggamescene_160b1c2e87bf7625b192d1516c1be998" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fraggamescene_160b1c2e87bf7625b192d1516c1be998.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fraggamescene_b1624aadb91f62622a3b5e0f66d2e810" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fraggamescene_b1624aadb91f62622a3b5e0f66d2e810.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fragsettingpanel.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/fragsettingpanel.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fragsettingpanel_7c595383aaace6c9b4a2041294d952f9" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fragsettingpanel_7c595383aaace6c9b4a2041294d952f9.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fragsettingpanel_f2d5000a256be22930fd7dc2a91858b1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fragsettingpanel_f2d5000a256be22930fd7dc2a91858b1.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/popupmask.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/popupmask.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/popupmask_c845c05bd291e8f4176d807b98eb35af" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/popupmask_c845c05bd291e8f4176d807b98eb35af.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMP_SDF.shader.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Shaders/TMP_SDF.shader.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/WX-WASM-SDK/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/WX-WASM-SDK/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fraggamescene_38ad78c0f2777d114951711a95c4f91e" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/fraggamescene_38ad78c0f2777d114951711a95c4f91e.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/WX-WASM-SDK/Editor/MiniGameConfig.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/WX-WASM-SDK/Editor/MiniGameConfig.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/WX-WASM-SDK/Editor/ReplaceRules.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/WX-WASM-SDK/Editor/ReplaceRules.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/WX-WASM-SDK/Editor/TextureEditor/WXTextureEditorWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/WX-WASM-SDK/Editor/TextureEditor/WXTextureEditorWindow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/WX-WASM-SDK/Editor/WXPluginVersion.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/WX-WASM-SDK/Editor/WXPluginVersion.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/WX-WASM-SDK/wechat-default/check-version.js" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/WX-WASM-SDK/wechat-default/check-version.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/WX-WASM-SDK/wechat-default/game.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/WX-WASM-SDK/wechat-default/game.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/WX-WASM-SDK/wechat-default/unity-sdk/audio.js" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/WX-WASM-SDK/wechat-default/unity-sdk/audio.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/RiderScriptEditorPersistedState.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/RiderScriptEditorPersistedState.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Record/FragGameRecord.record" beforeDir="false" afterPath="$PROJECT_DIR$/Record/FragGameRecord.record" afterDir="false" />
     </list>
@@ -190,10 +112,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="12732">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="12732" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -272,6 +194,7 @@
       <workItem from="1674041705471" duration="8596000" />
       <workItem from="1674094863590" duration="15901000" />
       <workItem from="1674119910776" duration="2974000" />
+      <workItem from="1674873274391" duration="9424000" />
     </task>
     <servers />
   </component>

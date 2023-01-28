@@ -9281,7 +9281,7 @@ MonoBehaviour:
   dialoImage: {fileID: 0}
   text: {fileID: 0}
   speed: 20
-  interval: 1500
+  interval: 500
   pelicanRenderer: {fileID: 1011080653}
   animController: {fileID: 1011080657}
   standPos: {fileID: 330206426}

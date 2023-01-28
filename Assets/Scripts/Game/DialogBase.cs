@@ -72,7 +72,7 @@ public class DialogBase : MonoBehaviour
             dialogGo.SetActive(true);
             dialoImage.localScale = new Vector3(0, 0, 0);
             dialoImage.DOScale(_originScale,0.5f);
-            InvokeRepeating("ShowText", 0, Time.deltaTime * 0.01f);
+            InvokeRepeating("ShowText", 0, /*Time.deltaTime **/ 0.01f);
         }
     }
     

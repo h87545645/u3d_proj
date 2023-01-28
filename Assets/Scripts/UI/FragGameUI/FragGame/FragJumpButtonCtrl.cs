@@ -34,7 +34,7 @@ public class FragJumpButtonCtrl : MonoBehaviour, IPointerDownHandler, IPointerUp
     }
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (_lastTime > 0 && Time.time - _lastTime > 0.05)
+        if (_lastTime > 0/* && Time.time - _lastTime > 0.05*/)
         {   
             Debug.Log("===>>> frog jump OnPointerUp succ");
             EventCenter.PostEvent<float>(Game_Event.FragGameJump, Time.time - _lastTime);

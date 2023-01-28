@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,17 @@ public class FragInputCtrl : MonoBehaviour
     public bool inputEnable = false;
     
     // private float _upWaitTime  = 0f;
+
+
+    private void Start()
+    {
+        EventCenter.AddListener(Game_Event.FragStanding, this.OnFragStanding);
+    }
+
+    private void OnDestroy()
+    {
+        EventCenter.RemoveListener(Game_Event.FragStanding , this.OnFragStanding);
+    }
 
     // Update is called once per frame
     void Update()
@@ -76,5 +88,10 @@ public class FragInputCtrl : MonoBehaviour
             return;
         }
         UIManager.GetInstance().ShowPanel<FragSettingPanel>("FragSettingPanel", E_UI_Layer.Tip);
+    }
+
+    private void OnFragStanding()
+    {
+        moveRocker.resetDir();
     }
 }
